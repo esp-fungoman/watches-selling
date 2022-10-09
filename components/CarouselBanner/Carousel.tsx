@@ -34,7 +34,7 @@ const Carousel = (props: ICarousel) => {
     dots: false,
     arrows: true,
     infinite: true,
-    speed: 1000,
+    speed: 1500,
     slidesToShow: 6,
     slidesToScroll: 2,
     autoplay: true,

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import classNames from 'classnames';
 import styles from "./Header.module.scss";
@@ -10,16 +11,19 @@ const header_items = {
     title: 'FREESHIP cho đơn hàng từ 399k. Mua ngay!',
     status_items: [
       {
+        link: "#",
         value: 1,
         content: "Thông báo",
         icon: "header-notification"
       },
       {
+        link: "#",
         value: 2,
         content: "Theo dõi đơn hàng",
         icon: "header-delivery"
       },
       {
+        link: "#",
         value: 3,
         content: "032 583 9032",
         icon: "header-phone"
@@ -84,6 +88,8 @@ const categories = [
 ]
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <div>
       <div className={styles.upper_bar_wrapper}>
@@ -92,12 +98,12 @@ const Header = () => {
           <div className={styles.upper_bar_status_items}>
             {Array.isArray(header_items.upper_bar.status_items) &&
               header_items.upper_bar.status_items.map((item: any) => (
-                <Link key={item.value} target="" href="/#">
+                <div key={item.value} onClick={ () => router.push(item.link) }>
                   <div className={styles.item}>
                     <Icon icon={item.icon} size={18} />
                     <div>{item.content}</div>
                   </div>
-                </Link>
+                </div>
               ))
             }
           </div>
@@ -117,6 +123,9 @@ const Header = () => {
           </div>
 
           <div className={styles.right_side_wrapper}>
+            <div className={styles.mobile_search_icon}>
+              <Icon icon="black-search-icon" size={24} />
+            </div>
             <Icon icon="header-shopping-cart" size={32}/>
             <div className={styles.user_panel}>
               <Icon icon={user.icon} size={32} />
@@ -129,6 +138,9 @@ const Header = () => {
                 <div></div>
               </div>
             </div>
+            <div className={styles.mobile_button}>
+              <Icon icon="mobile-menu-button" size={24}/>
+            </div>
           </div>
         </div>
       </div>
@@ -136,7 +148,7 @@ const Header = () => {
       <div className={styles.navi_menu_wrapper}>
         <div className={classNames(styles.navi_menu, "container")}>
           {Array.isArray(categories) && categories.map((item: any, index: any) => (
-            <div className={styles.navi_menu_button} key={index}>
+            <div className={styles.navi_menu_button} key={index} onClick={() => router.push(item.link)}>
               <div>{item.name}</div>
               {item.item.length !== 0 && (<Icon icon="thick-white-dropdown" size={16}/>)}
               {item.name == "Khuyến mãi" && (<Icon icon="flash-lightning" size={24}/>)}

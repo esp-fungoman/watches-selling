@@ -14,6 +14,7 @@
     border-bottom: 1px solid $primary-100;
     .icon_items {
       width: 45%;
+      gap: 6px;
       display: flex;
       text-align: center;
       .item {
@@ -42,8 +43,14 @@
     margin-top: 65px;
     display: flex;
     justify-content: flex-start;
+    .sm_column_group {
+      width: 60%;
+      display:  flex;
+      gap: 16px;
+    }
     .sm_column {
-      width: 20%;
+      width: calc(100% / 3);
+      gap: 12px;
       .title {
         font-size: $text-md;
         line-height: $line-height-lg;
@@ -67,7 +74,7 @@
       justify-content: space-between;
       .social_buttons {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         .button {
           border: 1px solid $primary-300;
           border-radius: 50%;
@@ -88,11 +95,12 @@
       flex-direction: column;
       justify-content: space-between;
       .member_cards {
-        height: 110px;
-        width: 190px;
+        height: 100px;
+        width: 195px;
         position: relative;
         .card {
           position: absolute;
+          width: 45%;
           &_1 {
             bottom: 0;
             z-index: 3;
@@ -119,9 +127,130 @@
     }
   }
 
+  .social_button_section {
+    display: none;
+  }
+
   .license {
     padding: 20px 0;
     display: flex;
     gap: 10px;
+  }
+}
+
+@media (max-width: $small-desktop) {
+  .member_column {
+    .button {
+      padding: 13px 38px !important;
+    }
+  }
+}
+
+@media (max-width: $big-tablet) {
+  .footer {
+    .lower_section {
+      flex-direction: column-reverse;
+      gap: 32px;
+      .sm_column_group {
+        width: 100%;
+        .sm_column {
+          .title {
+            text-align: start;
+          }
+        }
+        .member_column {
+          .member_cards {
+            height: 75px;
+            width: 150px;
+          }
+        }
+        .button {
+          font-size: $text-sm;
+          padding: $p-md !important;
+        }
+      }
+      .lg_column {
+        .social_buttons {
+          display: none;
+        }
+      }
+    }
+
+    .social_button_section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+      .social_buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: space-between;
+        .button {
+          border: 1px solid $primary-300;
+          border-radius: 50%;
+          padding: 12px;
+          cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            background-color: white;
+            transition: 0.3s;
+          }
+        }
+      }
+    }
+
+    .license {
+      .image {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $medium-tablet) {
+  .footer {
+    .upper_section {
+      flex-direction: column;
+      border-bottom: none;
+      .icon_items {
+        width: 100%;
+        margin-bottom: 32px;
+      }
+      .logo_items {
+        align-items: flex-start;
+        width: 100%;
+        div {
+          font-size: $text-lg;
+        }
+      }
+    }
+    .lower_section {
+      margin-top: 0px;
+      .lg_column {
+        width: 60%;
+      }
+    }
+  }
+}
+
+@media (max-width: $small-tablet) {
+  .footer {
+    .lower_section {
+      .sm_column_group {
+        .member_column {
+          .member_cards {
+            height: 55px;
+            width: 110px;
+          }
+
+          .button {
+            font-size: $text-xs;
+            padding: $p-sm !important;
+          }
+        }
+      }
+    }
   }
 }

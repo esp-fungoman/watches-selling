@@ -157,8 +157,6 @@ const listItem = [
 const Home: NextPage = () => {
   const router = useRouter();
 
-  
-
   return (
     <div>
       <Head>
@@ -182,8 +180,8 @@ const Home: NextPage = () => {
             ))}
           </Carousel>
         </div>
-        <div>
-          <div className="container">
+        <div className="container">
+          <div>
             <Carousel productCarousel={true}>
               {listItem.map((item: any, index: any) => (
                 <ProductPanel key={index} product={item} />

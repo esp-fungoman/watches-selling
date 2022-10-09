@@ -146,42 +146,44 @@ const Footer = () => {
         </div>
 
         <div className={styles.lower_section}>
-          <div className={styles.sm_column}>
-            <div className={styles.title}>{footer_items.column1.title}</div>
-            <div className={styles.list_item}>
-              {footer_items.column1.items.map((item: any, index: any) => (
-                <div key={index} onClick={() => router.push('#')}>
-                  {item.content}
-                </div>
-              ))}
+          <div className={styles.sm_column_group}>
+            <div className={styles.sm_column}>
+              <div className={styles.title}>{footer_items.column1.title}</div>
+              <div className={styles.list_item}>
+                {footer_items.column1.items.map((item: any, index: any) => (
+                  <div key={index} onClick={() => router.push('#')}>
+                    {item.content}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.sm_column}>
+              <div className={styles.title}>{footer_items.column2.title}</div>
+              <div className={styles.list_item}>
+                {footer_items.column2.items.map((item: any, index: any) => (
+                  <div  key={index} onClick={() => router.push('#')}>
+                    {item.content}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={classNames(styles.sm_column, styles.member_column)}>
+              <div className={styles.title}>{footer_items.column3.title}</div>
+              <div className={styles.member_cards}>
+                {footer_items.column3.member_card.map((item: any, index: any) => (
+                  <div className={classNames(styles.card, styles[`card_${index}`])} key={index}>
+                    <Image src={item.link} width={92} height={57} layout="responsive" alt="a"/>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.button} onClick={() => router.push(footer_items.column3.button.link)}>
+                {footer_items.column3.button.content}
+              </div>
             </div>
           </div>
-
-          <div className={styles.sm_column}>
-            <div className={styles.title}>{footer_items.column2.title}</div>
-            <div className={styles.list_item}>
-              {footer_items.column2.items.map((item: any, index: any) => (
-                <div  key={index} onClick={() => router.push('#')}>
-                  {item.content}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={classNames(styles.sm_column, styles.member_column)}>
-            <div className={styles.title}>{footer_items.column3.title}</div>
-            <div className={styles.member_cards}>
-              {footer_items.column3.member_card.map((item: any, index: any) => (
-                <div className={classNames(styles.card, styles[`card_${index}`])} key={index}>
-                  <Image src={item.link} width={92} height={57} alt="a"/>
-                </div>
-              ))}
-            </div>
-            <div className={styles.button} onClick={() => router.push(footer_items.column3.button.link)}>
-              {footer_items.column3.button.content}
-            </div>
-          </div>
-
+          
           <div className={styles.lg_column}>
             <div>{footer_items.column4.content}</div>
             <div className={styles.social_buttons}>
@@ -194,8 +196,24 @@ const Footer = () => {
           </div>
         </div>
 
+        <div className={styles.social_button_section}>
+          <div className={styles.social_buttons}>
+              {footer_items.column4.social_button.map((item: any, index: any) => (
+                <div className={styles.button} key={index} onClick={() => router.push(item.link)}>
+                  <Icon icon={item.icon} size={24}/>
+                </div>
+              ))}
+          </div>
+
+          <div>
+            <Image src="/assets/footer/license.png" width={100} height={35} alt="" />
+          </div>
+        </div>
+        
         <div className={styles.license}>
-          <Image className={styles.image} src="/assets/footer/license.png" width={94} height={35} alt="" />
+          <div className={styles.image}>
+            <Image src="/assets/footer/license.png" width={100} height={35} alt="" />
+          </div>
           <div>
             <div>CheriCT 2020 - 2028 | Privacy Policy | Made by CheriCT</div>
             <div>Giấy chứng nhận ĐKKD số 0314414731 do Sở Kế hoạch và Đầu tư Tp. HCM cấp ngày 19/05/2017</div>
