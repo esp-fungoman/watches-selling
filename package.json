@@ -1,0 +1,35 @@
+{
+  "name": "cheri-ct",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.10.8",
+    "@types/react-slick": "^0.23.10",
+    "bootstrap": "^5.2.2",
+    "classnames": "^2.3.2",
+    "icomoon-react": "^3.0.0",
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-slick": "^0.29.0",
+    "sass": "^1.55.0",
+    "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.8.2",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "typescript": "4.8.4"
+  }
+}

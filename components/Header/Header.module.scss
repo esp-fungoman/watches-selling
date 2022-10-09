@@ -1,0 +1,94 @@
+@import "/styles/variables.scss";
+
+.upper_bar {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  padding: 8px 0;
+  .title{
+    width: 40%;
+  }
+  &_status_items{
+    display: flex;
+    width: 35%;
+    justify-content: space-between;
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+  }
+  &_wrapper {
+    background-color: $primary;
+  }
+}
+
+.lower_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 0;
+  .left_side_wrapper {
+    display: flex;
+    height: 21px;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    .search_bar {
+      display: flex;
+      align-items: center;
+      width: 70%;
+      height: $field-height-sm;
+      input {
+        height: 100%;
+        width: 90%;
+        border-radius: 32px 0 0 32px;
+        padding: $p-md;
+        outline-color: $primary-300;
+      }
+      .icon_wrapper {
+        width: 35px;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0 32px 32px 0;
+        outline-color: $primary-300;
+      }
+    }
+  }
+  .right_side_wrapper {
+    display: flex;
+    width: 17%;
+    align-items: center;
+    justify-content: space-between;
+    .user_panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 80%;
+      .user_name {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.navi_menu {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 8px 0;
+  &_wrapper {
+    background-color: black;
+  }
+  &_button {
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+}

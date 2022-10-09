@@ -1,0 +1,85 @@
+@import "/styles/variables.scss";
+
+.panel{
+  position: relative;
+  margin: 0 16px;
+  .image{
+    width: 100%;
+  }
+  .top_tag{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: black;
+    color: white;
+    padding: $p-xs;
+    border-radius: 16px;
+    z-index: 4;
+    font-size: $text-2xs;
+    line-height: $line-height-lg;
+    font-weight: 700;
+  }
+  .sub_title {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+    align-items: center;
+    .brand_wrapper {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      .line {
+        width: 3px;
+        height: 10px;
+        background-color: $primary;
+      }
+      .brand {
+        font-size: $text-xs;
+        line-height: $line-height-lg;
+        font-weight: 700;
+      }
+    }
+    .sale_tag {
+      font-size: $text-xs;
+      line-height: $line-height-lg;
+      font-weight: 700;
+      padding: $p-sm;
+      background-color: #FF9CB4;
+      border-radius: 16px;
+      color: white;
+    }
+  }
+
+  .title {
+    font-size: $text-sm;
+    line-height: $line-height-lg;
+    font-weight: 400;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    color: $primary-300;
+    gap: 4px;
+    .number {
+      font-size: $text-xs;
+      line-height: $line-height;
+      font-weight: 400;
+    }
+  }
+
+  .price {
+    .show_price {
+      font-weight: 700;
+      font-size: $text-md;
+      line-height: $line-height-lg;
+    }
+    .origin_price {
+      font-weight: 400;
+      font-size: $text-xs;
+      line-height: $line-height-lg;
+      color: $primary-300;
+      text-decoration: line-through;
+    }
+  }
+}
