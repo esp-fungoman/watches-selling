@@ -43,6 +43,7 @@ const NotificationBox = (props: NotificationBoxProps) => {
             date: "14/01/2021"
         }
     ]
+    
     return (
         <section className={classNames(className,styles.section_layout_2_wrapper)}>
             <Title content={title}/>

@@ -1,7 +1,7 @@
 import styles from './NotificationPopup.module.scss';
 import Icon from "../Icon/Icon";
 import Image from "next/image";
-
+import classNames from 'classNames';
 interface NotificationPopupProps {
     notilist?: any;
 }
@@ -26,8 +26,8 @@ const NotificationPopup = (props: NotificationPopupProps) => {
                         <div className={styles.content}>
                             <h1 className={styles.text_title}>{item.title}</h1>
                             <p className={styles.text}>
-                            Đơn hàng 
-                                <span className={styles.text_title}>{item.code}</span>
+                            Đơn hàng &nbsp; 
+                                <span className={classNames(styles.text_title, styles.code)}>{item.code}</span> &nbsp;
                                 {item.description}
                             </p>
                             <p className={styles.text_mini}>{item.date}</p>
@@ -35,6 +35,7 @@ const NotificationPopup = (props: NotificationPopupProps) => {
                     </div>
                 ))}   
             </div>
+            <div className={styles.btn}>Xem tất cả</div>
         </section>
     )
 }
