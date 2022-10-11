@@ -1,0 +1,14 @@
+@import "/styles/variables.scss";
+
+.section_layout_2_wrapper {
+    max-width: 100%;
+    padding: 32px;
+    box-shadow: $box-shadow-1;
+    border-radius: $border-radius;
+    @media screen and (max-width: $medium-tablet) {
+        padding: 15px;
+    }
+    @media screen and (max-width: $mobile){
+        padding: 10px;
+    }
+}

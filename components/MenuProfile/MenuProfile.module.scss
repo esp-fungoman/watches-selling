@@ -1,0 +1,53 @@
+@import "/styles/variables.scss";
+
+.menu_profile_wrapper {
+    width: 305px;
+    max-width: 305px;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-1;
+    background-color: $bg-0;
+    padding: 17px 26px;
+    margin-bottom: 16px;
+    
+    .header_wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        cursor: pointer;
+        .header {
+            width: 80%;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            .icon {
+                margin-right: 19px;
+
+            }
+            .text {
+                font-weight: $font-bold;
+                font-size: $text-md;
+                line-height: $line-height;
+                cursor: pointer;
+            }
+        }
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .item {
+            width: 100%;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-top: 18px;
+            .icon {
+                margin-right: 19px;
+            }
+            .text {
+                cursor: pointer;
+            }
+        }
+    }
+}
