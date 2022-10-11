@@ -1,13 +1,13 @@
-import styles from "./SectionLayout2.module.scss"
+import styles from "./NotificationBox.module.scss"
 import classNames from "classnames";
-import Title from "../../../components/Title/Title";
-import Notification from "../../../components/Notification/Notification";
-interface SectionLayout2Props {
+import Title from "../Title/Title";
+import Notification from "../Notification/Notification";
+interface NotificationBoxProps {
     title?: string;
     className?: any;
 }
 
-const SectionLayout2 = (props: SectionLayout2Props) => {
+const NotificationBox = (props: NotificationBoxProps) => {
     const { title, className } = props;
 
     const categorylist = [
@@ -54,4 +54,4 @@ const SectionLayout2 = (props: SectionLayout2Props) => {
     )
 }
 
-export default SectionLayout2;
+export default NotificationBox;

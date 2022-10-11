@@ -1,7 +1,7 @@
 import AccountProfile from "../../components/AccountProfile/AccountProfile";
 import MenuProfile from "../../components/MenuProfile/MenuProfile";
-import SectionLayout1 from "../../components/SectionLayout/SectionLayout1/SectionLayout1";
-import SectionLayout3 from "../../components/SectionLayout/SectionLayout3/SectionLayout3";
+import NotificationBox from "../../components/NotificationBox/NotificationBox";
+import SectionLayout from "../../components/SectionLayout/SectionLayout";
 
 const accountList = [
     {  
@@ -15,8 +15,9 @@ const Notification = () => {
 
     return (
         <>
-        {/* <SectionLayout1></SectionLayout1> */}
-        <SectionLayout3/>
+        <SectionLayout >
+            <NotificationBox></NotificationBox>
+        </SectionLayout>
         </>
     )
 }

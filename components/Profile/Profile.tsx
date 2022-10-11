@@ -1,8 +1,8 @@
-import AccountProfile from "../../../components/AccountProfile/AccountProfile";
-import MenuProfile from "../../../components/MenuProfile/MenuProfile";
-import styles from "./SectionLayout1.module.scss";
+import AccountProfile from "../AccountProfile/AccountProfile";
+import MenuProfile from "../MenuProfile/MenuProfile";
+import styles from "./Profile.module.scss";
 import classNames from "classnames";
-interface SectionLayout1Props {
+interface ProfileProps {
     className?: any;
 }
 
@@ -84,7 +84,7 @@ const info = [
     },
 ]
 
-const SectionLayout1 = (props: SectionLayout1Props) => {
+const Profile = (props: ProfileProps) => {
     const { className } = props
     return (
         <section className={classNames(styles.wrapper, className)}>
@@ -118,4 +118,4 @@ const SectionLayout1 = (props: SectionLayout1Props) => {
     )
 }
 
-export default SectionLayout1;
+export default Profile;

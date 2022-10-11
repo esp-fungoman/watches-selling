@@ -1,0 +1,53 @@
+@import "/styles/variables.scss";
+
+.wrapper {
+    max-width: 437px;
+    .header {
+        display: flex;
+        justify-content: left;
+        .icon {
+            margin-right: 10px;
+        }
+        .text {
+            font-weight: $font-bold;
+            font-size: $text-md;
+            line-height: $line-height;
+        }
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        padding: 0 24px;
+        .item {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .img {
+                min-width: 52px;
+                width: 52px;
+                aspect-ratio: 1/1;
+                margin-right: 15px;
+            }
+            .content {
+                display: flex;
+                flex-direction: column;
+                .text {
+                    font-size: 13px;
+                    font-weight: $font-base;
+                    line-height: $line-height;
+                    color: $blue-800;
+                    &_title {
+                        font-weight: $font-bold;
+                        font-size: $text-sm;
+                        list-style: $list-height;
+                    }
+                    &_mini {
+                        font-size: 13px;
+                        font-weight: $font-base;
+                        color: $primary-300;
+                    }
+                }
+            }
+        }
+    }
+}
