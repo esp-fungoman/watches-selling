@@ -1,0 +1,49 @@
+@import "styles/variables.scss";
+
+.container {
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 16px;
+  border-radius: 16px;
+  .row {
+    .title_wrapper {
+      position: relative;
+      .title {
+        font-size: $text-3xl;
+        line-height: $line-height-xl;
+        color: $primary-100;
+        font-weight: 700;
+        text-align: center;
+        width: 100%;
+      }
+
+      .show_all {
+        position: absolute;
+        right: 0;
+        top: calc(50% - 8px);
+        width: 90px;
+        font-family: 'Quicksand', sans-serif;
+        font-size: $text-md;
+        line-height: $line-height;
+        color: $shading-1;
+        font-weight: 500;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          color: $primary-900;
+        }
+      }
+    }
+
+    .show_all_button {
+      background-color: $primary-900;
+      color: white;
+      padding: $p-xl;
+      border-radius: $border-radius;
+      width: fit-content;
+      margin: auto;
+      margin-top: 16px;
+      cursor: pointer;
+    }
+  } 
+}

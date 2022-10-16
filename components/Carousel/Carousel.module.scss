@@ -1,0 +1,53 @@
+@import "styles/variables.scss";
+
+.carousel {
+  position: relative;
+  width: 100%;
+  .btn_next {
+    position: absolute;
+    top: calc(50% - 32px);
+    transform: rotate(90deg);
+    z-index: 3;
+    left: -50px;
+    cursor: pointer;
+  }
+  .btn_prev {
+    position: absolute;
+    top: calc(50% - 32px);
+    transform: rotate(-90deg);
+    z-index: 3;
+    right: -50px;
+    cursor: pointer;
+  }
+  .slick_dots {
+    display: flex !important;
+    width: fit-content;
+    margin: auto;
+    justify-content: space-between;
+    padding: 0;
+    li {
+      font-size: 0;
+      background: transparent;
+      button {
+        margin: 0 6px;
+        border-radius: 24px;
+        width: 6px;
+        height: 6px;
+        content: "";
+        font-size: 0;
+        padding: 0;
+        border: none;
+        background-color: $white-90;
+        transition: 0.5s;
+      }
+    }
+    :global(li.slick-active) {
+      button {
+        width: 19px;
+        background-color: $primary-100;
+        border-radius: 24px;
+        transition: 0.5s;
+      }
+    }
+  }
+}

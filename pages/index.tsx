@@ -1,12 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header/Header'
-import styles from '../styles/Home.module.css'
 import Footer from '../components/Footer/Footer'
-import Carousel from '../components/CarouselBanner/Carousel'
+import Carousel from '../components/Carousel/Carousel'
+import CarouselBanner from '../components/CarouselBanner/CarouselBanner'
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import ProductPanel from '../components/ProductPanel/ProductPanel'
+import SectionLayout from '../components/SectionLayout/SectionLayout'
+import BrandPanel from '../components/BrandPanel/BrandPanel'
+
+import styles from '../styles/Home.module.css'
+
 
 const bannerItem = [
   {
@@ -154,6 +159,34 @@ const listItem = [
   }
 ]
 
+const brandItem = [
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#"
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#"
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#"
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#"
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#"
+  }
+]
+
 const Home: NextPage = () => {
   const router = useRouter();
 
@@ -166,7 +199,7 @@ const Home: NextPage = () => {
       <div>
         <Header/>
         <div>
-          <Carousel>
+          <CarouselBanner show={true}>
             {bannerItem.map((item: any, index: any) => (
               <div key={index} onClick={() => router.push(item.link || "")}>
                 <Image 
@@ -178,17 +211,38 @@ const Home: NextPage = () => {
                   />
               </div>
             ))}
+          </CarouselBanner>
+        </div>
+        <SectionLayout 
+          title="Hàng Mới Về" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
+          backgroundImage="/assets/homepage/section-layout/background-image.png"
+        >
+          <Carousel show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
           </Carousel>
-        </div>
-        <div className="container">
-          <div>
-            <Carousel productCarousel={true}>
-              {listItem.map((item: any, index: any) => (
-                <ProductPanel key={index} product={item} />
-              ))}
-            </Carousel>
-          </div>
-        </div>
+        </SectionLayout>
+
+        <SectionLayout
+          show={true}
+          title="Thương hiệu nổi bật"
+          showAll={true}
+          containerClassname="container"
+          childrenClassName={styles.brand_section}
+        >
+          {Array.isArray(brandItem) && brandItem.map((item:any, index: any) => (
+            <BrandPanel 
+              key={index} 
+              imgUrl={item.thumbnail}
+              logoUrl={item.logo}
+              link={item.link}
+            />
+          ))}
+        </SectionLayout>
         <Footer/>
       </div>
     </div>
