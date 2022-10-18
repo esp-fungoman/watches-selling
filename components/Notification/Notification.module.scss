@@ -1,0 +1,123 @@
+@import "/styles/variables.scss";
+
+.notification_wrapper {
+    height: max-content;
+    width: 100%;
+    .category_wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        border-bottom: 1px solid $primary-200;
+        .category_list {
+            display: flex;
+            justify-content: left;
+            width: 70%;
+            font-weight: $font-bold;
+            font-size: $text-md;
+            .category {
+                margin-right: 20px;
+                cursor: pointer;
+            }
+        }
+        .text {
+            font-size: 13px;
+            font-weight: $font-base;
+            cursor: pointer;
+        }
+    }
+    .item_list {
+        margin-top: 23px;
+        display: flex;
+        flex-direction: column;
+        .item_wrapper {
+            display: flex;
+            justify-content: space-between;
+            .left {
+                width: 60%;
+                display: flex;
+                justify-content: space-between;
+                .img {
+                    min-width: 52px;
+                    width: 52px;
+                    aspect-ratio: 1/1;
+                    margin-right: 15px;
+                }
+                .content {
+                    max-width: 380px;
+                    display: flex;
+                    flex-direction: column;
+                    .title {
+                        font-weight: $font-semi-bold;
+                        font-size: $text-md;
+                        margin-bottom: 0;
+                        line-height: $line-height-xl;
+                    }
+                    .text {
+                        font-weight: $font-base;
+                        font-size: $text-sm;
+                        line-height: $line-height-lg;
+                        margin-bottom: 0px;
+                        &_mini {
+                            font-size: 13px;
+                            color: $primary-300;
+                        }
+                    }
+                    
+                }
+            }
+            .right {
+                width: 100px;
+                display: flex;
+                justify-content: space-between;
+                font-size: 13px;
+                font-weight: $font-base;
+                line-height: $line-height;
+                cursor: pointer;
+                .blue {
+                    color: #1877F2;
+                }
+                .red {
+                    color: #ff0909;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $medium-tablet) {
+        .category_wrapper {
+            flex-direction: column;
+            .category_list {
+                width: 90%;
+                margin-bottom: 5px;
+            }
+        }
+        .item_list {
+            .item_wrapper {
+                flex-direction: column;
+                .left {
+                    width: 100%;
+                    justify-content: left;
+                    .img {
+                        margin-right: 15px;
+                    }
+                    .content {
+                        max-width: 500px;
+                    }
+                }
+                .right {
+                    width: 120px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: $mobile) {
+        .category_wrapper {
+            .category_list {
+                justify-content: space-between;
+                .category {
+                    margin-right: 0px;
+                }
+        }
+     }
+    }
+}

@@ -1,0 +1,9 @@
+@import "/styles/variables.scss";
+
+.title {
+    font-weight: $font-bold;
+    font-size: $text-2xl;
+    color: $dark-0;
+    line-height: $line-height;
+    margin-bottom: 16px;
+}

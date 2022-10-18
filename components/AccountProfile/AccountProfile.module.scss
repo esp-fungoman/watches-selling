@@ -1,0 +1,80 @@
+@import "/styles/variables.scss";
+
+.account_profile_wrapper {
+    width: 304px;
+    max-width: 304px;
+    background-color: $bg-0;
+    box-shadow: $box-shadow-1;
+    border-radius: $border-radius;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $p-xl;
+    margin-bottom: 32px;
+
+    .avatar {
+        width: 96px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: 1px solid $primary-200;
+        padding: 3px;
+        margin-bottom: 8px;
+        position: relative;
+    }
+
+    .member {
+        min-width: 92px;
+        width: max-content;
+        padding: 3.5px 18px;
+        background-color: $primary;
+        color: $dark-0;
+        margin-bottom: 20px;
+        font-size: $text-xs;
+        font-weight: $font-bold;
+        line-height: $line-height-lg;
+        border-radius: 32px;
+        text-align: center;
+    }
+
+    .name {
+        width: max-content;
+        font-weight: $font-bold;
+        font-size: $text-md;
+        line-height: $line-height-xl;
+        margin-bottom: 20px;
+    }
+
+    .wallet {
+        width: 205px;
+        display: flex;
+        justify-content: space-between;
+        .money {
+            width: 50%;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            .text {
+                font-size: $text-sm;
+                font-size: $font-base;
+                line-height: $line-height;
+                margin-bottom: 0;
+                color: $blue-800;
+                &_bold {
+                    font-weight: $font-bold;
+                    font-size: $text-lg;
+                    margin-bottom: 0;
+                    color: $primary-100;
+                    &.border {
+                        border-right: 1px solid $primary-200;
+                    }
+                }
+                &.border {
+                    border-right: 1px solid $primary-200;
+                }
+            }
+           
+        }
+
+    }
+}

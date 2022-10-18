@@ -1,0 +1,70 @@
+@import "/styles/variables.scss";
+
+.wrapper {
+    max-width: 437px;
+    padding: 16px 24px;
+    background-color: $bg-0;
+    box-shadow: $box-shadow-1;
+    border-radius: $border-radius;
+    .header {
+        display: flex;
+        justify-content: left;
+        .icon {
+            margin-right: 10px;
+        }
+        .text {
+            font-weight: $font-bold;
+            font-size: $text-md;
+            line-height: $line-height-lg;
+            margin-top: 5px;
+        }
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        .item {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            .img {
+                position: relative;
+                min-width: 52px;
+                width: 52px;
+                aspect-ratio: 1/1;
+                margin-right: 15px;
+            }
+            .content {
+                display: flex;
+                flex-direction: column;
+                .text {
+                    font-size: 13px;
+                    font-weight: $font-base;
+                    line-height: $line-height-lg;
+                    color: $blue-800;
+                    margin-bottom: 5px;
+                    &_title {
+                        font-weight: $font-bold;
+                        font-size: $text-sm;
+                        line-height: $line-height;
+                        &.code {
+                            text-transform: uppercase;
+                        }
+                    }
+                    &_mini {
+                        font-size: 13px;
+                        font-weight: $font-base;
+                        color: $primary-300;
+                    }
+                }
+            }
+        }
+    }
+    .btn {
+        border-top: 1px solid $primary-200;
+        width: 100%;
+        padding-top: 12px;
+        text-align: center;
+        cursor: pointer;
+    }
+}

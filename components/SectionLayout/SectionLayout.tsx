@@ -68,5 +68,4 @@ const SectionLayout = (props: SectionLayoutProps) => {
     </div>
   );
 };
-
 export default SectionLayout;
