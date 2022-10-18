@@ -8,11 +8,13 @@ interface BrandPanelProps {
   className?: string,
   logoUrl?: string,
   imgUrl?: string,
-  link?: string
+  link?: string,
+  isMobile?: boolean
 }
 
 const BrandPanel = (props: BrandPanelProps) => {
   const {
+    isMobile,
     className,
     logoUrl,
     imgUrl,
@@ -22,7 +24,7 @@ const BrandPanel = (props: BrandPanelProps) => {
   const router = useRouter();
 
   return (
-    <div className={classNames(className, styles.panel)} onClick={() => router.push(link || "#")}>
+    <div className={classNames(className, styles.panel, !isMobile ? styles.hide: undefined)} onClick={() => router.push(link || "#")}>
       <Image 
         className={styles.thumbnail}
         src={imgUrl || require("public/vercel.svg")} 

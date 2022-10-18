@@ -49,3 +49,9 @@
     }
   } 
 }
+
+@media (max-width: 568px) {
+  .show_all {
+    display: none !important;
+  }
+}

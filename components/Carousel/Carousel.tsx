@@ -35,75 +35,76 @@ const Carousel = (props: CarouselProps) => {
     }
   }
 
-  const iniSliderConfig =
+  const sliderConfig =
   {
     className: styles.slick_slide,
-    dots: true,
+    dots: isBlog? false: true,
     dotsClass: styles.slick_dots,
     arrows: false,
     infinite: true,
     speed: 1500,
-    slidesToShow: 6,
-    slidesToScroll: 2,
+    slidesToShow: responsive?.show,
+    slidesToScroll: responsive?.scroll,
     autoplay: true,
-    // responsive: [
-    //   //2xl
-    //   {
-    //     breakpoint: 1920,
-    //     settings: {
-    //       slidesToShow: responsive?.xxlShow,
-    //       slidesToScroll: responsive?.xxlScroll,
-    //     },
-    //   },
-    //   //xl
-    //   {
-    //     breakpoint: 1450,
-    //     settings: {
-    //       slidesToShow: responsive?.xlShow,
-    //       slidesToScroll: responsive?.xlScroll,
-    //     },
-    //   },
-    //   //lg
-    //   {
-    //     breakpoint: 1300,
-    //     settings: {
-    //       slidesToShow: responsive?.lgShow,
-    //       slidesToScroll: responsive?.lgScroll,
-    //     },
-    //   },
-    //   //md
-    //   {
-    //     breakpoint: 1100,
-    //     settings: {
-    //       slidesToShow: responsive?.mdShow,
-    //       slidesToScroll: responsive?.mdScroll,
-    //     },
-    //   },
-    //   //sm
-    //   {
-    //     breakpoint: 600,
-    //     settings: {
-    //       slidesToShow: responsive?.smShow,
-    //       slidesToScroll: responsive?.smScroll,
-    //     },
-    //   },
-    //   //xs
-    //   {
-    //     breakpoint: 480,
-    //     settings: {
-    //       slidesToShow: responsive?.xsShow,
-    //       slidesToScroll: responsive?.xsScroll,
-    //     },
-    //   },
-    // ]
+    responsive: [
+      //2xl
+      {
+        breakpoint: 1920,
+        settings: {
+          slidesToShow: responsive?.xxlShow,
+          slidesToScroll: responsive?.xxlScroll,
+        },
+      },
+      //xl
+      {
+        breakpoint: 1450,
+        settings: {
+          slidesToShow: responsive?.xlShow,
+          slidesToScroll: responsive?.xlScroll,
+        },
+      },
+      //lg
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: responsive?.lgShow,
+          slidesToScroll: responsive?.lgScroll,
+        },
+      },
+      //md
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: responsive?.mdShow,
+          slidesToScroll: responsive?.mdScroll,
+        },
+      },
+      //sm
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: responsive?.smShow,
+          slidesToScroll: responsive?.smScroll,
+        },
+      },
+      //xs
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: responsive?.xsShow,
+          slidesToScroll: responsive?.xsScroll,
+        },
+      },
+      //xxs
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: responsive?.xxsShow,
+          slidesToScroll: responsive?.xxsScroll,
+        },
+      },
+    ]
   };
-
-  const sliderConfig = isBlog ? {
-    ...iniSliderConfig,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    dots: false
-  } : iniSliderConfig;
 
   const carouselClass = classNames(
     className,

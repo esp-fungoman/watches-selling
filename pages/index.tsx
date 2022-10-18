@@ -11,6 +11,7 @@ import ProductPanel from '../components/ProductPanel/ProductPanel'
 import SectionLayout from '../components/SectionLayout/SectionLayout'
 import BrandPanel from '../components/BrandPanel/BrandPanel'
 import BlogPanel from '../components/BlogPanel/BlogPanel'
+import { productPanelResponsive, blogPanelResponsive } from "../constant";
 
 import styles from '../styles/Home.module.scss'
 import classNames from 'classnames'
@@ -166,27 +167,62 @@ const brandItem = [
   {
     thumbnail: "/assets/homepage/brand-item/thumbnail.png",
     logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#"
+    link: "#",
+    isMobile: true
   },
   {
     thumbnail: "/assets/homepage/brand-item/thumbnail.png",
     logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#"
+    link: "#",
+    isMobile: true
   },
   {
     thumbnail: "/assets/homepage/brand-item/thumbnail.png",
     logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#"
+    link: "#",
+    isMobile: true
   },
   {
     thumbnail: "/assets/homepage/brand-item/thumbnail.png",
     logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#"
+    link: "#",
+    isMobile: true
   },
   {
     thumbnail: "/assets/homepage/brand-item/thumbnail.png",
     logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#"
+    link: "#",
+    isMobile: false
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#",
+    isMobile: false
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#",
+    isMobile: false
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#",
+    isMobile: false
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#",
+    isMobile: false
+  },
+  {
+    thumbnail: "/assets/homepage/brand-item/thumbnail.png",
+    logo: "/assets/homepage/brand-item/logo.svg",
+    link: "#",
+    isMobile: false
   }
 ]
 
@@ -281,6 +317,39 @@ const blogItem = [
   }
 ]
 
+const categoryItem = [
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  },
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  },
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  },
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  },
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  },
+  {
+    logo: "/assets/homepage/category/category-logo.svg",
+    title: "serum, mặt nạ, sữa rửa mặt",
+    link: "#"
+  }
+]
+
 const Home: NextPage = () => {
   const router = useRouter();
 
@@ -312,30 +381,31 @@ const Home: NextPage = () => {
           title="Flash deal" 
           show={true} 
           showAll={false} 
+          childrenClassName={styles.flash_deal}
           containerClassname="container"
           backgroundImage="/assets/homepage/section-layout/background-image.png"
         >
-          <Carousel show={true}>
+          <Carousel responsive={productPanelResponsive} show={true}>
             {listItem.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}
           </Carousel>
         </SectionLayout>
 
-        <div className='container'>
+        <div className={classNames('container', styles.banner_ads_sections)}>
           <Image 
+            className={styles.banner}
             src="/assets/homepage/banner-ad/pink-ads.png"
             width={480}
             height={265}
-            layout='responsive'
             alt=''
           />
 
           <Image 
+            className={styles.banner}
             src="/assets/homepage/banner-ad/yellow-ads.png"
             width={480}
             height={265}
-            layout='responsive'
             alt=''
           />
         </div>
@@ -346,7 +416,7 @@ const Home: NextPage = () => {
           showAll={false} 
           containerClassname="container"
         >
-          <Carousel show={true}>
+          <Carousel responsive={productPanelResponsive} show={true}>
             {listItem.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}
@@ -359,7 +429,7 @@ const Home: NextPage = () => {
           showAll={false} 
           containerClassname="container"
         >
-          <Carousel show={true}>
+          <Carousel responsive={productPanelResponsive} show={true}>
             {listItem.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}
@@ -373,7 +443,7 @@ const Home: NextPage = () => {
           backgroundImage="assets/homepage/section-layout/background-combo.png"
           rowClassname={classNames("container", styles.combo_section_row)}
         >
-          <Carousel show={true}>
+          <Carousel responsive={productPanelResponsive} show={true}>
             {listItem.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}
@@ -401,11 +471,33 @@ const Home: NextPage = () => {
           showAll={false} 
           containerClassname="container"
         >
-          <Carousel show={true}>
+          <Carousel responsive={productPanelResponsive} show={true}>
             {listItem.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}
           </Carousel>
+        </SectionLayout>
+
+        <SectionLayout
+          show={true}
+          title="Phân loại sản phẩm"
+          containerClassname='container'
+          childrenClassName={styles.category_section}
+        >
+          {Array.isArray(categoryItem) && categoryItem.map((item: any, index: any) => (
+            <div className={styles.category_panel} key={index}>
+              <div className={styles.image_wrapper}>
+                <Image
+                  src={item.logo}
+                  width={86}
+                  height={78}
+                  alt=""
+                />
+              </div>
+              <h2 className={styles.title}>{item.title}</h2>
+            </div>
+          ))}
+
         </SectionLayout>
 
         <SectionLayout
@@ -417,6 +509,8 @@ const Home: NextPage = () => {
         >
           {Array.isArray(brandItem) && brandItem.map((item:any, index: any) => (
             <BrandPanel 
+              className={styles.brand_panel}
+              isMobile={item.isMobile}
               key={index} 
               imgUrl={item.thumbnail}
               logoUrl={item.logo}
@@ -425,12 +519,38 @@ const Home: NextPage = () => {
           ))}
         </SectionLayout>
 
+        <SectionLayout 
+          title="Dành riêng Cheri Member" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
+        >
+          <Carousel responsive={productPanelResponsive} show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
+        <SectionLayout 
+          title="Các sản phẩm đã xem" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
+        >
+          <Carousel responsive={productPanelResponsive} show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
         <SectionLayout
           show={true}
           containerClassname="container"
           title="CheriCT’s Beauty Blogs"
         >
-          <Carousel isBlog={true} show={true}>
+          <Carousel responsive={blogPanelResponsive} isBlog={true} show={true}>
             {Array.isArray(blogItem) && blogItem.map((item:any, index: any) => (
               <BlogPanel 
                 key={index} 

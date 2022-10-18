@@ -51,3 +51,9 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .btn_prev, .btn_next {
+    display: none !important; 
+  }
+}
