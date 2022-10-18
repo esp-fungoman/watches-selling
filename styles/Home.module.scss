@@ -1,0 +1,32 @@
+@import 'styles/variables.scss';
+
+.brand_section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 64px;
+}
+
+.combo_section_row {
+  background-color: white;
+  opacity: 0.8;
+  padding-bottom: 30px;
+  margin-bottom: 54px;
+  border-radius: 16px;
+}
+
+.most_search_section_items {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  .btn {
+    font-weight: 400;
+    font-size: $text-sm;
+    line-height: $line-height-lg;
+    color: $primary-100;
+    padding: $p-lg;
+    border: 1px solid $primary-300;
+    border-radius: $border-radius;
+  }
+}

@@ -1,4 +1,4 @@
-import Slider, { Settings } from "react-slick";
+import Slider from "react-slick";
 import styles from "./Carousel.module.scss";
 import classNames from "classnames";
 import Icon from "../Icon/Icon";
@@ -9,10 +9,11 @@ interface CarouselProps {
   children?: any,
   responsive?: {[key: string]: number},
   show?: boolean,
+  isBlog?: boolean
 }
 
 const Carousel = (props: CarouselProps) => {
-  const { className, children, responsive, show } = props;
+  const { className, children, responsive, show, isBlog } = props;
 
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -34,7 +35,7 @@ const Carousel = (props: CarouselProps) => {
     }
   }
 
-  const sliderConfig =
+  const iniSliderConfig =
   {
     className: styles.slick_slide,
     dots: true,
@@ -96,6 +97,13 @@ const Carousel = (props: CarouselProps) => {
     //   },
     // ]
   };
+
+  const sliderConfig = isBlog ? {
+    ...iniSliderConfig,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    dots: false
+  } : iniSliderConfig;
 
   const carouselClass = classNames(
     className,

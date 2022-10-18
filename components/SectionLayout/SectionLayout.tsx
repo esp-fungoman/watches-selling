@@ -17,6 +17,7 @@ export interface SectionLayoutProps {
   transparent?: boolean,
   rowClassname?: string,
   showAll?: boolean,
+  titleClassname?: string,
   style?: CSSProperties
 }
 
@@ -35,6 +36,7 @@ const SectionLayout = (props: SectionLayoutProps) => {
     transparent,
     rowClassname,
     showAll,
+    titleClassname,
     style
   } = props;
 
@@ -53,7 +55,7 @@ const SectionLayout = (props: SectionLayoutProps) => {
         {title && (
           <div className={classNames(styles.row, rowClassname)}>
             <div className={classNames(styles.title_wrapper ,titleContainerClassnames)}>
-              <h1 className={styles.title}>{title}</h1>
+              <h1 className={classNames(styles.title, titleClassname)}>{title}</h1>
               {showAll && (<h2 className={styles.show_all}>Xem tất cả</h2>)}
             </div>
             <div className={childrenClassNames}>

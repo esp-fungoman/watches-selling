@@ -1,0 +1,44 @@
+@import "styles/variables.scss";
+
+.panel {
+  margin: 0 6px;
+  .image_wrapper {
+    width: 100%;
+    border-radius: 16px;
+  }
+  .sub_title {
+    .category_wrapper {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      margin: 6px 0;
+      .line {
+        width: 4px;
+        height: 11px;
+        background-color: $primary;
+      }
+      .category {
+        font-size: $text-xs;
+        line-height: $line-height-lg;
+        font-weight: 800;
+      }
+    }
+  }
+  .title {
+    font-weight: 700;
+    font-size: $text-lg;
+    line-height: $line-height-lg;
+  }
+  .description {
+    color: $primary-100;
+    font-weight: 400;
+    font-size: $text-sm;
+    line-height: $line-height-lg;
+  }
+  .read_more {
+    font-size: $text-xs;
+    line-height: $line-height-lg;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

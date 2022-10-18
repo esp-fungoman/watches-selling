@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import Head from 'next/head'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
@@ -9,8 +10,10 @@ import { useRouter } from 'next/router'
 import ProductPanel from '../components/ProductPanel/ProductPanel'
 import SectionLayout from '../components/SectionLayout/SectionLayout'
 import BrandPanel from '../components/BrandPanel/BrandPanel'
+import BlogPanel from '../components/BlogPanel/BlogPanel'
 
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
+import classNames from 'classnames'
 
 
 const bannerItem = [
@@ -187,6 +190,97 @@ const brandItem = [
   }
 ]
 
+const mostSearchCategory = [
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Dưỡng da',
+    link: '#'
+  },
+  {
+    title: 'Cọ',
+    link: '#'
+  }
+]
+
+const blogItem = [
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  },
+  {
+    image: "/assets/homepage/blog-item/thumbnail-img.png",
+    link: "#",
+    category: "Trang điểm",
+    title: "Cách chăm sóc da",
+    description:"Một trong những xu hướng đang được các idol cả nam lẫn nữ lăng xê."
+  }
+]
+
 const Home: NextPage = () => {
   const router = useRouter();
 
@@ -213,12 +307,99 @@ const Home: NextPage = () => {
             ))}
           </CarouselBanner>
         </div>
+
+        <SectionLayout 
+          title="Flash deal" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
+          backgroundImage="/assets/homepage/section-layout/background-image.png"
+        >
+          <Carousel show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
+        <div className='container'>
+          <Image 
+            src="/assets/homepage/banner-ad/pink-ads.png"
+            width={480}
+            height={265}
+            layout='responsive'
+            alt=''
+          />
+
+          <Image 
+            src="/assets/homepage/banner-ad/yellow-ads.png"
+            width={480}
+            height={265}
+            layout='responsive'
+            alt=''
+          />
+        </div>
+
         <SectionLayout 
           title="Hàng Mới Về" 
           show={true} 
           showAll={false} 
           containerClassname="container"
-          backgroundImage="/assets/homepage/section-layout/background-image.png"
+        >
+          <Carousel show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
+        <SectionLayout 
+          title="Sản Phẩm Bán Chạy" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
+        >
+          <Carousel show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
+        <SectionLayout 
+          title="Combo Tiết Kiệm" 
+          show={true} 
+          showAll={false} 
+          backgroundImage="assets/homepage/section-layout/background-combo.png"
+          rowClassname={classNames("container", styles.combo_section_row)}
+        >
+          <Carousel show={true}>
+            {listItem.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
+          </Carousel>
+        </SectionLayout>
+
+        <SectionLayout
+          title="Tìm kiếm nhiều nhất"
+          show={true}
+          containerClassname="container"
+          childrenClassName={styles.most_search_section_items}
+        >
+          {Array.isArray(mostSearchCategory) && mostSearchCategory.map((item: any, index: any) => (
+            <div className={styles.btn} key={index}>
+              <Link href={item.link}>
+                {item.title}
+              </Link>
+            </div>
+          ))}
+        </SectionLayout>
+
+        <SectionLayout 
+          title="Đề xuất cho bạn" 
+          show={true} 
+          showAll={false} 
+          containerClassname="container"
         >
           <Carousel show={true}>
             {listItem.map((item: any, index: any) => (
@@ -242,6 +423,25 @@ const Home: NextPage = () => {
               link={item.link}
             />
           ))}
+        </SectionLayout>
+
+        <SectionLayout
+          show={true}
+          containerClassname="container"
+          title="CheriCT’s Beauty Blogs"
+        >
+          <Carousel isBlog={true} show={true}>
+            {Array.isArray(blogItem) && blogItem.map((item:any, index: any) => (
+              <BlogPanel 
+                key={index} 
+                title={item.title}
+                link={item.link}
+                category={item.category}
+                imgUrl={item.image}
+                description={item.description}
+              />
+            ))}
+          </Carousel>
         </SectionLayout>
         <Footer/>
       </div>

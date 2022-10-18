@@ -3,7 +3,7 @@
 .carousel {
   position: relative;
   width: 100%;
-  .btn_next {
+  .btn_prev {
     position: absolute;
     top: calc(50% - 32px);
     transform: rotate(90deg);
@@ -11,7 +11,7 @@
     left: -50px;
     cursor: pointer;
   }
-  .btn_prev {
+  .btn_next {
     position: absolute;
     top: calc(50% - 32px);
     transform: rotate(-90deg);

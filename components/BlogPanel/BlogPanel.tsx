@@ -13,7 +13,7 @@ interface BlogPanelProps {
   description?: string
 }
 
-const BrandPanel = (props: BlogPanelProps) => {
+const BlogPanel = (props: BlogPanelProps) => {
   const {
     className,
     title,
@@ -26,11 +26,11 @@ const BrandPanel = (props: BlogPanelProps) => {
   const router = useRouter();
 
   return (
-    <div className={classNames(styles.panel, className)} onClick={() => router.push(link || "#")}>
+    <div className={classNames(styles.panel, className)}>
       <div className={styles.image_wrapper}>
         <Image 
           className={styles.image}
-          src={imgUrl || require("public/vercel.scg")} 
+          src={imgUrl || require("public/vercel.svg")} 
           width={229} 
           height={146} 
           layout="responsive" 
@@ -39,7 +39,7 @@ const BrandPanel = (props: BlogPanelProps) => {
       </div>
       
       <div className={styles.sub_title}>
-        <div className={styles.brand_wrapper}> 
+        <div className={styles.category_wrapper}> 
           <div className={styles.line}></div>
           <div className={styles.category}>{category}</div>
         </div>
@@ -51,9 +51,9 @@ const BrandPanel = (props: BlogPanelProps) => {
         {description}
       </p>
 
-      <p className={styles.read_more}>Đọc tiếp</p>
+      <p className={styles.read_more}  onClick={() => router.push(link || "#")}>Đọc tiếp</p>
     </div>
   )
 }
 
-export default BrandPanel;
+export default BlogPanel;
