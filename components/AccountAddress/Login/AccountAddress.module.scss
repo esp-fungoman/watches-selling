@@ -1,0 +1,85 @@
+@import '/styles/variables.scss';
+
+.wrapper {
+  width: 644px;
+  max-width: 100%;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  .item_wrapper {
+    border: 1px solid $primary-200;
+    border-radius: $border-radius;
+    width: 100%;
+
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    .item {
+      padding: 20px;
+      .address {
+        min-width: 180px;
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        .text_bold {
+          font-weight: $font-bold;
+          font-size: $text-md;
+          margin-bottom: 6px;
+        }
+        .default {
+          margin-top: 2px;
+          width: 63px;
+          height: 20px;
+          background-color: $primary;
+          color: $dark-0;
+          font-weight: $font-super-bold;
+          width: max-content;
+          font-size: $text-xs;
+          border-radius: $border-radius;
+          padding: 3px 6px;
+        }
+      }
+      .text {
+        font-size: $text-sm;
+        font-weight: $font-base;
+        margin-bottom: 4px;
+      }
+    }
+
+    .btn_wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .btn {
+        width: 50%;
+        height: 48px;
+        border-radius: 0;
+      }
+    }
+  }
+  .add {
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: $border-radius;
+    border: 1px dashed $primary-200;
+    height: 58px;
+    display: flex;
+    justify-content: left;
+    padding: 20px;
+    color: $primary-100;
+    font-weight: $font-bold;
+    font-size: $text-sm;
+  }
+  @media screen and (max-width: $tablet){
+    padding: 20px;
+    width: unset;
+    .item_wrapper{
+      .item {
+        .address {
+          max-width: unset;
+          width: 200px;
+        }
+      }
+    }
+  }
+}

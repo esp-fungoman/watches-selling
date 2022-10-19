@@ -1,33 +1,37 @@
-@import "/styles/variables.scss";
+@import '/styles/variables.scss';
 
 .wrapper {
+  background-color: #DADAE4;
   width: 100%;
   padding: 72px 230px;
   position: relative;
   display: flex;
   justify-content: space-between;
   .left_col {
-      max-width: 304px;
+    max-width: 304px;
+    margin-right: 32px;
   }
   .right_col {
-      max-width: 644px;
+    background-color: #fff;
+    max-width: 644px;
+    border-radius: $border-radius;
   }
-  @media screen and (max-width: $desktop){
-      padding: 72px 100px;
+  @media screen and (max-width: $desktop) {
+    padding: 72px 100px;
   }
-  @media screen and (max-width: $desktop){
-      padding: 50px;
+  @media screen and (max-width: $desktop) {
+    padding: 50px;
   }
-  @media screen and (max-width: $big-tablet){
-      .left_col {
-          display: none;
-      }
-      .right_col {
-          max-width: unset;
-          width: 100%;
-      }
+  @media screen and (max-width: $big-tablet) {
+    .left_col {
+      display: none;
+    }
+    .right_col {
+      max-width: unset;
+      width: 100%;
+    }
   }
   @media screen and (max-width: $small-tablet) {
-      padding: 10px;
+    padding: 10px;
   }
 }
