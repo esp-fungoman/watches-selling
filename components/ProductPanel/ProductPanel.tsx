@@ -12,8 +12,7 @@ const ProductPanel = (props: IProductPanel) => {
   const { product } = props;
   const router = useRouter();
 
-  const title = product.title.length <= 27 ? 
-  product.title : product.title.slice(0, 27) + "...";
+  const title = product.title.length <= 27 ? product.title : product.title.slice(0, 27) + "...";
 
   return (
     <div className={styles.panel} onClick={() => router.push(product.link)}>

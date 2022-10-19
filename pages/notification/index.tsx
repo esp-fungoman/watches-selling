@@ -1,7 +1,7 @@
 import AccountProfile from "../../components/AccountProfile/AccountProfile";
 import MenuProfile from "../../components/MenuProfile/MenuProfile";
 import NotificationBox from "../../components/NotificationBox/NotificationBox";
-import SectionLayout from "../../components/SectionLayout/SectionLayout";
+import ColumnLayout from "../../components/ColumnLayout/ColumnLayout";
 import NotificationPopup from "../../components/NotificationPopup/NotificationPopup";
 
 const accountList = [
@@ -34,9 +34,9 @@ const Notification = () => {
     return (
         <>
         <NotificationPopup notilist={itemlist}></NotificationPopup>
-        {/* <SectionLayout >
+        <ColumnLayout >
             <NotificationBox></NotificationBox>
-        </SectionLayout> */}
+        </ColumnLayout>
         </>
     )
 }

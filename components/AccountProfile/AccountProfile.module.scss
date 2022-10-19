@@ -17,7 +17,7 @@
         width: 96px;
         aspect-ratio: 1/1;
         border-radius: 50%;
-        border: 1px solid $primary-1000;
+        border: 1px solid $primary-200;
         padding: 3px;
         margin-bottom: 8px;
         position: relative;
@@ -66,11 +66,11 @@
                     margin-bottom: 0;
                     color: $primary-100;
                     &.border {
-                        border-right: 1px solid $primary-1000;
+                        border-right: 1px solid $primary-200;
                     }
                 }
                 &.border {
-                    border-right: 1px solid $primary-1000;
+                    border-right: 1px solid $primary-200;
                 }
             }
            

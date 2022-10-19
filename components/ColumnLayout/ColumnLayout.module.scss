@@ -1,0 +1,33 @@
+@import "/styles/variables.scss";
+
+.wrapper {
+  width: 100%;
+  padding: 72px 230px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  .left_col {
+      max-width: 304px;
+  }
+  .right_col {
+      max-width: 644px;
+  }
+  @media screen and (max-width: $desktop){
+      padding: 72px 100px;
+  }
+  @media screen and (max-width: $desktop){
+      padding: 50px;
+  }
+  @media screen and (max-width: $big-tablet){
+      .left_col {
+          display: none;
+      }
+      .right_col {
+          max-width: unset;
+          width: 100%;
+      }
+  }
+  @media screen and (max-width: $small-tablet) {
+      padding: 10px;
+  }
+}
