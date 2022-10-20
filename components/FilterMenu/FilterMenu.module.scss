@@ -1,0 +1,63 @@
+@import "styles/variables.scss";
+.container {
+  padding: $p-2lg;
+  border: 1px solid $shading-2;
+  border-radius: $border-radius;
+  display: flex;
+  justify-content: space-between;
+  .dropdown_menu {
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: fit-content;
+      cursor: pointer;
+      h5 {
+        font-size: $text-sm;
+        line-height: $line-height-lg;
+        font-weight: 800;
+        margin: 0;
+      }
+    }
+    p {
+      margin: 0;
+      font-weight: 400;
+      font-size: $text-md;
+      line-height: $line-height-xl;
+      font-family: 'Quicksand', sans-serif;
+      position: relative;
+    }
+    .list {
+      position: absolute;
+      background-color: white;
+      width: fit-content;
+      margin-left: -12px;
+      border: 1px solid $shading-2;
+      border-radius: $border-radius;
+      list-style: none;
+      padding: $p-md;
+      overflow: hidden;
+      transition: 0.5s;
+      li {
+        margin: 0;
+        font-weight: 400;
+        font-size: $text-md;
+        line-height: $line-height-xl;
+        font-family: 'Quicksand', sans-serif;
+      }
+    }
+  }
+  .left_side_wrapper {
+    display: flex;
+    gap: 10px;
+    width: 30%;
+    justify-content: space-between;
+  }
+}
+
+.show {
+  transition: 0.5s;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  opacity: 0;
+}
