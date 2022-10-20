@@ -1,4 +1,5 @@
 @import "styles/variables.scss";
+
 .container {
   padding: $p-2lg;
   border: 1px solid $shading-2;
@@ -38,6 +39,7 @@
       padding: $p-md;
       overflow: hidden;
       transition: 0.5s;
+      z-index: 5;
       li {
         margin: 0;
         font-weight: 400;
@@ -50,7 +52,7 @@
   .left_side_wrapper {
     display: flex;
     gap: 10px;
-    width: 30%;
+    width: 270px;
     justify-content: space-between;
   }
 }

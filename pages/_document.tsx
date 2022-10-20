@@ -3,8 +3,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 export default function Document() {
   return (
     <Html>
-      <title>
-      </title>
+      <title>CheriCT</title>
       <Head>
         <meta
           name="google-site-verification"
