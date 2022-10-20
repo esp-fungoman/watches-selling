@@ -1,0 +1,55 @@
+@import "styles/variables.scss";
+
+.page_container {
+  display: flex;
+  margin-top: 75px;
+  justify-content: space-between;
+  .list_section {
+    width: calc(90% - 200px);
+    &_container {
+      margin: 0;
+      padding: 0;
+    }
+    .title {
+      text-align: left !important;
+    }
+    .list_wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      .list_panel {
+        width: calc(100% / 4 - 12px);
+      }
+    }
+  }
+  .category_section {
+    width: 200px;
+    .title {
+      font-weight: 700;
+      font-size: $text-xl;
+      line-height: $line-height-xl;
+    }
+    .dropdown_title {
+      font-weight: 700;
+      font-size: $text-md;
+      line-height: $line-height-lg;
+      cursor: pointer;
+      margin: 0;
+      margin-bottom: 6px;
+    }
+  
+    ul {
+      list-style: none;
+      li {
+        padding: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background-color: $bg-50;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+  
+}

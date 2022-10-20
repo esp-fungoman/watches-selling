@@ -2,20 +2,22 @@ import styles from "./ProductPanel.module.scss";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Rating } from "@mui/material";
+import classNames from "classnames";
 
 interface IProductPanel {
+  className?: string,
   product: { [key: string]: any}
 }
 
 
 const ProductPanel = (props: IProductPanel) => {
-  const { product } = props;
+  const { product, className } = props;
   const router = useRouter();
 
   const title = product.title.length <= 27 ? product.title : product.title.slice(0, 27) + "...";
 
   return (
-    <div className={styles.panel} onClick={() => router.push(product.link)}>
+    <div className={classNames(styles.panel, className)} onClick={() => router.push(product.link)}>
       <div className={styles.image_wrapper}>
         <Image 
           className={styles.image}
