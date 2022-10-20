@@ -1,9 +1,10 @@
 import styles from './MenuProfile.module.scss'
 import Link from "next/link";
 import Icon from "../Icon/Icon";
-import SlideToggle from "react-slide-toggle";
+// import SlideToggle from  "react-slide-toggle"
 import { useState } from 'react'
 
+const SlideToggle = require('react-slide-toggle')
 interface MenuProfileProps {
     link?: string;
     content?: string;
