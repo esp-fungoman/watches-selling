@@ -1,0 +1,52 @@
+@import "/styles/variables.scss";
+
+.wrapper {
+    &.banner1 {
+        width: 596px;
+        position: relative;
+        text-align: left;
+        .thumbnail {
+            width: 100%;
+            position: relative;
+            border-radius: $border-radius;
+            margin-bottom: 19px;
+        }
+        .category {
+            font-size: $text-sm;
+            font-weight: $font-bold;
+            color: $primary;
+            line-height: $line-height;
+            margin-bottom: 4px;
+        }
+        .title {
+            color: $primary-100;
+            font-size: $text-2xl;
+            font-weight: $font-bold;
+            line-height: $line-height-lg;
+        }
+    }
+    &.banner2 {
+        width: 401px;
+        position: relative;
+        text-align: left;
+        .thumbnail {
+            width: 100%;
+            position: relative;
+            border-radius: $border-radius;
+            margin-bottom: 16px;
+        }
+        .category {
+            font-size: $text-sm;
+            font-weight: $font-bold;
+            color: $primary;
+            line-height: $line-height;
+            margin-bottom: 2px;
+        }
+        .title {
+            color: $primary-100;
+            font-size: $text-xl;
+            font-weight: $font-bold;
+            line-height: $line-height-lg;
+        }
+    }
+}
