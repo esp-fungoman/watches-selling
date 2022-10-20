@@ -2,8 +2,9 @@ import Image from 'next/image';
 import styles from './AccountProfile.module.scss';
 import Icon from "../Icon/Icon";
 import classNames from 'classnames';
+import defaultAvatar from '../../public/images/default-avatar.svg';
 interface AccountProps {
-    src?: string;
+    src: string;
     name?: string;
     remain?: number;
     money?: number;
@@ -19,7 +20,7 @@ const Account = (props: AccountProps) => {
     return (
         <section className={styles.account_profile_wrapper}>
             <div className={styles.avatar}>
-                <Image src={src} alt="avatar" layout ="fill"/>
+                <Image src={src || defaultAvatar} alt="avatar" layout ="fill"/>
             </div>
             <span className={styles.member}>Member</span>
             <div className={styles.name}>{name}</div>
