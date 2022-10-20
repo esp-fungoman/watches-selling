@@ -1,4 +1,4 @@
-import styles from './SectionLayout.module.scss'
+import styles from './ColumnLayout.module.scss'
 import Profile from '../Profile/Profile'
 
 
