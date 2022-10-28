@@ -1,0 +1,43 @@
+@import "styles/variables.scss";
+
+.voucher_section {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.list_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  .list_panel {
+    width: calc(100% / 4 - 24px);
+  }
+}
+
+@media (max-width: $medium-tablet) {
+  .list_wrapper {
+    gap: 6px;
+    .list_panel {
+      width: calc(100% / 3 - 18px);
+    }
+  }
+}
+
+@media (max-width: $mobile) {
+  .list_wrapper {
+    .list_panel {
+      width: calc(100% / 2 - 15px);
+    }
+  }
+}
+
+@media (max-width: $small-mobile) {
+  .list_wrapper {
+    .list_panel {
+      width: 100%;
+    }
+  }
+}

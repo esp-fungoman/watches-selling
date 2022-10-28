@@ -1,0 +1,119 @@
+@import "styles/variables.scss";
+
+.voucher_container {
+  overflow: hidden;
+}
+
+.voucher_wrapper {
+  display: flex;
+  align-items: center;
+  border: 6px solid $shading-5;
+  border-radius: $border-radius;
+  width: 450px;
+  .voucher_content {
+    padding: 14px;
+    width: 75%;
+    .voucher_title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      span {
+        color: $semantic;
+        font-weight: 800;
+        font-size: $text-xs;
+        line-height: $line-height;
+      }
+    }
+    p {
+      margin: 0;
+      margin-bottom: 12px;
+      font-size: $text-md;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 400;
+    }
+  }
+
+  .save_button {
+    position: relative;
+    width: 25%;
+    padding: 20px;
+    padding-left: 28px;
+    cursor: pointer;
+    border-left: 1px dashed $shading-2;
+    p {
+      margin: 0;
+      color: $primary;
+      font-family: 'Quicksand', sans-serif;
+      font-size: $text-md;
+      text-decoration: underline;
+      font-weight: 700;
+      width: fit-content;
+    }
+  }
+
+  .upper_circle_border_wrapper {
+    position: absolute;
+    top: -42px;
+    left: -16px;
+    .upper_circle_border {
+      position: relative;
+      content: "";
+      background-color: $shading-5;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .inner_circle {
+        background-color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+  }
+  
+  .lower_circle_border_wrapper {
+    position: absolute;
+    bottom: -42px;
+    left: -16px;
+    .upper_circle_border {
+      position: relative;
+      content: "";
+      background-color: $shading-5;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .inner_circle {
+        background-color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile) {
+  .voucher_container {
+    width: 100%;
+    .voucher_wrapper {
+      width: 100%;
+    }
+  }
+
+  .upper_circle_border_wrapper {
+    top: -35px !important;
+    left: -16px !important;
+  }
+  .lower_circle_border_wrapper {
+    bottom: -35px !important;
+    left: -16px !important;
+  }
+}
