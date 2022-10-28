@@ -9,7 +9,8 @@ body {
   font-style: normal;
   font-weight:400;
   scroll-behavior: smooth;
-  font-display: fallback
+  font-display: fallback;
+  
 }
 
 a {

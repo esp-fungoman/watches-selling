@@ -1,0 +1,147 @@
+@import "styles/variables.scss";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $field-height-md;
+  min-width: 100px;
+  width: 100%;
+  color: white;
+  font-weight: $font-bold;
+  font-size: $text-md;
+  border-radius: $border-radius;
+  padding: $p-md;
+  gap: 6px;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: $primary-500;
+  }
+
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+
+  .container {
+    height: $input-height;
+    min-width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.small {
+  height: fit-content;
+  font-size: $text-sm;
+  padding: $p-sm;
+}
+
+.large {
+  height: fit-content;
+  min-width: 130px;
+  font-size: $text-lg;
+  padding: $p-lg;
+}
+
+.outlined {
+  color: $primary-100;
+  border: 1px solid $primary-200;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+}
+
+.secondary {
+  color: $bg-500;
+  border: 1px solid $bg-500;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+}
+
+.disabled {
+  color: $bg-400;
+  border: 1px solid transparent;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: $bg-100;
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.loading {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.no_outlined {
+  color: $primary-500;
+  border: none;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+}
+
+.secondary_no_outlined {
+  color: $bg-700;
+  border: none;
+  font-weight: $font-light;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+}
+
+.secondary_no_outlined_bold {
+  color: $bg-700;
+  border: none;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+}
+
+.underlined {
+  color: $bg-500;
+  border: none;
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: white;
+  }
+  text-decoration: underline;
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.basic {
+  color: $dark-0;
+  background-color: $primary;
+  border: none;
+  
+
+  &[type="submit"],
+  &[type="button"] {
+    background-color: $primary;
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}

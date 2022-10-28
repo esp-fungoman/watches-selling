@@ -1,0 +1,66 @@
+@import "styles/variables.scss";
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: $text-md;
+  font-weight: $font-light;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~ .checkmark {
+      border: 1px solid $primary-500;
+      background-color: white;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 11px;
+        height: 11px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: $primary-500;
+      }
+    }
+  }
+
+  .checkmark {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid $bg-100;
+    border-radius: 50%;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .container {
+    padding-left: 20px;
+  
+    .checkmark {
+      width: 15px;
+      height: 15px;
+      margin-top: 3px;
+    }
+  }
+}
