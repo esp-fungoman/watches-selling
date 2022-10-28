@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
+import SlideToggle from "react-slide-toggle";
 
 import styles from "../../styles/ProductCategory.module.scss";
 
@@ -245,42 +246,45 @@ const ProductCategory: NextPage = () => {
 
   const DropDown = (props: any) => {
     const { title, subCategory, className, titleClassName } = props;
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
-    const [height, setHeight] = useState('fit-content');
-    const ref = useRef<any>(null);
-
-    useEffect(() => {
-      setHeight(ref.current.clientHeight);
-      setShow(false);
-    }, []) 
-
-    const style = {
-      overflow: "hidden",
-      height: show ? height : 0,
-      transition: "0.5s"
-      
-    };
+    const [toggleEvent, setToggleEvent] = useState(0);
     const arrowStyle = {
       transform: show ? 'rotate(0deg) translateY(-3px)' : 'rotate(-90deg) translateX(3px)',
       transition: "0.5s"
     }
+
+    const onToggle = () => {
+      setToggleEvent(Date.now());
+      setShow(prev => !prev);
+    };
+
     return (
       <div className={className}>
-        <div style={{display: "flex", alignItems: "center", gap: "10px"}} onClick={() => setShow(prev => !prev)}>
+        <div 
+          style={{display: "flex", alignItems: "center", gap: "10px"}} 
+          onClick={onToggle}>
           <div style={arrowStyle}>
             <Icon icon="thin-black-dropdown" size={18} />
           </div>
           <p className={titleClassName}>{title}</p>
         </div>
 
-        <ul ref={ref} style={style}>
-          {Array.isArray(subCategory) && subCategory.map((listItem: any, listIndex: any) => (
-          <li key={listIndex} onClick={() => router.push('#' || listItem.link)}>
-            {listItem.name}
-          </li>
-        ))}
-        </ul>
+        <SlideToggle 
+          collapsed 
+          duration={500}
+          toggleEvent={toggleEvent}
+        >
+          {({setCollapsibleElement} : any ) => (
+            <ul ref={setCollapsibleElement}>
+              {Array.isArray(subCategory) && subCategory.map((listItem: any, listIndex: any) => (
+              <li key={listIndex} onClick={() => router.push('#' || listItem.link)}>
+                {listItem.name}
+              </li>
+            ))}
+            </ul>
+          )}
+        </SlideToggle>
       </div>
     )
   }
@@ -295,10 +299,15 @@ const ProductCategory: NextPage = () => {
             <DropDown 
               key={item.id} 
               title={item.name} 
+              className={styles.dropdown}
               titleClassName={styles.dropdown_title}
               subCategory={item.subCategory}
             />
           ))}
+        </div>
+
+        <div className={styles.category_section_mobile}>
+
         </div>
 
         <SectionLayout
