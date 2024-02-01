@@ -1,75 +1,79 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import React, {
+  DetailedHTMLProps,
+  FC,
+  InputHTMLAttributes,
+  ReactNode,
+  useState,
+} from "react";
 import styles from "./Input.module.scss";
+import Icon from "../Icon/Icon";
 
-export interface InputProps
+interface InputProps
   extends Omit<
-    React.HTMLProps<HTMLInputElement>,
-    "size" | "prefix" | "className"
+    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    "prefix"
   > {
   label?: string;
-  className?: string;
-  required?: boolean;
-  prefix?: ReactNode;
+  error?: string | false;
   suffix?: ReactNode;
-  helperText?: string;
-  error?: string;
-  success?: string;
-  width?: string | number;
-  variant?: "filled" | "outlined";
-  size?: "small" | "medium" | "large";
+  prefix?: ReactNode;
+  showCount?: boolean;
+  showEyeIcon?: boolean;
+  inputClassName?: string;
+  containerClassName?: string;
+  onClear?: () => void;
 }
 
-const Input = (props: InputProps) => {
-  const {
-    label,
-    required = false,
-    className,
-    prefix,
-    suffix,
-    readOnly,
-    variant = "outlined",
-    helperText,
-    success,
-    error,
-    size = "medium",
-    id,
-    width,
-    form,
-    disabled,
-    ...rest
-  } = props;
-
-  const inputWrapperClassName = classNames(className, styles.input, {
-    [styles.filled]: variant === "filled",
-    [styles.disabled]: disabled,
-    [styles.large]: size === "large",
-    [styles.small]: size === "small",
-    [styles.label]: label,
-  });
+const Input: FC<InputProps> = ({
+  label,
+  className,
+  error,
+  suffix,
+  prefix,
+  showCount,
+  inputClassName,
+  showEyeIcon,
+  type,
+  containerClassName,
+  onClear,
+  ...rest
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={inputWrapperClassName} style={{ width }}>
-      {success && <div className={styles.success}>{success}</div>}
-      <div className={styles.container}>
-        {label && (
-          <label htmlFor={id}>
-            {label} {required && <span className={styles.error}>*</span>}
-          </label>
+    <div
+      className={classNames(styles.input_container, containerClassName, {
+        [styles.disabled]: rest.disabled,
+      })}
+    >
+      {label && <label className="title-3 text-grey-500">{label}</label>}
+      <div className={classNames(styles.input_field, className)}>
+        {prefix && <div className={styles.prefix}>{prefix}</div>}
+        <input
+          {...rest}
+          type={showEyeIcon ? (!showPassword ? "password" : "text") : type}
+          className={classNames(styles.input, inputClassName)}
+        />
+        {onClear && (
+          <div className={styles.clear} onClick={onClear}>
+            &#x2715;{" "}
+          </div>
         )}
-        <div className={styles.content}>
-          {prefix && <div className={styles.prefix_container}>{prefix}</div>}
-          <input
-            readOnly={readOnly}
-            disabled={disabled}
-            id={id}
-            {...rest}
-          />
-          {suffix && <div className={styles.suffix_container}>{suffix}</div>}
-        </div>
+        {suffix && <div className={styles.suffix_icon}>{suffix}</div>}
+        {showEyeIcon && (
+          <div className={styles.suffix_icon}>
+            <Icon
+              className="cursor-pointer"
+              size={18}
+              name={showPassword ? "eye" : "eye-slash"}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          </div>
+        )}
       </div>
-      {helperText && <div>{helperText}</div>}
-      {error && <div className={styles.error}>{error}</div>}
+
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Radio from '../../components/Radio/Radio';
 import Title from '../../components/Title/Title';
 import Icon from '../Icon/Icon';
 import { useState } from 'react';
+import classNames from 'classnames';
 
 const AccountChangPassword = () => {
   const [isShowOldPass, setIsShowOldPass] = useState(false);
@@ -18,7 +19,7 @@ const AccountChangPassword = () => {
       <div className={styles.row}>
         <p className={styles.text}>Mật khẩu cũ (*)</p>
         <Input
-          className={styles.input}
+          className={classNames(styles.input)}
           type={isShowOldPass ? 'text' : 'password'}
           suffix={
             <div

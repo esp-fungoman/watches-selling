@@ -1,29 +1,39 @@
-import IcomoonReact from "icomoon-react"
-import React from "react"
-import iconSet from "./selection.json"
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  MouseEvent,
+  forwardRef,
+} from "react";
+import { IconNames } from "./Icon.type";
+import IcomoonReact from "icomoon-react";
+import classNames from "classnames";
+import styles from "./Icon.module.scss";
+import iconSet from "./selection.json";
 
-export interface IconProps {
-  color?: string
-  size?: number | string
-  icon: string
-  className?: string
-  stroke?: string
-  style?: React.CSSProperties
+interface IconProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
+  name?: string;
+  size?: number;
+  color?: string;
+  className?: string;
+  onClick?: (e: MouseEvent<HTMLSpanElement>) => void;
+  ref?: any;
 }
 
 const Icon: React.FC<IconProps> = (props) => {
-  const { style, color, size = 20, icon = "", className = "" } = props
+  const { style, onClick, color, size = 20, name = "", className = "" } = props;
 
-  return icon ? (
+  return name ? (
     <IcomoonReact
-      className={className}
+      className={classNames(styles.icon, className)}
       iconSet={iconSet}
       color={color}
       size={size}
-      icon={icon}
-      style={{ ...style, display: "block", boxSizing: "border-box" }}
+      icon={name}
+      style={{ ...style }}
+      onClick={onClick}
     />
-  ) : null
-}
+  ) : null;
+};
 
-export default Icon
+export default Icon;

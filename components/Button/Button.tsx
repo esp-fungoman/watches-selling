@@ -1,85 +1,46 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
 import classNames from "classnames";
-import { ReactNode } from "react";
-import styles from "./Button.module.scss";
-import Loading from "./Loading";
 
-export interface ButtonProps
+import styles from "./Button.module.scss";
+import { Spin } from "antd";
+
+interface ButtonProps
   extends Omit<
-    React.HTMLProps<HTMLButtonElement>,
-    "size" | "prefix" | "className"
+    DetailedHTMLProps<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >,
+    "type"
   > {
-  text?: string | ReactNode;
-  width?: string | number;
   className?: string;
-  prefix?: ReactNode;
-  suffix?: ReactNode;
-  variant?:
-    | "primary"
-    | "secondary"
-    | "outlined"
-    | "no-outlined"
-    | "secondary-no-outlined"
-    | "secondary-no-outlined-bold"
-    | "underlined"
-    | "basic"
-    | "";
-  size?: "small" | "medium" | "large";
-  type?: "button" | "submit" | "reset";
-  backgroundColor?: string;
-  isLoading?: boolean;
   children?: ReactNode;
+  type?: "outlined" | "filled" | "text" | "outlined-white";  variant?: "danger" | "primary";
+  loading?: boolean;
 }
 
-const Button = (props: ButtonProps) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const {
-    id,
-    text,
-    className,
-    prefix,
-    suffix,
+    type = "filled",
     variant = "primary",
-    size = "medium",
-    disabled,
-    width,
-    type = "button",
-    isLoading,
-    backgroundColor,
     children,
+    className,
+    loading,
+    disabled,
     ...rest
   } = props;
-
-  const buttonClassName = classNames(
-    className,
-    styles.button,
-    styles.container,
-    {
-      [styles.disabled]: disabled,
-      [styles.outlined]: variant === "outlined",
-      [styles.underlined]: variant === "underlined",
-      [styles.secondary]: variant === "secondary",
-      [styles.no_outlined]: variant === "no-outlined",
-      [styles.basic]: variant === "basic",
-      [styles.secondary_no_outlined]: variant === "secondary-no-outlined",
-      [styles.large]: size === "large",
-      [styles.small]: size === "small",
-      [styles.secondary_no_outlined_bold]:
-        variant === "secondary-no-outlined-bold",
-      [styles.loading]: isLoading,
-    }
-  );
+  
   return (
     <button
-      className={buttonClassName}
-      id={id}
-      type={type}
-      disabled={disabled || isLoading}
       {...rest}
-      style={{ width, backgroundColor }}
+      className={classNames(
+        styles.button,
+        styles[type],
+        styles[variant],
+        className
+      )}
+      disabled={loading || disabled}
     >
-      {isLoading && <Loading />}
-      {prefix && <div>{prefix}</div>}
-      {text || children}
-      {suffix && <div>{suffix}</div>}
+      {loading ? <Spin /> : children}
     </button>
   );
 };
