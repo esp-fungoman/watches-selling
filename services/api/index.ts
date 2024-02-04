@@ -7,7 +7,19 @@ const Api: AxiosInstance = axios.create({
 
 Api.interceptors.request.use((config: any) => {
   const token = localStorage.getItem("token");
+  console.log("api token: ", token);
   if (token) {
+    console.log("case 1", {
+      ...config,
+      headers: {
+        ...config.headers,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      paramsSerializer: {
+        serialize: (params: any) => qs.stringify(params, { encode: false }),
+      },
+    });
     return {
       ...config,
       headers: {
@@ -30,7 +42,7 @@ Api.interceptors.request.use((config: any) => {
 
 Api.interceptors.response.use(
   (res: any) => {
-    return res;
+    return res.data;
   },
   function (err) {
     console.log(err);

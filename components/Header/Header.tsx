@@ -5,11 +5,11 @@ import { useRouter } from "next/router";
 
 import classNames from "classnames";
 import styles from "./Header.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthModal from "../Modals/AuthModal";
 import { useRecoilState } from "recoil";
 import Button from "../Button";
-import { UserAtom } from "../../services/user";
+import { UserApi, UserAtom } from "../../services/user";
 import { Avatar, Popover } from "antd";
 
 const header_items = {
@@ -98,6 +98,23 @@ const Header = () => {
     activeTab?: "sign-in" | "sign-up";
   }>({ open: false, activeTab: "sign-in" });
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      UserApi.getMe()
+        .then((res) => {
+          if (res) {
+            setCurrentUser(res);
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          setAuthModal({ open: true });
+        });
+    }
+  }, [authModal.open]);
+
   return (
     <div>
       <div className={styles.upper_bar_wrapper}>
@@ -122,13 +139,13 @@ const Header = () => {
           <div className={styles.left_side_wrapper}>
             <Image src="/logo.svg" width={138} height={21} alt="logo" />
             <div className={styles.search_bar}>
-              <input
+              {/* <input
                 type="text"
                 placeholder={header_items.lower_bar.search_placeholder}
-              />
-              <div className={styles.icon_wrapper}>
+              /> */}
+              {/* <div className={styles.icon_wrapper}>
                 <Icon name="header-search" size={24} />
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -207,26 +224,6 @@ const Header = () => {
         open={authModal.open}
         onClose={() => setAuthModal({ ...authModal, open: false })}
       />
-      <div className={styles.navi_menu_wrapper}>
-        <div className={classNames(styles.navi_menu, "container")}>
-          {Array.isArray(categories) &&
-            categories.map((item: any, index: any) => (
-              <div
-                className={styles.navi_menu_button}
-                key={index}
-                onClick={() => router.push(item.link)}
-              >
-                <div>{item.name}</div>
-                {item.item.length !== 0 && (
-                  <Icon name="thick-white-dropdown" size={16} />
-                )}
-                {item.name == "Khuyến mãi" && (
-                  <Icon name="flash-lightning" size={24} />
-                )}
-              </div>
-            ))}
-        </div>
-      </div>
     </div>
   );
 };

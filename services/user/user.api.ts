@@ -4,11 +4,17 @@ import { User } from "./user.type";
 
 const getMe = async () => {
   try {
-    const res = await Api<User>({
-      url: "/users/me",
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return;
+    }
+    const res = await Api({
+      url: "/api/customer/me",
       method: "GET",
-      params: { populate: "deep,2" },
+      headers: { Authorization: `Bearer ${token}` },
     });
+    console.log("me", res);
     if (res.status === 200) {
       return res.data;
     }

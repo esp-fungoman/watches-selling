@@ -17,6 +17,6 @@ export interface ForgotPasswordPayload {
 }
 
 export interface AuthResponse {
-  jwt: string;
+  token: string;
   user: User;
 }
