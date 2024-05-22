@@ -1,0 +1,1 @@
+export {default as WatchBrandApi} from './watch-brand.api'

@@ -42,10 +42,10 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
         password: values.password,
         confirmPassword: values.confirmPassword
       });
-      // if (res) {
-      //   resetForm();
-      //   onCancel?.();
-      // }
+      if (res) {
+        resetForm();
+        onCancel?.();
+      }
     },
   });
 
@@ -90,7 +90,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
         </Button>
         <Button
           className="flex-1"
-          type="outlined"
+          type="text"
           variant="danger"
           onClick={onCancel}
         >

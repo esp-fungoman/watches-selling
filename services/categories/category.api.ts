@@ -15,7 +15,7 @@ const getCategoryList = async (params?: any) => {
     }
     notification.error({
       message: "ERROR",
-      description: "something went wrong",
+      description: "category went wrong",
     });
   } catch (error: any) {
     notification.error({
@@ -37,7 +37,7 @@ const getCategoryDetail = async (id: string) => {
     }
     notification.error({
       message: "Error",
-      description: "something went wrong",
+      description: "category went wrong",
     });
   } catch (error: any) {
     notification.error({ message: "Error", description: error?.message });

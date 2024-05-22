@@ -16,6 +16,11 @@ export interface ForgotPasswordPayload {
   email: string;
 }
 
+export interface ChangePasswordPayload {
+  password: string;
+  confirmPassword: string;
+  currentPassword: string;
+}
 export interface AuthResponse {
   token: string;
   user: User;

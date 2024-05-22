@@ -1,41 +1,30 @@
-import AccountEditInfo from '../../components/AccountEditInfo/AccountEditInfo';
-import ColumnLayout from '../../components/ColumnLayout/ColumnLayout';
-import AccountAddress from '../../components/AccountAddress/Login/AccountAddress';
-import AccountAddressNotLogin from '../../components/AccountAddress/NotLogin/AccountAddressNotLogin';
-import AccountChangPassword from '../../components/AccountChangePassword/AccountChangePassword';
+import AccountEditInfo from "../../components/AccountEditInfo/AccountEditInfo";
+import ColumnLayout from "../../components/ColumnLayout/ColumnLayout";
+import AccountAddress from "../../components/AccountAddress/Login/AccountAddress";
+import AccountAddressNotLogin from "../../components/AccountAddress/NotLogin/AccountAddressNotLogin";
+import AccountChangPassword from "../../components/AccountChangePassword/AccountChangePassword";
+import { useEffect, useState } from "react";
+import { UserApi } from "../../services/user";
 
-const EditInfo = () => {
-  const data = {
-    email: 'a@gmail.com',
-    img: '',
-    name: 'asdasd',
-    phone: '12312asdasd',
-    gender: {
-      label: 'male',
-      value: 'male',
-    },
-    date: '12323',
-  };
-
-  const addressData = [
-    {
-      id: '1',
-      name: 'Le Thao Nguyen',
-      phone: '033 768 8743',
-      address: '173 Nguyễn Văn Trỗi, P. 11, Quận Phú Nhuận',
-    },
-  ];
-
+const AccountPage = () => {
+  const [profile, setProfile] = useState<any>();
+  useEffect(() => {
+    const getProfile = async () => {
+      const data = await UserApi.getProfile();
+      if (data) {
+        setProfile(data);
+      }
+    };
+    getProfile();
+  }, []);
   return (
     <section id="account-edit-info">
-      <ColumnLayout>
-        {/* <AccountEditInfo personalInfo={data} /> */}
-        {/* <AccountAddress address={addressData} /> */}
-        {/* <AccountAddressNotLogin/> */}
-        <AccountChangPassword />
-      </ColumnLayout>
+      {profile && 
+      <ColumnLayout data={profile}>
+        <AccountEditInfo personalInfo={profile} className="min-w-[500px]"/>
+      </ColumnLayout>}
     </section>
   );
 };
 
-export default EditInfo;
+export default AccountPage;

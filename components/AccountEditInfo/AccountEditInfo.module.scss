@@ -42,7 +42,8 @@
         }
     }
     .btn {
-        margin-top: 64px;
+        // margin-top: 64px;
+        flex: 1 0 0;
     }
     @media screen and (max-width: $tablet) {
         padding: 10px;

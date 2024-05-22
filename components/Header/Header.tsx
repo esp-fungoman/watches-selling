@@ -11,31 +11,11 @@ import { useRecoilState } from "recoil";
 import Button from "../Button";
 import { UserApi, UserAtom } from "../../services/user";
 import { Avatar, Popover } from "antd";
+import ConfirmationModal from "../Modals/ConfirmationModal";
+import Search from "../Search/Search";
 
 const header_items = {
-  upper_bar: {
-    title: "FREESHIP cho đơn hàng từ 399k. Mua ngay!",
-    status_items: [
-      {
-        link: "#",
-        value: 1,
-        content: "Thông báo",
-        icon: "header-notification",
-      },
-      {
-        link: "#",
-        value: 2,
-        content: "Theo dõi đơn hàng",
-        icon: "header-delivery",
-      },
-      {
-        link: "#",
-        value: 3,
-        content: "032 583 9032",
-        icon: "header-phone",
-      },
-    ],
-  },
+  
   lower_bar: {
     logo: {
       icon: "logo",
@@ -105,6 +85,7 @@ const Header = () => {
       UserApi.getMe()
         .then((res) => {
           if (res) {
+            console.log("res", res);
             setCurrentUser(res);
           }
         })
@@ -114,30 +95,14 @@ const Header = () => {
         });
     }
   }, [authModal.open]);
-
   return (
     <div>
-      <div className={styles.upper_bar_wrapper}>
-        <div className={classNames(styles.upper_bar, "container")}>
-          <div className={styles.title}>{header_items.upper_bar.title}</div>
-          <div className={styles.upper_bar_status_items}>
-            {Array.isArray(header_items.upper_bar.status_items) &&
-              header_items.upper_bar.status_items.map((item: any) => (
-                <div key={item.value} onClick={() => router.push(item.link)}>
-                  <div className={styles.item}>
-                    <Icon name={item.icon} size={18} />
-                    <div>{item.content}</div>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
-
       <div className={styles.lower_bar_wrapper}>
         <div className={classNames(styles.lower_bar, "container")}>
           <div className={styles.left_side_wrapper}>
-            <Image src="/logo.svg" width={138} height={21} alt="logo" />
+            <Link href="/" className="cursor-pointer">
+              <Image src="/logo.svg" width={138} height={21} alt="logo" />
+            </Link>
             <div className={styles.search_bar}>
               {/* <input
                 type="text"
@@ -150,30 +115,32 @@ const Header = () => {
           </div>
 
           <div className={styles.right_side_wrapper}>
+            <Search className="w-full" />
             <div className={styles.mobile_search_icon}>
               <Icon name="black-search-icon" size={24} />
             </div>
             <Icon name="header-shopping-cart" size={32} />
             <div className={styles.user_panel}>
-              <Icon name={user.icon} size={32} />
+              {/* <Icon name={user.icon} size={32} /> */}
               <div>
                 {currentUser ? (
                   <Popover
                     arrow={false}
+                    className="cursor-pointer"
                     content={
                       <div className="flex flex-col gap-4">
                         <Button
                           type="outlined"
                           variant="danger"
-                          className="gap-1"
+                          className="gap-1 w-[100px]"
                           onClick={() => setOpenSignOut(true)}
                         >
-                          Sign out <Icon name="logout" />
+                          Sign out <Icon name="logout" size={24} />
                         </Button>
                         <Button
                           type="outlined"
                           variant="danger"
-                          className="gap-1"
+                          className="gap-1 !w-[120px]"
                           onClick={() => router.push("/account")}
                         >
                           Profile <Icon name="logout" />
@@ -181,6 +148,9 @@ const Header = () => {
                       </div>
                     }
                   >
+                    <div className="bg-gray-400 rounded-4 w-max py-2 px-3">
+                      {currentUser.lastName}
+                    </div>
                     {/* <Avatar
                       className="hidden lg:block cursor-pointer"
                       src={currentUser.avatar_url}
@@ -209,9 +179,14 @@ const Header = () => {
                     </div>
                   </>
                 )}
-
-                <div></div>
               </div>
+              <Link href="/cart">
+                <Icon
+                  className="cursor-pointer"
+                  name="shopping-cart"
+                  size={24}
+                />
+              </Link>
             </div>
             <div className={styles.mobile_button}>
               <Icon name="mobile-menu-button" size={24} />
@@ -223,6 +198,11 @@ const Header = () => {
         activeTab={authModal.activeTab}
         open={authModal.open}
         onClose={() => setAuthModal({ ...authModal, open: false })}
+      />
+
+      <ConfirmationModal
+        open={openSignOut}
+        handleClose={() => setOpenSignOut(false)}
       />
     </div>
   );

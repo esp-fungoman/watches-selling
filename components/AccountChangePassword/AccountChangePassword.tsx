@@ -1,18 +1,52 @@
-import styles from './AccountChangePassword.module.scss';
-import Input from '../../components/Input/Input';
-import Select from '../../components/Select/Select';
-import Button from '../../components/Button/Button';
-import Radio from '../../components/Radio/Radio';
-import Title from '../../components/Title/Title';
-import Icon from '../Icon/Icon';
-import { useState } from 'react';
-import classNames from 'classnames';
+import styles from "./AccountChangePassword.module.scss";
+import Input from "../../components/Input/Input";
+import Select from "../../components/Select/Select";
+import Button from "../../components/Button/Button";
+import Radio from "../../components/Radio/Radio";
+import Title from "../../components/Title/Title";
+import Icon from "../Icon/Icon";
+import { useState } from "react";
+import classNames from "classnames";
+import { AuthApi } from "../../services/auth";
+import { message } from "antd";
 
-const AccountChangPassword = () => {
+interface AccountChangePasswordProps {
+  currentPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+const AccountChangPassword = (props: AccountChangePasswordProps) => {
   const [isShowOldPass, setIsShowOldPass] = useState(false);
   const [isShowNewPass, setIsShowNewPass] = useState(false);
   const [isShowReNewPass, setIsShowReNewPass] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [formData, setFormData] = useState<AccountChangePasswordProps>();
+  const handleInputChange = (key: string, value: string) => {
+    setFormData((prevData: any) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
 
+  const handleSave = async () => {
+    // Implement save functionality
+    console.log("Saving data:", formData);
+    if (formData?.confirmPassword !== formData?.password) {
+      message.error("Mật khẩu xác nhận không đúng");
+      return;
+    }
+    await AuthApi.changePassword(formData as AccountChangePasswordProps).then(
+      (res) => {
+        if (res) {
+          messageApi.success("Successfully saved!");
+        } else {
+          message.error("Error saving");
+        }
+      }
+    );
+
+    // Reset the changed state
+  };
   return (
     <section className={styles.wrapper}>
       <Title content="Đổi mật khẩu" />
@@ -20,7 +54,8 @@ const AccountChangPassword = () => {
         <p className={styles.text}>Mật khẩu cũ (*)</p>
         <Input
           className={classNames(styles.input)}
-          type={isShowOldPass ? 'text' : 'password'}
+          onChange={(e) => handleInputChange("currentPassword", e.target.value)}
+          type={isShowOldPass ? "text" : "password"}
           suffix={
             <div
               className={styles.icon}
@@ -28,7 +63,7 @@ const AccountChangPassword = () => {
                 setIsShowOldPass((isShowOldPass) => !isShowOldPass)
               }
             >
-              <Icon icon="eye" size={20} />
+              <Icon name="eye" size={20} />
             </div>
           }
           width={426}
@@ -39,7 +74,8 @@ const AccountChangPassword = () => {
         <p className={styles.text}>Mật khẩu mới(*)</p>
         <Input
           className={styles.input}
-          type={isShowNewPass ? 'text' : 'password'}
+          type={isShowNewPass ? "text" : "password"}
+          onChange={(e) => handleInputChange("password", e.target.value)}
           suffix={
             <div
               className={styles.icon}
@@ -47,7 +83,7 @@ const AccountChangPassword = () => {
                 setIsShowNewPass((isShowNewPass) => !isShowNewPass)
               }
             >
-              <Icon icon="eye" size={20} />
+              <Icon name="eye" size={20} />
             </div>
           }
           width={426}
@@ -58,7 +94,8 @@ const AccountChangPassword = () => {
         <p className={styles.text}>Nhập lại mật khẩu mới (*)</p>
         <Input
           className={styles.input}
-          type={isShowReNewPass ? 'text' : 'password'}
+          onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+          type={isShowReNewPass ? "text" : "password"}
           suffix={
             <div
               className={styles.icon}
@@ -66,20 +103,16 @@ const AccountChangPassword = () => {
                 setIsShowReNewPass((isShowReNewPass) => !isShowReNewPass)
               }
             >
-              <Icon icon="eye" size={20} />
+              <Icon name="eye" size={20} />
             </div>
           }
           width={426}
           height={48}
         />
       </div>
-      <Button
-        className={styles.btn}
-        variant="basic"
-        width={201}
-        height={50}
-        text="Cập nhật mật khẩu"
-      />
+      <Button className="!w-[300px]" onClick={handleSave}>
+        Lưu
+      </Button>
     </section>
   );
 };

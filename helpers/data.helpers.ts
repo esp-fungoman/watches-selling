@@ -52,3 +52,7 @@ export const convertToSlug = (str: any, symbol?: string) => {
     return str;
   } else return str;
 };
+
+export const formatPrice = (price: number) => {
+  return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") +' đ';
+};

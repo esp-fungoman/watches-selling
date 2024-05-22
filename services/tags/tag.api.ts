@@ -15,7 +15,7 @@ const getTagList = async (params?: any) => {
     }
     notification.error({
       message: "ERROR",
-      description: "something went wrong",
+      description: "tag went wrong",
     });
   } catch (error: any) {
     notification.error({
@@ -37,7 +37,7 @@ const getTagDetail = async (id: string) => {
     }
     notification.error({
       message: "Error",
-      description: "something went wrong",
+      description: "tag went wrong",
     });
   } catch (error: any) {
     notification.error({ message: "Error", description: error?.message });

@@ -1,5 +1,25 @@
 @import "/styles/variables.scss";
 
 .wrapper {
-    max-width: 100%;
+  max-width: 100%;
+  .invoice_wrapper {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.5rem 1rem;
+    border-radius: 0.5rem;
+
+    .item {
+      color: rgb(145, 145, 218) !important;
+      font-weight: 500;
+      transition: 0.2s ease;
+
+      &:hover {
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+    }
+  }
 }

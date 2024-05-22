@@ -1,9 +1,10 @@
-import Button from "@/components/Button";
-import { UserAtom } from "@/services/user";
+
 import { message } from "antd";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { useResetRecoilState } from "recoil";
+import { UserAtom } from "../../../services/user";
+import Button from "../../Button";
 import ModalContainer from "../ModalContainer";
 
 interface ConfirmationModalProps {
@@ -31,10 +32,10 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
           Are you sure you want to sign out?
         </p>
         <div className="flex gap-6 items-center mt-6">
-          <Button type="outlined" className="flex-1" onClick={handleSignOut}>
+          <Button className="flex-1" onClick={handleSignOut}>
             Sign out
           </Button>
-          <Button variant="danger" className="flex-1" onClick={handleClose}>
+          <Button type="outlined" className="flex-1" onClick={handleClose}>
             Cancel
           </Button>
         </div>

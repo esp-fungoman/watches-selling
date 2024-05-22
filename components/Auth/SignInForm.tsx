@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import Button from "../Button";
 import Divider from "../Divider";
@@ -10,6 +10,7 @@ import Input from "../Input";
 import styles from "./Auth.module.scss";
 import { AuthApi } from "../../services/auth";
 import useAuth from "../../hooks/useAuth";
+import ForgotPasswordModal from "../Modals/ForgotPasswordModal/ForgotPasswordModal";
 
 interface SignInFormProps {
   onCancel?: () => void;
@@ -17,6 +18,8 @@ interface SignInFormProps {
 
 const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
   const checkAuth = useAuth();
+  const [isShowModalForgotPassword, setIsShowModalForgotPassword] =
+    useState(true);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { email: "", password: "" },
@@ -61,9 +64,9 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
           {...formik.getFieldProps("password")}
           error={formik.touched.password && formik.errors.password}
         />
-        <Link href="#" onClick={onCancel}>
+        <div className="cursor-pointer" onClick={() => setIsShowModalForgotPassword(true)}>
           Forgot password?
-        </Link>
+        </div>
       </div>
 
       <div className="flex gap-4 mt-8">
@@ -72,13 +75,17 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
         </Button>
         <Button
           className="flex-1"
-          type="outlined"
+          type="text"
           variant="danger"
           onClick={onCancel}
         >
           Cancel
         </Button>
       </div>
+      <ForgotPasswordModal
+        isVisible={isShowModalForgotPassword}
+        onClose={() => setIsShowModalForgotPassword(false)}
+      />
     </div>
   );
 };

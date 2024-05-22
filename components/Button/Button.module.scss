@@ -29,11 +29,13 @@
   }
 
   &.outlined {
-    --color: var(--primary);
-    --border-color: var(--primary);
-    --bg-color: transparent;
-    --hover-color: white;
-    --hover-bg-color: var(--primary);
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
   }
 
   &.outlined-white {
@@ -48,11 +50,12 @@
     --color: var(--grey-800);
     --bg-color: transparent;
     --border-color: transparent;
-    --hover-bg-color: #f1f1f1;
+    --hover-bg-color: black;
     --hover-color: var(--primary);
     --hover-border-color: transparent;
     &:hover {
-      background-color: #f1f1f1;
+      background-color: black;
+      color: white;
     }
   }
 

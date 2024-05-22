@@ -33,7 +33,7 @@ const BrandPanel = (props: BrandPanelProps) => {
         height={138}
         alt=""
       />
-      <div className={styles.logo_container}>
+      {/* <div className={styles.logo_container}>
         <div className={styles.logo_wrapper}>
           <Image 
             className={styles.logo}
@@ -44,7 +44,7 @@ const BrandPanel = (props: BrandPanelProps) => {
             alt=""
           />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

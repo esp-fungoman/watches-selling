@@ -5,17 +5,71 @@ import { User } from "./user.type";
 const getMe = async () => {
   try {
     const token = localStorage.getItem("token");
-
     if (!token) {
       return;
     }
     const res = await Api({
-      url: "/api/customer/me",
+      url: "/accounts/me",
       method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {  
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
+      },
     });
-    console.log("me", res);
-    if (res.status === 200) {
+
+    if (res.status === "OK") {
+      return res.data;
+    }
+    message.error("Something wrong!");
+    return null;
+  } catch (error: any) {
+    message.error(error?.message);
+    return null;
+  }
+};
+
+const getProfile = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const res = await Api({
+      url: "/customer/profile",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
+      },
+    });
+
+    if (res.status === "OK") {
+      return res.data;
+    }
+    message.error("Something wrong!");
+    return null;
+  } catch (error: any) {
+    message.error(error?.message);
+    return null;
+  }
+};
+const update = async (payload: any) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const res = await Api({
+      url: "/customer/update",
+      method: "PUT",
+      headers: {  
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
+      },
+      data: payload
+    });
+
+    if (res.status === "OK") {
       return res.data;
     }
     message.error("Something wrong!");
@@ -47,4 +101,4 @@ const subscribeNewsletter = async (email: string) => {
   }
 };
 
-export default { getMe, subscribeNewsletter };
+export default { getMe, subscribeNewsletter, update, getProfile };

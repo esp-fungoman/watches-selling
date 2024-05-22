@@ -1,13 +1,12 @@
 export interface User {
-  blocked?: boolean;
-  confirmed?: true;
-  createdAt: string;
-  email: string;
-  google_id?: string;
-  id: number;
-  phone_number: string;
-  provider?: string;
-  updatedAt: string;
-  username?: string;
-  avatar_url?: string;
+  taxCode?: string;
+  address: string;
+  citizendId?: string;
+  dateOfBirth: Date;
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
+  id: string;
+  phoneNumber?: string;
+  photo?: string;
 }
