@@ -74,7 +74,7 @@ const Cart = () => {
         messageApi.error("Vui lòng chọn ít nhất 1 sản phẩm!");
       }
       await OrderApi.create({
-        name: modalData.full_name,
+        name: modalData?.full_name,
         address:
           modalData?.address +
           ", " +
