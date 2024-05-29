@@ -72,13 +72,11 @@ const Cart = () => {
 
       const itemIds = selectedItems.map((item) => item.id);
 
-      if (itemIds.length === 0) {
-        messageApi.error("Vui lòng chọn ít nhất 1 sản phẩm!");
-      }
-      console.log(1);
-
       if (!modalData?.full_name || !modalData?.phone_number) {
         messageApi.error("Vui lòng nhập đầy đủ thông tin!");
+        setLoading(false);
+      } else if (itemIds.length === 0) {
+        messageApi.error("Vui lòng chọn ít nhất 1 sản phẩm!");
         setLoading(false);
       } else {
         await OrderApi.create({

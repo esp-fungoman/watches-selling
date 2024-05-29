@@ -64,7 +64,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       />
       <Input
         label="Password"
-        placeholder="Enter your pasword"
+        placeholder="Nhập mật khẩu"
         showEyeIcon
         {...formik.getFieldProps("password")}
         error={formik.touched.password && formik.errors.password}
@@ -72,7 +72,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
 
       <Input
         label="Confirm password"
-        placeholder="Enter your pasword again"
+        placeholder="Xác nhận mật khẩu"
         showEyeIcon
         {...formik.getFieldProps("confirmPassword")}
         error={formik.touched.confirmPassword && formik.errors.confirmPassword}
@@ -84,15 +84,14 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
           className="flex-1"
           onClick={formik.submitForm}
         >
-          Sign Up
-        </Button>
+Đăng ký        </Button>
         <Button
           className="flex-1"
           type="text"
           variant="danger"
           onClick={onCancel}
         >
-          Cancel
+          Huỷ
         </Button>
       </div>
     </div>

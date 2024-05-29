@@ -1,4 +1,3 @@
-
 import { message } from "antd";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -28,15 +27,13 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   return (
     <ModalContainer centered open={open} onCancel={handleClose} footer={null}>
       <div className="flex flex-col gap-3 my-6">
-        <p className="text-xl text-center font-semibold">
-          Are you sure you want to sign out?
-        </p>
+        <p className="text-xl text-center font-semibold">Xác nhận đăng xuất?</p>
         <div className="flex gap-6 items-center mt-6">
           <Button className="flex-1" onClick={handleSignOut}>
-            Sign out
+            Đăng xuất
           </Button>
           <Button type="outlined" className="flex-1" onClick={handleClose}>
-            Cancel
+            Huỷ{" "}
           </Button>
         </div>
       </div>

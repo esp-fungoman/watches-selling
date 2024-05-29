@@ -38,7 +38,7 @@ const Search: FC<SearchProps> = ({ className }) => {
     <Input
       containerClassName={className}
       className="!bg-transparent !rounded-[32px]"
-      placeholder="Search"
+      placeholder="Tìm kiém"
       prefix={<Icon size={20} name="new-search" />}
       value={search}
       onClear={() => {

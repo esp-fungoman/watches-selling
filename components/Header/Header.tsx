@@ -50,7 +50,7 @@ const Header = () => {
             </Link>
             {/* <div onClick={() => router.push("/product")} >Product</div> */}
             <Link href="/product">
-              <p className="ml-8 text-xl font-semibold cursor-pointer">Product</p>
+              <p className="ml-8 text-xl font-semibold cursor-pointer w-full">Sản phẩm</p>
             </Link>
             <div className={styles.search_bar}>
               {/* <input
@@ -84,7 +84,7 @@ const Header = () => {
                           className="gap-1 w-[100px]"
                           onClick={() => setOpenSignOut(true)}
                         >
-                          Sign out <Icon name="logout" size={24} />
+                         Đăng xuất <Icon name="logout" size={24} />
                         </Button>
                         <Button
                           type="outlined"

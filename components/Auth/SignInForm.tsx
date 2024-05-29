@@ -55,7 +55,7 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
         "!flex": !isShowModalForgotPassword,
       })}
     >
-      <h3 className="text-center font-semibold text-2xl">Sign In</h3>
+      <h3 className="text-center font-semibold text-2xl">Đăng nhập</h3>
       <Input
         label="Email"
         placeholder="Nhập email của bạn"
@@ -76,13 +76,13 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
             setIsShowModalForgotPassword(true);
           }}
         >
-          Forgot password?
+          Quên mật khẩu?{" "}
         </div>
       </div>
 
       <div className="flex gap-4 mt-8">
         <Button className="flex-1" onClick={formik.submitForm}>
-          Sign In
+          Đăng nhập{" "}
         </Button>
         <Button
           className="flex-1"
@@ -90,7 +90,7 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
           variant="danger"
           onClick={onCancel}
         >
-          Cancel
+          Huỷ{" "}
         </Button>
       </div>
       <ForgotPasswordModal

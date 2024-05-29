@@ -118,7 +118,7 @@ const ProductListing: NextPage = () => {
         <div className="w-full container flex justify-start gap-8 mt-8">
           {isArray(typeList) && (
             <div className="w-[280px] flex items-center gap-3">
-              Type:
+              Loại:
               <Select
                 allowClear
                 className="w-full"
@@ -140,7 +140,7 @@ const ProductListing: NextPage = () => {
           )}
           {isArray(brandList) && (
             <div className="w-[280px] flex items-center gap-3">
-              Brand:
+              Hãng:
               <Select
                 allowClear
                 className="w-full"
@@ -161,7 +161,7 @@ const ProductListing: NextPage = () => {
           )}
 
           <div className="w-[280px] flex items-center justify-between gap-3">
-            Price:{" "}
+            Giá:{" "}
             <Select
               allowClear
               className="w-full"
@@ -179,7 +179,7 @@ const ProductListing: NextPage = () => {
         </div>
 
         <SectionLayout
-          title="Deal"
+          title="Danh sách sản phẩm"
           show={true}
           showAll={false}
           containerClassname="container"
