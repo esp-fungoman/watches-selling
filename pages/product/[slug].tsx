@@ -23,20 +23,20 @@ const ProductDetail = () => {
   const [watchList, setWatchList] = useState<any[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
+
   useEffect(() => {
     const id = router?.asPath?.split("/")[2] as string;
     if (id && id !== "[slug]") {
       WatchApi.detail(id).then((res) => setWatch(res));
     }
   }, [router]);
+
   const [pagination, setPagination] = useState<any>({
     page: 1,
     pageSize: 5,
     total: 10,
   });
-  useEffect(() => {
 
-  })
   useEffect(() => {
     const getWatchList = async () => {
       let params = {
@@ -47,24 +47,33 @@ const ProductDetail = () => {
       if (watchListData) {
         setWatchList(watchListData.watches);
       }
-    }
+    };
     getWatchList();
-  }, [])
+  }, [pagination]);
 
   const handleAddToCart = async () => {
     try {
-      await CartDetailApi.create({ watchId: watch.id, price: watch.price, quantity }).then((res: any) => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        messageApi.warning("Please login to add items to the cart.");
+        return;
+      }
+
+      await CartDetailApi.create({
+        watchId: watch.id,
+        price: watch.price,
+        quantity,
+      }).then((res: any) => {
         if (res) {
-          messageApi.success("Thêm vào giỏ hàng thành công");
+          messageApi.success("Added to cart successfully.");
         }
-      })
-    }
-    catch (error: any) {
+      });
+    } catch (error: any) {
       messageApi.error(error.message);
     }
-  }
-  const handleQuantityChange = (amount: number) => {
+  };
 
+  const handleQuantityChange = (amount: number) => {
     const newQuantity = Math.max(1, quantity + amount); // Ensure quantity is not less than 1
     setQuantity(newQuantity);
   };
@@ -72,8 +81,10 @@ const ProductDetail = () => {
   const onChangeQty = (value: any) => {
     setQuantity(value);
   };
+
   return (
     <div className="bg-[#FAFAFA] py-[100px]">
+      {contextHolder}
       <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px]">
         <div className={styles.img_wrapper}>
           <Image layout="fill" src={watch?.photo} alt="product" />
@@ -89,8 +100,12 @@ const ProductDetail = () => {
           <h2 className={styles.title}>{watch?.name}</h2>
           <div className={styles.price}>{formatPrice(watch?.price)}đ</div>
           <div>{watch?.description}</div>
-          <div className="flex justfiy-start items-center gap-2">Type: <div>{watch.type?.name}</div></div>
-          <div className="flex justfiy-start items-center gap-2">Brand: <div>{watch.brand?.name}</div></div>
+          <div className="flex justfiy-start items-center gap-2">
+            Type: <div>{watch.type?.name}</div>
+          </div>
+          <div className="flex justfiy-start items-center gap-2">
+            Brand: <div>{watch.brand?.name}</div>
+          </div>
           <div className="flex flex-row gap-4">
             <div className="flex items-center mt-2 gap-2">
               <button
@@ -118,9 +133,10 @@ const ProductDetail = () => {
         containerClassname="container"
       >
         <Carousel responsive={productPanelResponsive} show={true}>
-          {watchList.length > 0 && watchList.map((item: any, index: any) => (
-            <ProductPanel key={index} product={item} />
-          ))}
+          {watchList.length > 0 &&
+            watchList.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
         </Carousel>
       </SectionLayout>
     </div>

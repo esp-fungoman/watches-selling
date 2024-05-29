@@ -27,10 +27,10 @@ const Cart = () => {
   useEffect(() => {
     CartDetailApi.list().then((res) => {
       if (res) {
-        setItems(res)
+        setItems(res);
       }
-    })
-  }, [])
+    });
+  }, []);
   useEffect(() => {
     setFilteredItems(items.filter((item) => checkedList.includes(item.title)));
   }, [checkedList, items]);
@@ -39,15 +39,12 @@ const Cart = () => {
   const indeterminate =
     checkedList.length > 0 && checkedList.length < items.length;
 
-
-
   const [itemIdToRemove, setItemIdToRemove] = useState<string | null>(null);
 
   const handleRemoveItem = (itemId: string) => {
     setItemIdToRemove(itemId);
     setIsShowModalConfirm(true);
   };
-
 
   const onCheckAllChange: CheckboxProps["onChange"] = (e) => {
     setCheckedList(e.target.checked ? items.map((item) => item.title) : []);
@@ -57,14 +54,14 @@ const Cart = () => {
 
   const handleCreateOrder = async () => {
     try {
-
-      const selectedItems = items.filter((item) => checkedList.includes(item.title));
+      const selectedItems = items.filter((item) =>
+        checkedList.includes(item.title)
+      );
 
       const itemIds = selectedItems.map((item) => item.id);
       if (itemIds.length > 0) {
         await OrderDetailApi.create(orderId as string, itemIds);
-      }
-      else {
+      } else {
         messageApi.error("Please select at least 1 item");
       }
     } catch (error) {
@@ -78,14 +75,14 @@ const Cart = () => {
       prevItems.map((item) =>
         item.id === itemId
           ? {
-            ...item,
-            quantity:
-              item.quantity >= 1 && amount === 1
-                ? item.quantity + 1
-                : item.quantity > 1 && amount === -1
+              ...item,
+              quantity:
+                item.quantity >= 1 && amount === 1
+                  ? item.quantity + 1
+                  : item.quantity > 1 && amount === -1
                   ? item.quantity - 1
                   : item.quantity,
-          }
+            }
           : item
       )
     );
@@ -101,15 +98,12 @@ const Cart = () => {
           price: updatedItem.price,
           quantity: updatedItem.quantity,
         });
-
       } catch (error) {
         messageApi.error("Error updating cart");
       }
     };
 
-
     items.forEach((item) => {
-
       if (item.quantity !== item.originalQuantity) {
         const timer = setTimeout(() => {
           updateCartItem(item.id);
@@ -119,9 +113,6 @@ const Cart = () => {
       }
     });
   }, [items]); // Watch for changes in the items state
-
-
-
 
   const getTotalQuantity = (items: any) => {
     return items.reduce((total: any, item: any) => total + item.quantity, 0);
@@ -221,14 +212,18 @@ const Cart = () => {
               Tổng thanh toán ({getTotalQuantity(filteredItems)}):{" "}
               {formatPrice(getTotalPrice(filteredItems))} đ
             </div>
-            <Button className="!w-[200px]" onClick={handleCreateOrder}>Mua hàng</Button>
+            <Button className="!w-[200px]" onClick={handleCreateOrder}>
+              Mua hàng
+            </Button>
           </div>
         </div>
         <div className="bg-white py-3 px-7 w-full flex-col flex  gap-4">
           <div className="flex justify-between">
             <div className="flex  gap-4 ">
               <Icon name="location" size={24} />
-              <div className="text-2xl font-semibold text-[#d8342b]">Địa chỉ giao hàng</div>
+              <div className="text-2xl font-semibold text-[#d8342b]">
+                Địa chỉ giao hàng
+              </div>
             </div>
             <Icon name="edit" size={24} onClick={() => setIsShowModal(true)} />
           </div>
@@ -260,7 +255,7 @@ const Cart = () => {
         addOrderId={(e) => setOrderId(e)}
         onClose={() => setIsShowModal(false)}
         onOpen={(data) => {
-          console.log('datamodal', data);
+          console.log("datamodal", data);
 
           setModalData(data);
           setIsShowModal(false);
@@ -272,7 +267,7 @@ const Cart = () => {
         titleConfirm="XOÁ"
         onOk={async () => {
           if (itemIdToRemove) {
-            console.log('itemIdToRemove', itemIdToRemove);
+            console.log("itemIdToRemove", itemIdToRemove);
             try {
               await CartDetailApi.remove(itemIdToRemove);
               messageApi.success("Xóa sản phẩm thành công");
