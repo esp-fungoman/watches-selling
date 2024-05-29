@@ -50,7 +50,7 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
     setFormData(personalInfo);
   }, [personalInfo]);
 
-  const handleInputChange = (key: string, value: string) => {
+  const handleInputChange = (key: string, value: any) => {
     setFormData((prevData) => ({
       ...prevData,
       [key]: value,
@@ -134,6 +134,9 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
             format(new Date(formData.dateOfBirth as Date), "dd/MM/yyyy"),
             dateFormat
           )}
+          onChange={(date) =>
+            handleInputChange("dateOfBirth", date ? date.toDate() : null)
+          }
           format={dateFormat}
         />
       </div>

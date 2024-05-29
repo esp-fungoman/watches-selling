@@ -5,6 +5,7 @@ import AccountAddressNotLogin from "../../components/AccountAddress/NotLogin/Acc
 import AccountChangPassword from "../../components/AccountChangePassword/AccountChangePassword";
 import { useEffect, useState } from "react";
 import { UserApi } from "../../services/user";
+import { log } from "util";
 
 const AccountPage = () => {
   const [profile, setProfile] = useState<any>();
@@ -12,6 +13,8 @@ const AccountPage = () => {
     const getProfile = async () => {
       const data = await UserApi.getProfile();
       if (data) {
+        console.log('data', data);
+        
         setProfile(data);
       }
     };
