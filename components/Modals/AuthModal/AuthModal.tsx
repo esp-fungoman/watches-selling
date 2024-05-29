@@ -14,12 +14,12 @@ const AuthModal: FC<AuthModalProps> = ({ activeTab, open, onClose }) => {
   const items = [
     {
       key: "sign-in",
-      label: "Sign In",
+      label: "Đăng nhập",
       children: <SignInForm onCancel={onClose} />,
     },
     {
       key: "sign-up",
-      label: "Sign Up",
+      label: "Đăng ký",
       children: <SignUpForm onCancel={onClose} />,
     },
   ];

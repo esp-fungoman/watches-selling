@@ -15,6 +15,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   open,
   handleClose,
 }) => {
+  const router = useRouter();
   const resetUser = useResetRecoilState(UserAtom.currentUser);
 
   const handleSignOut = () => {
@@ -22,6 +23,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
     resetUser();
     message.success("Đăng xuất thành công!");
     handleClose();
+    router.push("/");
   };
 
   return (

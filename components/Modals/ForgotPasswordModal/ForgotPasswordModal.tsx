@@ -46,7 +46,7 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
 
   return (
     <Modal
-      title="Forgot Password"
+      title="Quên mật khẩu"
       visible={isVisible}
       onCancel={onClose}
       footer={null}
@@ -71,7 +71,7 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
               className="flex-1"
               loading={loading}
             >
-              Recover Password
+              Khôi phục mật khẩu
             </Button>
             <Button
               className="flex-1"
@@ -79,7 +79,7 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
               variant="danger"
               onClick={onClose}
             >
-              Cancel
+              Huỷ{" "}
             </Button>
           </div>
         </form>
