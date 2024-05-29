@@ -73,35 +73,39 @@ const Cart = () => {
       if (itemIds.length === 0) {
         messageApi.error("Vui lòng chọn ít nhất 1 sản phẩm!");
       }
-      await OrderApi.create({
-        name: modalData?.full_name,
-        address:
-          modalData?.address +
-          ", " +
-          modalData?.ward_label +
-          ", " +
-          modalData?.district_label +
-          ", " +
-          modalData?.province_label,
-        phoneNumber: modalData?.phone_number,
-        taxCode: modalData?.tax_code,
-        orderDetails: itemIds,
-      }).then((res) => {
-        if (res) {
-          setLoading(false);
-          messageApi.success("Đặt hàng thành công. Vui lòng kiểm tra email");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
-      });
+      if (modalData.full_name && modalData.phone_number) {
+        await OrderApi.create({
+          name: modalData?.full_name,
+          address:
+            modalData?.address +
+            ", " +
+            modalData?.ward_label +
+            ", " +
+            modalData?.district_label +
+            ", " +
+            modalData?.province_label,
+          phoneNumber: modalData?.phone_number,
+          taxCode: modalData?.tax_code,
+          orderDetails: itemIds,
+        }).then((res) => {
+          if (res) {
+            setLoading(false);
+            messageApi.success("Đặt hàng thành công. Vui lòng kiểm tra email");
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        messageApi.error("Vui lòng điền đầy đủ thông tin");
+      }
       // if (itemIds.length > 0) {
       //   await OrderDetailApi.create(orderId as string, itemIds);
       // } else {
       //   messageApi.error("Please select at least 1 item");
       // }
     } catch (error: any) {
-      setLoading(false)
+      setLoading(false);
       messageApi.error(error?.message);
     }
   };
