@@ -55,6 +55,8 @@ const signIn = async (dataParams: SignInPayload) => {
       return null;
     }
   } catch (error) {
+    console.log('errror', error);
+    
     message.error(error?.message);
   }
 };
@@ -91,6 +93,7 @@ const resetPassword = async (data: ResetPasswordPayload) => {
     message.error("Something wrong!");
     return null;
   } catch (error: any) {
+    
     message.error(error?.message);
     return null;
   }

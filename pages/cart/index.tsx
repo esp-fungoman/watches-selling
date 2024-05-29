@@ -65,15 +65,22 @@ const Cart = () => {
   const handleCreateOrder = async () => {
     try {
       setLoading(true);
+
       const selectedItems = items.filter((item) =>
         checkedList.includes(item.watch.name)
       );
 
       const itemIds = selectedItems.map((item) => item.id);
+
       if (itemIds.length === 0) {
         messageApi.error("Vui lòng chọn ít nhất 1 sản phẩm!");
       }
-      if (modalData.full_name && modalData.phone_number) {
+      console.log(1);
+
+      if (!modalData?.full_name || !modalData?.phone_number) {
+        messageApi.error("Vui lòng nhập đầy đủ thông tin!");
+        setLoading(false);
+      } else {
         await OrderApi.create({
           name: modalData?.full_name,
           address:
@@ -96,14 +103,7 @@ const Cart = () => {
             }, 1000);
           }
         });
-      } else {
-        messageApi.error("Vui lòng điền đầy đủ thông tin");
       }
-      // if (itemIds.length > 0) {
-      //   await OrderDetailApi.create(orderId as string, itemIds);
-      // } else {
-      //   messageApi.error("Please select at least 1 item");
-      // }
     } catch (error: any) {
       setLoading(false);
       messageApi.error(error?.message);

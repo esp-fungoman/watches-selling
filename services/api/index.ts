@@ -37,7 +37,7 @@ Api.interceptors.response.use(
     console.log('err',err);
 
     const status = err?.response?.status;
-    const message = err?.response?.data?.message;
+    const message = err?.response?.data?.message || err?.response?.data?.description
     if (status === 401 || status === 403) {
       localStorage.removeItem("token");
       // window.location.href = "/sign-in";
