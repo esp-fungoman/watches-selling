@@ -4,9 +4,14 @@
   position: relative;
   padding: 20px 30px;
   margin: 0 6px;
-  .image{
-    width: 100%;
-    border-radius: 16px;
+  .image_wrapper {
+    width: 165px;
+    aspect-ratio: 1/1;
+    position: relative;
+    .image{
+      width: 100%;
+      border-radius: 16px;
+    }
   }
   .top_tag{
     position: absolute;

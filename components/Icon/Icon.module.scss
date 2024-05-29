@@ -1,5 +1,4 @@
-@import "styles/variables.scss";
-
-:export {
-  defaultColor: $bg-700;
+.icon {
+  flex-shrink: 0;
+  cursor: pointer;
 }

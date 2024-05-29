@@ -102,7 +102,7 @@ const footer_items = {
     }
   },
   column4: {
-    content: "www.cherict.com là kênh mua sắm mỹ phẩm, làm đẹp hàng đầu Việt Nam được các beauty blogger lựa chọn để giới thiệu sản phẩm họ yêu thích tới khách hàng, người hâm mộ.",  
+    content: "",  
     social_button: [
       {
         icon: "twitter-grey",
@@ -145,7 +145,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className={styles.lower_section}>
+        {/* <div className={styles.lower_section}>
           <div className={styles.sm_column_group}>
             <div className={styles.sm_column}>
               <div className={styles.title}>{footer_items.column1.title}</div>
@@ -208,7 +208,7 @@ const Footer = () => {
           <div>
             <Image src="/assets/footer/license.png" width={100} height={35} alt="" />
           </div>
-        </div>
+        </div> */}
         
         <div className={styles.license}>
           <div className={styles.image}>

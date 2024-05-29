@@ -1,73 +1,94 @@
-import styles from './AccountEditInfo.module.scss';
-import Input from '../Input/Input';
-import DatePicker from '../DatePicker/DatePicker';
-import Button from '../Button/Button';
-import Image from 'next/image';
-import Icon from '../Icon/Icon';
-import Title from '../Title/Title';
-import defaultAvatar from '../../public/images/default-avatar.svg';
-import { useState } from 'react';
-import Select from '../Select/Select';
-import classNames from 'classnames';
+import classNames from "classnames";
+import { useEffect, useState } from "react";
+import Button from "../Button/Button";
+import Input from "../Input/Input";
+import Select from "../Select/Select";
+import Title from "../Title/Title";
+import styles from "./AccountEditInfo.module.scss";
+import { DatePicker, message } from "antd";
+import dayjs from "dayjs";
+import { format } from "date-fns";
+import { UserApi } from "../../services/user";
+import { useRouter } from "next/router";
 
 interface AccountEditInfoProps {
   personalInfo: {
-    email: string;
-    name: string;
-    phone: string;
-    img: string;
-    // date?: Date;
+    id: string;
+    citizenId: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    gender: string;
+    dateOfBirth: Date | null;
+    address: string;
+    taxCode: string;
+    isDeleted: boolean;
+    photo?: string;
+    account: {
+      id: string;
+      username: string;
+      email: string;
+      role: string;
+      isDeleted: boolean;
+    };
   };
+  className?: string;
 }
 
 const AccountEditInfo = (props: AccountEditInfoProps) => {
-  const { personalInfo } = props;
+  const router = useRouter();
+  const { personalInfo, className } = props;
+  const [data, setData] =
+    useState<AccountEditInfoProps["personalInfo"]>(personalInfo);
+  const [formData, setFormData] =
+    useState<AccountEditInfoProps["personalInfo"]>(personalInfo);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const [data, setData] = useState<{
-    email: string;
-    img: string;
-    name: string;
-    phone: string;
-    // date?: Date;
-  }>(personalInfo || {});
+  useEffect(() => {
+    setData(personalInfo);
+    setFormData(personalInfo);
+  }, [personalInfo]);
 
-  const gender = [
-    {
-        label: "Male",
-        value: "Male",
-    },
-    {
-        label: "Female",
-        value: "Female",
-    }
-  ]
+  const handleInputChange = (key: string, value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const handleSave = async () => {
+    // Implement save functionality
+    console.log("Saving data:", formData);
+    await UserApi.update(formData).then((res) => {
+      if (res) {
+        messageApi.success("Successfully saved!");
+      } else {
+        message.error("Error saving");
+      }
+    });
+
+    // Reset the changed state
+    setIsChanged(false);
+  };
+
+  const genderOptions = [
+    { label: "Nam", value: "Nam" },
+    { label: "Nữ", value: "Nữ" },
+  ];
+
+  const dateFormat = "DD/MM/YYYY";
 
   return (
-    <section className={styles.wrapper}>
-      <Title content="Chỉnh sửa thông tin cá nhân" />
-      <div className={styles.row1}>
-        <div className={styles.img}>
-          <Image
-            src={data.img || defaultAvatar}
-            alt="avatar"
-            width={72}
-            height={72}
-            layout="fill"
-          />
-        </div>
-        <Button
-          variant="basic"
-          width={262}
-          height={50}
-          text="Thay đổi ảnh đại diện"
-        />
-      </div>
+    <section className={classNames(styles.wrapper, className)}>
+      <Title content="Thông tin cá nhân" />
       <div className={styles.row2}>
         <p className={styles.text}>Email đăng nhập</p>
         <Input
           width={532}
           height={48}
-          value={data.email}
+          defaultValue={formData.account.email}
+          onChange={(e) => handleInputChange("account.email", e.target.value)}
           className={styles.input}
         />
       </div>
@@ -76,7 +97,13 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
         <Input
           width={532}
           height={48}
-          value={data.name}
+          defaultValue={`${formData.firstName} ${formData.lastName}`}
+          onChange={(e) => {
+            const [firstName, ...rest] = e.target.value.split(" ");
+            const lastName = rest.join(" "); // Join the remaining parts to get the last name
+            handleInputChange("firstName", firstName);
+            handleInputChange("lastName", lastName);
+          }}
           className={styles.input}
         />
       </div>
@@ -85,29 +112,43 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
         <Input
           width={532}
           height={48}
-          value={data.email}
+          value={formData.phoneNumber}
+          onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
           className={styles.input}
         />
       </div>
       <div className={styles.row2}>
         <p className={styles.text}>Ngày sinh</p>
         <DatePicker
-          variant="filled"
-          suffixIcon={true}
-          className={classNames(styles.input, styles.date)}
+          defaultValue={dayjs(
+            format(new Date(formData.dateOfBirth as Date), "dd/MM/yyyy"),
+            dateFormat
+          )}
+          format={dateFormat}
         />
       </div>
       <div className={styles.row2}>
         <p className={styles.text}>Giới tính</p>
-        <Select width={532} options={gender} defaultValue={gender[0]} className={styles.input} />
+        <Select
+          width={532}
+          options={genderOptions}
+          value={formData.gender}
+          onChange={(value) => handleInputChange("gender", value)}
+          className={styles.input}
+        />
       </div>
-      <Button
-        className={styles.btn}
-        variant="basic"
-        width={241}
-        height={50}
-        text="Cập nhật thông tin"
-      />
+      <div className="flex justify-around gap-4 items-center">
+        <Button className={styles.btn} onClick={handleSave}>
+          Cập nhật thông tin
+        </Button>
+        <Button
+          className={styles.btn}
+          onClick={() => router.push("/account/change-password")}
+        >
+          Thay đổi mật khẩu{" "}
+        </Button>
+      </div>
+      {contextHolder}
     </section>
   );
 };
