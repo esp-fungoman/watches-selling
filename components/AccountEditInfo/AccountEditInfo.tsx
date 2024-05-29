@@ -63,8 +63,6 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
     await UserApi.update(formData).then((res) => {
       if (res) {
         messageApi.success("Lưu thành công!");
-      } else {
-        message.error("Đã có lỗi");
       }
     });
 
