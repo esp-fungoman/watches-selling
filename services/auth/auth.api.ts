@@ -55,7 +55,7 @@ const signIn = async (dataParams: SignInPayload) => {
       return null;
     }
   } catch (error) {
-    message.error(`Error: ${error}`);
+    message.error(error?.message);
   }
 };
 
