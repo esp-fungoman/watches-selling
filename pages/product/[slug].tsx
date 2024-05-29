@@ -29,6 +29,7 @@ const ProductDetail = () => {
     if (id && id !== "[slug]") {
       WatchApi.detail(id).then((res) => setWatch(res));
     }
+    setQuantity(1)
   }, [router]);
 
   const [pagination, setPagination] = useState<any>({
@@ -55,7 +56,9 @@ const ProductDetail = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        messageApi.warning("Please login to add items to the cart.");
+        messageApi.warning(
+          "Vui lòng đăng nhập để thêm sản phẩm này vào giỏ hàng."
+        );
         return;
       }
 
@@ -65,7 +68,7 @@ const ProductDetail = () => {
         quantity,
       }).then((res: any) => {
         if (res) {
-          messageApi.success("Added to cart successfully.");
+          messageApi.success("Thêm vào giỏ hàng thành công.");
         }
       });
     } catch (error: any) {
@@ -85,7 +88,7 @@ const ProductDetail = () => {
   return (
     <div className="bg-[#FAFAFA] py-[100px]">
       {contextHolder}
-      <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px]">
+      <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px] gap-8">
         <div className={styles.img_wrapper}>
           <Image layout="fill" src={watch?.photo} alt="product" />
         </div>
@@ -98,7 +101,7 @@ const ProductDetail = () => {
               ))} */}
           </div>
           <h2 className={styles.title}>{watch?.name}</h2>
-          <div className={styles.price}>{formatPrice(watch?.price)}đ</div>
+          <div className={styles.price}>{formatPrice(watch?.price)}</div>
           <div>{watch?.description}</div>
           <div className="flex justfiy-start items-center gap-2">
             Type: <div>{watch.type?.name}</div>

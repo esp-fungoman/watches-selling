@@ -7,16 +7,16 @@ import classNames from "classnames";
 const footer_logo_items = [
   {
     icon: "footer-delivery",
-    content: "Giao hàng miễn phí trong nội thành"
+    content: "Giao hàng miễn phí trong nội thành",
   },
   {
     icon: "footer-authentic",
-    content: "100% sản phẩm chính hãng"
+    content: "100% sản phẩm chính hãng",
   },
   {
     icon: "footer-return",
-    content: "Hoàn trả trong 7 ngày" 
-  }
+    content: "Hoàn trả trong 7 ngày",
+  },
 ];
 
 const footer_items = {
@@ -26,103 +26,103 @@ const footer_items = {
     items: [
       {
         content: "Beauty Box",
-        link: "#"
+        link: "#",
       },
       {
         content: "Beauty Box",
-        link: "#"
+        link: "#",
       },
       {
         content: "Beauty Box",
-        link: "#"
+        link: "#",
       },
       {
         content: "Beauty Box",
-        link: "#"
+        link: "#",
       },
       {
         content: "Beauty Box",
-        link: "#"
+        link: "#",
       },
       {
         content: "Beauty Box",
-        link: "#"
-      }
-    ]
+        link: "#",
+      },
+    ],
   },
   column2: {
     title: "Thông tin & Hướng dẫn",
     items: [
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
+        link: "#",
       },
       {
         content: "Về CheriCT",
-        link: "#"
-      }
-    ]
+        link: "#",
+      },
+    ],
   },
   column3: {
     title: "Săn thưởng cùng với CheriCT Members",
     member_card: [
       {
-        link:"/assets/footer/gold_member.png"
+        link: "/assets/footer/gold_member.png",
       },
       {
-        link:"/assets/footer/gold_member.png"
+        link: "/assets/footer/gold_member.png",
       },
       {
-        link:"/assets/footer/gold_member.png"
-      }
+        link: "/assets/footer/gold_member.png",
+      },
     ],
     button: {
       content: "Tìm hiểu thêm",
-      link: "#"
-    }
+      link: "#",
+    },
   },
   column4: {
-    content: "",  
+    content: "",
     social_button: [
       {
         icon: "twitter-grey",
-        link: "#" 
+        link: "#",
       },
       {
         icon: "facebook-grey",
-        link: "#" 
+        link: "#",
       },
       {
         icon: "instagram-grey",
-        link: "#" 
+        link: "#",
       },
       {
         icon: "youtube-grey",
-        link: "#" 
-      }
-    ]
-  }
-}
+        link: "#",
+      },
+    ],
+  },
+};
 
 const Footer = () => {
   const router = useRouter();
@@ -134,7 +134,7 @@ const Footer = () => {
           <div className={styles.icon_items}>
             {footer_logo_items.map((item: any, index: any) => (
               <div className={styles.item} key={index}>
-                <Icon icon={item.icon} size={50}/>
+                <Icon icon={item.icon} size={50} />
                 <div className={styles.content}>{item.content}</div>
               </div>
             ))}
@@ -209,19 +209,9 @@ const Footer = () => {
             <Image src="/assets/footer/license.png" width={100} height={35} alt="" />
           </div>
         </div> */}
-        
-        <div className={styles.license}>
-          <div className={styles.image}>
-            <Image src="/assets/footer/license.png" width={100} height={35} alt="" />
-          </div>
-          <div>
-            <div>CheriCT 2020 - 2028 | Privacy Policy | Made by CheriCT</div>
-            <div>Giấy chứng nhận ĐKKD số 0314414731 do Sở Kế hoạch và Đầu tư Tp. HCM cấp ngày 19/05/2017</div>
-          </div>
-        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

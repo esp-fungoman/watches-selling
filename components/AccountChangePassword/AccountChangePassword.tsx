@@ -35,20 +35,13 @@ const AccountChangPassword = (props: AccountChangePasswordProps) => {
       message.error("Mật khẩu xác nhận không đúng");
       return;
     }
-    await AuthApi.changePassword(formData as AccountChangePasswordProps).then(
-      (res) => {
-        if (res) {
-          messageApi.success("Successfully saved!");
-        } else {
-          message.error("Error saving");
-        }
-      }
-    );
+    await AuthApi.changePassword(formData as AccountChangePasswordProps);
 
     // Reset the changed state
   };
   return (
     <section className={styles.wrapper}>
+      {contextHolder}
       <Title content="Đổi mật khẩu" />
       <div className={styles.row}>
         <p className={styles.text}>Mật khẩu cũ (*)</p>

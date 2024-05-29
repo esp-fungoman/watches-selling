@@ -11,6 +11,7 @@ import styles from "./Auth.module.scss";
 import { AuthApi } from "../../services/auth";
 import useAuth from "../../hooks/useAuth";
 import ForgotPasswordModal from "../Modals/ForgotPasswordModal/ForgotPasswordModal";
+import classNames from "classnames";
 
 interface SignInFormProps {
   onCancel?: () => void;
@@ -19,14 +20,14 @@ interface SignInFormProps {
 const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
   const checkAuth = useAuth();
   const [isShowModalForgotPassword, setIsShowModalForgotPassword] =
-    useState(true);
+    useState(false);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { email: "", password: "" },
     validate: (values) => {
       const errors: Record<string, string> = {};
       if (!values.email.trim()) {
-        errors.email = "Enter your email";
+        errors.email = "Nhập email của bạn";
       }
 
       if (!values.password.trim()) {
@@ -48,11 +49,16 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
   });
 
   return (
-    <div className={styles.sign_in_form}>
+    <div
+      className={classNames(styles.sign_in_form, {
+        "!hidden": isShowModalForgotPassword,
+        "!flex": !isShowModalForgotPassword,
+      })}
+    >
       <h3 className="text-center font-semibold text-2xl">Sign In</h3>
       <Input
         label="Email"
-        placeholder="Enter your email"
+        placeholder="Nhập email của bạn"
         {...formik.getFieldProps("email")}
         error={formik.touched.email && formik.errors.email}
       />
@@ -64,7 +70,12 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
           {...formik.getFieldProps("password")}
           error={formik.touched.password && formik.errors.password}
         />
-        <div className="cursor-pointer" onClick={() => setIsShowModalForgotPassword(true)}>
+        <div
+          className="cursor-pointer"
+          onClick={() => {
+            setIsShowModalForgotPassword(true);
+          }}
+        >
           Forgot password?
         </div>
       </div>

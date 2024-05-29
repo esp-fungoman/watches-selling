@@ -22,7 +22,7 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
     validate: (values) => {
       const errors: Record<string, string> = {};
       if (!values.email.trim()) {
-        errors.email = "Enter your email";
+        errors.email = "Nhập email của bạn";
       } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
       ) {
@@ -34,12 +34,12 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
       setLoading(true);
       const res = await AuthApi.recoverPassword({ email: values.email });
       setLoading(false);
-      console.log('res', res)
+      console.log("res", res);
       if (res) {
-        message.success("Recovery email sent!");
+        message.success("Vui lòng kiểm tra email!");
         onClose();
       } else {
-        message.error("Failed to send recovery email.");
+        message.error("Gửi email thất bại.");
       }
     },
   });
@@ -51,13 +51,13 @@ const ForgotPasswordModal: FC<ForgotPasswordModalProps> = ({
       onCancel={onClose}
       footer={null}
       centered
-    //   className="he"
+      //   className="he"
     >
       <div className={styles.forgot_password_modal}>
         <form onSubmit={formik.handleSubmit}>
           <Input
             label="Email"
-            placeholder="Enter your email"
+            placeholder="Nhập email của bạn"
             {...formik.getFieldProps("email")}
             error={formik.touched.email && formik.errors.email}
           />

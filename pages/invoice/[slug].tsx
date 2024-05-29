@@ -75,33 +75,33 @@ const InvoiceDetail = () => {
       <div className={styles.wrapper}>
         <div className={styles.body}>
           <div className="w-full text-center font-semibold text-4xl mb-4">
-            INVOICE
+            HOÁ ĐƠN
           </div>
           <div className="flex flex-col w-full">
             <div className="flex justify-start mb-2">
               <div className="flex gap-3 flex-1">
-                <div className="font-bold ">Receiver Name:</div>
-                <div>{data.receiverName}</div>
+                <div className="font-bold ">Người nhận:</div>
+                <div>{data?.receiverName}</div>
               </div>
               <div className="flex gap-3 w-[250px] justify-start">
-                <div className="font-bold ">Phone Number:</div>
-                <div>{data.receiverPhoneNumber}</div>
+                <div className="font-bold ">Số điện thoại:</div>
+                <div>{data?.receiverPhoneNumber}</div>
               </div>
             </div>
             <div className="flex justify-start mb-2">
               <div className="flex gap-3 flex-1">
-                <div className="font-bold ">Bill To:</div>
-                <div>{data.receiverAddress}</div>
+                <div className="font-bold ">Gửi đến:</div>
+                <div>{data?.receiverAddress}</div>
               </div>
               <div className="flex gap-3 justify-start w-[250px]">
-                <div className="font-bold ">Order Date:</div>
-                <div>{format(data.orderDate, "dd/MM/yyyy")}</div>
+                <div className="font-bold ">Ngày đặt:</div>
+                <div>{format(data?.orderDate, "dd/MM/yyyy")}</div>
               </div>
             </div>
             <div className="flex justify-start  ">
               <div className="flex gap-3 w-max">
-                <div className="font-bold ">Delivery Date (estimate)</div>
-                <div>{format(data.estimateDeliveryDate, "dd/MM/yyyy")}</div>
+                <div className="font-bold ">Ngày giao dự kiến</div>
+                <div>{format(data?.estimateDeliveryDate, "dd/MM/yyyy")}</div>
               </div>
             </div>
           </div>

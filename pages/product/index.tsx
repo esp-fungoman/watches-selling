@@ -25,23 +25,22 @@ import { WatchBrandApi } from "../../services/watch-brand";
 const bannerItem = [
   {
     link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fcms.curnonwatch.com%2Fuploads%2FWeb_baca5708ad.jpg&w=1920&q=100",
+    image: require("/public/banner-2.jpeg"),
   },
   {
     link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fshop.curnonwatch.com%2Fmedia%2Fcatalog%2Fcategory%2F_o_ng_ho_Nam_1_2.jpg&w=1920&q=75",
+    image: require("/public/banner-4.jpg"),
   },
   {
     link: "#",
-    image:
-      "https://www.casio.com/content/casio/locales/vn/vi/products/_jcr_content/root/responsivegrid/container_1450128435/carousel_copy_copy/item_1661475191255_c.casiocoreimg.jpeg/1707972573383/hero-pc.jpeg",
+    image: require("/public/banner-6.jpeg"),
   },
 ];
 
 const ProductListing: NextPage = () => {
   const router = useRouter();
+  console.log("router", router);
+
   const [watchList, setWatchList] = useState<any[]>([]);
   const [typeList, setTypeList] = useState<any[]>([
     { label: "metal", value: "metal" },
@@ -67,11 +66,12 @@ const ProductListing: NextPage = () => {
   useEffect(() => {
     const getWatchList = async () => {
       let params = {
-        page:  pagination.page,
+        page: pagination.page,
         size: pagination.pageSize,
         type_id: selectedType || undefined,
         brand_id: selectedBrand || undefined,
         sort_by: selectedPrice || undefined,
+        name: router?.query?.search,
       };
 
       const watchListData = await WatchApi.list(params);
@@ -94,7 +94,7 @@ const ProductListing: NextPage = () => {
         setBrandList(res);
       }
     });
-  }, [pagination.page, selectedBrand, selectedPrice, selectedType]);
+  }, [pagination.page, selectedBrand, selectedPrice, selectedType, router]);
   const handlePageChange = (page: number) => {
     setPagination((prevState: any) => ({ ...prevState, page }));
   };
@@ -161,7 +161,7 @@ const ProductListing: NextPage = () => {
           )}
 
           <div className="w-[280px] flex items-center justify-between gap-3">
-            Price: {" "}
+            Price:{" "}
             <Select
               allowClear
               className="w-full"
@@ -186,15 +186,16 @@ const ProductListing: NextPage = () => {
         >
           {/* <Carousel responsive={productPanelResponsive} show={true}> */}
           <div className="flex flex-wrap gap-[12px] justify-between">
-            {watchList.length > 0 && watchList?.map((item: any) => (
-              <Link
-                href={`${process.env.NEXT_PUBLIC_URL}/product/${item.id}`}
-                key={item.id}
-                className="flex-1"
-              >
-                <ProductPanel product={item} className="w-[215px]" />
-              </Link>
-            ))}
+            {watchList.length > 0 &&
+              watchList?.map((item: any) => (
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_URL}/product/${item.id}`}
+                  key={item.id}
+                  className="flex-1"
+                >
+                  <ProductPanel product={item} className="w-[215px]" />
+                </Link>
+              ))}
           </div>
           {/* </Carousel> */}
         </SectionLayout>

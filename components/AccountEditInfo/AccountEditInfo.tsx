@@ -62,9 +62,9 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
     console.log("Saving data:", formData);
     await UserApi.update(formData).then((res) => {
       if (res) {
-        messageApi.success("Successfully saved!");
+        messageApi.success("Lưu thành công!");
       } else {
-        message.error("Error saving");
+        message.error("Đã có lỗi");
       }
     });
 
@@ -81,12 +81,14 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
 
   return (
     <section className={classNames(styles.wrapper, className)}>
+      {contextHolder}
       <Title content="Thông tin cá nhân" />
       <div className={styles.row2}>
         <p className={styles.text}>Email đăng nhập</p>
         <Input
           width={532}
           height={48}
+          disabled={true}
           defaultValue={formData.account.email}
           onChange={(e) => handleInputChange("account.email", e.target.value)}
           className={styles.input}
@@ -118,6 +120,16 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
         />
       </div>
       <div className={styles.row2}>
+        <p className={styles.text}>CCCD</p>
+        <Input
+          width={532}
+          height={48}
+          value={formData.citizenId}
+          onChange={(e) => handleInputChange("citizenId", e.target.value)}
+          className={styles.input}
+        />
+      </div>
+      <div className={styles.row2}>
         <p className={styles.text}>Ngày sinh</p>
         <DatePicker
           defaultValue={dayjs(
@@ -133,7 +145,7 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
           width={532}
           options={genderOptions}
           value={formData.gender}
-          onChange={(value) => handleInputChange("gender", value)}
+          onChange={(value) => handleInputChange("gender", value.value)}
           className={styles.input}
         />
       </div>

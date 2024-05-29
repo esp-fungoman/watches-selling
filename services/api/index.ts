@@ -34,10 +34,10 @@ Api.interceptors.response.use(
     return res.data;
   },
   function (err) {
-    console.log(err);
+    console.log('err',err);
 
     const status = err?.response?.status;
-    const message = err?.response?.data?.error?.message;
+    const message = err?.response?.data?.message;
     if (status === 401 || status === 403) {
       localStorage.removeItem("token");
       // window.location.href = "/sign-in";

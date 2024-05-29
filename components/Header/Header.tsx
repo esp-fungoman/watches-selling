@@ -14,61 +14,6 @@ import { Avatar, Popover } from "antd";
 import ConfirmationModal from "../Modals/ConfirmationModal";
 import Search from "../Search/Search";
 
-const header_items = {
-  
-  lower_bar: {
-    logo: {
-      icon: "logo",
-    },
-    search_placeholder: "Tìm kiếm son, chăm sóc da mặt",
-  },
-};
-
-const user = {
-  name: "Nguyen Thao",
-  rank: "Silver",
-  coin: "342",
-  icon: "header-user",
-};
-
-const categories = [
-  {
-    name: "Danh mục sản phẩm",
-    link: "#",
-    item: [{ test: "test" }],
-  },
-  {
-    name: "Sản phẩm mới",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Thương hiệu",
-    link: "#",
-    item: [{ test: "test" }],
-  },
-  {
-    name: "Góc làm đẹp",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Quà tặng",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Cộng đồng",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Khuyến mãi",
-    link: "#",
-    item: [],
-  },
-];
-
 const Header = () => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useRecoilState(UserAtom.currentUser);
@@ -101,7 +46,11 @@ const Header = () => {
         <div className={classNames(styles.lower_bar, "container")}>
           <div className={styles.left_side_wrapper}>
             <Link href="/" className="cursor-pointer">
-              <Image src="/logo.svg" width={138} height={21} alt="logo" />
+              <Image src="/logo.svg" width={200} height={50} alt="logo" />
+            </Link>
+            {/* <div onClick={() => router.push("/product")} >Product</div> */}
+            <Link href="/product">
+              <p className="ml-8 text-xl font-semibold cursor-pointer">Product</p>
             </Link>
             <div className={styles.search_bar}>
               {/* <input
@@ -149,7 +98,7 @@ const Header = () => {
                     }
                   >
                     <div className="bg-gray-400 rounded-4 w-max py-2 px-3">
-                      {currentUser.lastName}
+                      {currentUser.lastName|| "Customer"}
                     </div>
                     {/* <Avatar
                       className="hidden lg:block cursor-pointer"

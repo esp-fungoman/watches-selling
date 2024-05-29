@@ -37,14 +37,17 @@ const Profile = (props: ProfileProps) => {
         <div className="font-semibold text-2xl">Danh sách hóa đơn</div>
         <div className="flex flex-col gap-2 justify-start items-start w-full">
           {invoiceList.length > 0 &&
-            invoiceList.map((invoice) => (
-              <div className="flex items-start justify-start gap-1">
-                <Icon name="document-normal" size={16} className="mt-[3.5px]"/>
+            invoiceList.map((invoice: any) => (
+              <div
+                key={invoice.invoiveNumber}
+                className="flex items-start justify-start gap-1"
+              >
+                <Icon name="document-normal" size={16} className="mt-[3.5px]" />
                 <Link
                   href={`${process.env.NEXT_PUBLIC_URL}/invoice/${invoice.id}`}
                   className={styles.item}
                 >
-                  {invoice.id}
+                  {invoice.invoiceNumber}
                 </Link>
               </div>
             ))}

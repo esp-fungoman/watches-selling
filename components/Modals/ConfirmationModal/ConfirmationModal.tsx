@@ -21,7 +21,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   const handleSignOut = () => {
     localStorage.clear();
     resetUser();
-    message.success("Sign out successfully!");
+    message.success("Đăng xuất thành công!");
     handleClose();
   };
 

@@ -99,12 +99,12 @@ const resetPassword = async (data: ResetPasswordPayload) => {
 const changePassword = async (data: ChangePasswordPayload) => {
   try {
     const res = await Api<any>({
-      url: "/auth/change-password",
+      url: "/accounts/change-password",
       method: "POST",
       data,
     });
     if (res.status === "OK") {
-      message.success("Change password successfully");
+      message.success("Đổi mật khẩu thành công");
       return res.data;
     }
     message.error("Something wrong!");

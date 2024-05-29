@@ -21,8 +21,8 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
     validate: (values) => {
       const errors: Record<string, string> = {};
       if (!values.email.trim()) {
-        errors.email = "Enter your email";
-      } 
+        errors.email = "Nhập email của bạn";
+      }
 
       if (!values.password.trim()) {
         errors.password = "Enter your password";
@@ -40,7 +40,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       const res = await AuthApi.signUp({
         email: values.email,
         password: values.password,
-        confirmPassword: values.confirmPassword
+        confirmPassword: values.confirmPassword,
       });
       if (res) {
         resetForm();
@@ -58,7 +58,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       <h3 className="text-center font-semibold text-2xl">Sign Up</h3>
       <Input
         label="Email"
-        placeholder="Enter your email"
+        placeholder="Nhập email của bạn"
         {...formik.getFieldProps("email")}
         error={formik.touched.email && formik.errors.email}
       />
@@ -75,9 +75,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
         placeholder="Enter your pasword again"
         showEyeIcon
         {...formik.getFieldProps("confirmPassword")}
-        error={
-          formik.touched.confirmPassword && formik.errors.confirmPassword
-        }
+        error={formik.touched.confirmPassword && formik.errors.confirmPassword}
       />
 
       <div className="flex gap-4 mt-8">
