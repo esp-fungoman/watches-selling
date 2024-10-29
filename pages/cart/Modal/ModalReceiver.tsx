@@ -10,6 +10,7 @@ import {
   getWards,
 } from "../../../services/address/address.api";
 import { OrderApi } from "../../../services/order";
+import { InvoiceApi } from "../../../services/invoice";
 
 interface ModalReceiverProps {
   isVisible: boolean;
@@ -29,13 +30,13 @@ const ModalReceiver = (props: ModalReceiverProps) => {
     title,
     data,
     iconClose = "Đóng",
-    addOrderId = () => { },
+    addOrderId = () => {},
     onClose,
     onOpen,
   } = props;
 
   const [form] = Form.useForm();
-  const [orderId, setOrderId] = useState<string>()
+  const [orderId, setOrderId] = useState<string>();
   const [provinces, setProvinces] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
@@ -64,67 +65,23 @@ const ModalReceiver = (props: ModalReceiverProps) => {
   }, [district_id, province_id]);
 
   const handleSaving = async () => {
-    console.log('form', form.getFieldsValue());
-    let existOrder
-    if (orderId) {
-      existOrder = await OrderApi.findOne(orderId as string)
-    }
-    if (!existOrder) {
-      await OrderApi.create({
-        orderDate: new Date(),
-        name: form.getFieldValue('full_name'),
-        phoneNumber: form.getFieldValue('phone_number'),
-        address:
-          form.getFieldValue('address') + " " +
-          form.getFieldValue('ward_label') + " " +
-          form.getFieldValue('district_label') + " " +
-          form.getFieldValue('province_label')
-      }).then((res) => {
-        console.log('res', res)
-        if (res) {
-          onOpen && onOpen(form.getFieldsValue())
-          setOrderId(res.id)
-          addOrderId(res.id)
-          messageApi.success('Success saved');
-          if (onClose) { // Check if onClose is defined
-            onClose(); // Close the modal
-            onOpen && onOpen(form.getFieldsValue())
-          }
-        }
-      })
-    }
-    else {
-      await OrderApi.update(orderId as string, {
-        orderDate: new Date(),
-        name: form.getFieldValue('full_name'),
-        phoneNumber: form.getFieldValue('phone_number'),
-        address:
-          form.getFieldValue('address') + " " +
-          form.getFieldValue('ward_label') + " " +
-          form.getFieldValue('district_label') + " " +
-          form.getFieldValue('province_label')
-      }).then((res) => {
-        console.log('res', res)
-        if (res) {
-          messageApi.success('Success update');
-          if (onClose) { // Check if onClose is defined
-            onClose(); // Close the modal
-            onOpen && onOpen(form.getFieldsValue())
-          }
-        }
-      })
+    onOpen && onOpen(form.getFieldsValue());
+    if (onClose) {
+      // Check if onClose is defined
+      onClose(); // Close the modal
+      onOpen && onOpen(form.getFieldsValue());
     }
   };
 
-
   const Footer = () => (
     <div className="flex justify-between pt-[12px]">
+      {contextHolder}
       <Button type="outlined" className="!w-[48%]" onClick={onClose}>
         Hủy bỏ
       </Button>
       <Button
         onClick={() => {
-          handleSaving()
+          handleSaving();
         }}
         className={classNames(
           "!w-[48%]",
@@ -137,7 +94,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
   );
 
   const handleSubmit = (value: any) => {
-    console.log('value', value);
+    console.log("value", value);
 
     onOpen && onOpen(value);
     // form.resetFields();
@@ -165,6 +122,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
           <div className="w-full flex flex-col justify-start">
             <div className="flex flex-row gap-3 items-center">Họ và tên</div>
             <Form.Item
+              className="mb-3"
               name="full_name"
               rules={[
                 {
@@ -181,6 +139,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
               Số điện thoại*
             </div>
             <Form.Item
+              className="mb-3"
               name="phone_number"
               rules={[
                 {
@@ -198,7 +157,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
           </div>
           <div className="w-full flex flex-col justify-start">
             <p className="font-medium text-medium my-[8px]">Tỉnh/Thành*</p>
-            <Form.Item name="province_id">
+            <Form.Item className="mb-3" name="province_id">
               <Select
                 showSearch
                 // width={340}
@@ -215,11 +174,14 @@ const ModalReceiver = (props: ModalReceiverProps) => {
                 options={provinces}
               />
             </Form.Item>
-            <Form.Item className="hidden" name="province_label"></Form.Item>
+            <Form.Item
+              className="hidden mb-3"
+              name="province_label"
+            ></Form.Item>
           </div>
           <div className="w-full flex flex-col justify-start">
             <p className="font-medium text-medium my-[8px]">Quận/Huyện*</p>
-            <Form.Item name="district_id">
+            <Form.Item className="mb-3" name="district_id">
               <Select
                 // width={340}
                 placeholder="Chọn"
@@ -232,11 +194,14 @@ const ModalReceiver = (props: ModalReceiverProps) => {
                 options={districts}
               />
             </Form.Item>
-            <Form.Item className="hidden" name="district_label"></Form.Item>
+            <Form.Item
+              className="hidden mb-3"
+              name="district_label"
+            ></Form.Item>
           </div>
           <div className="w-full flex flex-col justify-start">
             <p className="font-medium text-medium my-[8px]">Xã/Phường*</p>
-            <Form.Item name="ward_id">
+            <Form.Item className="mb-3" name="ward_id">
               <Select
                 placeholder="Chọn"
                 options={wards}
@@ -247,12 +212,13 @@ const ModalReceiver = (props: ModalReceiverProps) => {
                 }}
               />
             </Form.Item>
-            <Form.Item className="hidden" name="ward_label"></Form.Item>
+            <Form.Item className="hidden mb-3" name="ward_label"></Form.Item>
           </div>
         </div>
         <div className="w-full flex flex-col justify-start">
           <div className="flex flex-row gap-3 items-center">Địa chỉ*</div>
           <Form.Item
+            className="mb-3"
             name="address"
             rules={[
               {
@@ -262,6 +228,21 @@ const ModalReceiver = (props: ModalReceiverProps) => {
             ]}
           >
             <Input width={340} placeholder="Nhập địa chỉ" />
+          </Form.Item>
+        </div>
+        <div className="w-full flex flex-col justify-start">
+          <div className="flex flex-row gap-3 items-center">Mã số thuế*</div>
+          <Form.Item
+            className="mb-3"
+            name="tax_code"
+            rules={[
+              {
+                required: true,
+                message: "Mã số thuế là bắt buộc!",
+              },
+            ]}
+          >
+            <Input width={340} placeholder="Nhập mã số thuế" />
           </Form.Item>
         </div>
       </Form>

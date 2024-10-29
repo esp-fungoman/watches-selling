@@ -17,7 +17,6 @@ const Account = (props: AccountProps) => {
       <div className={styles.avatar}>
         <Image src={src || defaultAvatar} alt="avatar" layout="fill" />
       </div>
-      <span className={styles.member}>Member</span>
       <div className={styles.name}>{name}</div>
     </section>
   );

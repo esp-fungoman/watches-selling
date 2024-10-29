@@ -11,7 +11,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ className }) => {
   const router = useRouter();
-  const pathname = router.pathname
+  const pathname = router.pathname;
   const [search, setSearch] = useState<string>("");
   const searchDebound = useDebounce(search, 1500);
   const params = getCurrentParams();
@@ -38,11 +38,11 @@ const Search: FC<SearchProps> = ({ className }) => {
     <Input
       containerClassName={className}
       className="!bg-transparent !rounded-[32px]"
-      placeholder="Search"
+      placeholder="Tìm kiém"
       prefix={<Icon size={20} name="new-search" />}
       value={search}
       onClear={() => {
-        search.length > 0 && router.push(pushRouter({ pathname: "/posts" }));
+        search.length > 0 && router.push(pushRouter({ pathname: "/product" }));
         setSearch("");
       }}
       onChange={(e) => setSearch(e.target.value)}

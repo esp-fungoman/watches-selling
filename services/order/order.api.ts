@@ -1,7 +1,8 @@
 import Api from "../api"
 import { message } from "antd";
+import { OrderProps } from "./order.type";
 
-const create = async (data?: any): Promise<any> => {
+const create = async (data: OrderProps): Promise<any> => {
     try {
         const res = await Api({
             url: '/order/new',

@@ -1,6 +1,7 @@
 import { message } from "antd";
 import Api from "../api";
 import { data } from "autoprefixer";
+import { useRef } from "react";
 const create = async (data?: any) => {
   try {
     const res = await Api({
@@ -13,9 +14,11 @@ const create = async (data?: any) => {
       return res.data;
     }
   } catch (error: any) {
-    message.error(error?.message);
+    console.error("Error:123", error);
+    message.error(error?.message || "Đã có lỗi xảy ra");
   }
 };
+
 
 const update = async (id: string, data?: any) => {
   try {
@@ -42,7 +45,6 @@ const list = async () => {
     if (res.status === "OK") {
       return res.data;
     }
-
   } catch (error: any) {
     message.error(error?.message);
   }
@@ -77,4 +79,4 @@ const remove = async (id: string) => {
   }
 };
 const CartDetailApi = { list, detail, create, update, remove };
-export default CartDetailApi
+export default CartDetailApi;

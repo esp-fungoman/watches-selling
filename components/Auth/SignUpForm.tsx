@@ -21,8 +21,8 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
     validate: (values) => {
       const errors: Record<string, string> = {};
       if (!values.email.trim()) {
-        errors.email = "Enter your email";
-      } 
+        errors.email = "Nhập email của bạn";
+      }
 
       if (!values.password.trim()) {
         errors.password = "Enter your password";
@@ -40,7 +40,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       const res = await AuthApi.signUp({
         email: values.email,
         password: values.password,
-        confirmPassword: values.confirmPassword
+        confirmPassword: values.confirmPassword,
       });
       if (res) {
         resetForm();
@@ -58,13 +58,13 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       <h3 className="text-center font-semibold text-2xl">Sign Up</h3>
       <Input
         label="Email"
-        placeholder="Enter your email"
+        placeholder="Nhập email của bạn"
         {...formik.getFieldProps("email")}
         error={formik.touched.email && formik.errors.email}
       />
       <Input
         label="Password"
-        placeholder="Enter your pasword"
+        placeholder="Nhập mật khẩu"
         showEyeIcon
         {...formik.getFieldProps("password")}
         error={formik.touched.password && formik.errors.password}
@@ -72,12 +72,10 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
 
       <Input
         label="Confirm password"
-        placeholder="Enter your pasword again"
+        placeholder="Xác nhận mật khẩu"
         showEyeIcon
         {...formik.getFieldProps("confirmPassword")}
-        error={
-          formik.touched.confirmPassword && formik.errors.confirmPassword
-        }
+        error={formik.touched.confirmPassword && formik.errors.confirmPassword}
       />
 
       <div className="flex gap-4 mt-8">
@@ -86,15 +84,14 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
           className="flex-1"
           onClick={formik.submitForm}
         >
-          Sign Up
-        </Button>
+Đăng ký        </Button>
         <Button
           className="flex-1"
           type="text"
           variant="danger"
           onClick={onCancel}
         >
-          Cancel
+          Huỷ
         </Button>
       </div>
     </div>

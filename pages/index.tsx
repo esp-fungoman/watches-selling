@@ -19,39 +19,35 @@ import { useEffect, useState } from "react";
 import WatchApi from "../services/watch/watch.api";
 import { watch } from "fs";
 
-import dayjs from 'dayjs'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import localeData from 'dayjs/plugin/localeData'
-import weekday from 'dayjs/plugin/weekday'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
-import weekYear from 'dayjs/plugin/weekYear'
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import localeData from "dayjs/plugin/localeData";
+import weekday from "dayjs/plugin/weekday";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import weekYear from "dayjs/plugin/weekYear";
 
-dayjs.extend(customParseFormat)
-dayjs.extend(advancedFormat)
-dayjs.extend(weekday)
-dayjs.extend(localeData)
-dayjs.extend(weekOfYear)
-dayjs.extend(weekYear)
+dayjs.extend(customParseFormat);
+dayjs.extend(advancedFormat);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
 
 const bannerItem = [
   {
     link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fcms.curnonwatch.com%2Fuploads%2FWeb_baca5708ad.jpg&w=1920&q=100",
+    image: require("/public/banner-2.jpeg"),
   },
   {
     link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fshop.curnonwatch.com%2Fmedia%2Fcatalog%2Fcategory%2F_o_ng_ho_Nam_1_2.jpg&w=1920&q=75",
+    image: require("/public/banner-4.jpg"),
   },
   {
     link: "#",
-    image:
-      "https://www.casio.com/content/casio/locales/vn/vi/products/_jcr_content/root/responsivegrid/container_1450128435/carousel_copy_copy/item_1661475191255_c.casiocoreimg.jpeg/1707972573383/hero-pc.jpeg",
+    image: require("/public/banner-6.jpeg"),
   },
 ];
-
 
 const brandItem = [
   {
@@ -122,8 +118,6 @@ const brandItem = [
     isMobile: false,
   },
 ];
-
-
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -206,13 +200,12 @@ const Home: NextPage = () => {
         containerClassname="container"
       >
         <Carousel responsive={productPanelResponsive} show={true}>
-          {latestWatchList.length > 0 && latestWatchList.map((item: any, index: any) => (
-            <ProductPanel key={index} product={item} />
-          ))}
+          {latestWatchList.length > 0 &&
+            latestWatchList.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
         </Carousel>
       </SectionLayout>
-
-
 
       <SectionLayout
         show={true}
