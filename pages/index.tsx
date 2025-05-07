@@ -19,20 +19,20 @@ import { useEffect, useState } from "react";
 import WatchApi from "../services/watch/watch.api";
 import { watch } from "fs";
 
-import dayjs from 'dayjs'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import localeData from 'dayjs/plugin/localeData'
-import weekday from 'dayjs/plugin/weekday'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
-import weekYear from 'dayjs/plugin/weekYear'
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import localeData from "dayjs/plugin/localeData";
+import weekday from "dayjs/plugin/weekday";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import weekYear from "dayjs/plugin/weekYear";
 
-dayjs.extend(customParseFormat)
-dayjs.extend(advancedFormat)
-dayjs.extend(weekday)
-dayjs.extend(localeData)
-dayjs.extend(weekOfYear)
-dayjs.extend(weekYear)
+dayjs.extend(customParseFormat);
+dayjs.extend(advancedFormat);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
 
 const bannerItem = [
   {
@@ -51,7 +51,6 @@ const bannerItem = [
       "https://www.casio.com/content/casio/locales/vn/vi/products/_jcr_content/root/responsivegrid/container_1450128435/carousel_copy_copy/item_1661475191255_c.casiocoreimg.jpeg/1707972573383/hero-pc.jpeg",
   },
 ];
-
 
 const brandItem = [
   {
@@ -123,8 +122,6 @@ const brandItem = [
   },
 ];
 
-
-
 const Home: NextPage = () => {
   const router = useRouter();
   const [watchList, setWatchList] = useState<any[]>([]);
@@ -138,27 +135,27 @@ const Home: NextPage = () => {
     const getWatchList = async () => {
       let params = {
         page: pagination.page,
-        size: pagination.pageSize,
+        size: pagination.per_page,
       };
 
       const watchListData = await WatchApi.list(params);
       if (watchListData) {
-        setWatchList(watchListData.watches);
+        setWatchList(watchListData.products);
         setPagination((prevState: any) => ({
           ...prevState,
-          total: watchListData.total,
+          total: watchListData.pagination.total_pages,
         }));
       }
     };
     const getLatestWatchList = async () => {
       let params = {
         page: pagination.page,
-        size: pagination.pageSize,
+        size: pagination.per_page,
         sort_by: "desc",
       };
       const latestWatchListData = await WatchApi.list(params);
       if (latestWatchListData) {
-        setLatestWatchList(latestWatchListData.watches);
+        setLatestWatchList(latestWatchListData.products);
       }
     };
     getWatchList();
@@ -206,13 +203,12 @@ const Home: NextPage = () => {
         containerClassname="container"
       >
         <Carousel responsive={productPanelResponsive} show={true}>
-          {latestWatchList.length > 0 && latestWatchList.map((item: any, index: any) => (
-            <ProductPanel key={index} product={item} />
-          ))}
+          {latestWatchList.length > 0 &&
+            latestWatchList.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
         </Carousel>
       </SectionLayout>
-
-
 
       <SectionLayout
         show={true}

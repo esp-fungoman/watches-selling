@@ -67,7 +67,7 @@ const ProductListing: NextPage = () => {
   useEffect(() => {
     const getWatchList = async () => {
       let params = {
-        page:  pagination.page,
+        page: pagination.page,
         size: pagination.pageSize,
         type_id: selectedType || undefined,
         brand_id: selectedBrand || undefined,
@@ -161,7 +161,7 @@ const ProductListing: NextPage = () => {
           )}
 
           <div className="w-[280px] flex items-center justify-between gap-3">
-            Price: {" "}
+            Price:{" "}
             <Select
               allowClear
               className="w-full"
@@ -186,15 +186,16 @@ const ProductListing: NextPage = () => {
         >
           {/* <Carousel responsive={productPanelResponsive} show={true}> */}
           <div className="flex flex-wrap gap-[12px] justify-between">
-            {watchList.length > 0 && watchList?.map((item: any) => (
-              <Link
-                href={`${process.env.NEXT_PUBLIC_URL}/product/${item.id}`}
-                key={item.id}
-                className="flex-1"
-              >
-                <ProductPanel product={item} className="w-[215px]" />
-              </Link>
-            ))}
+            {watchList.length > 0 &&
+              watchList?.map((item: any) => (
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_URL}/product/${item.id}`}
+                  key={item.id}
+                  className="flex-1"
+                >
+                  <ProductPanel product={item} className="w-[215px]" />
+                </Link>
+              ))}
           </div>
           {/* </Carousel> */}
         </SectionLayout>

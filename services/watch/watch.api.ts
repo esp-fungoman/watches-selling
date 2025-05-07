@@ -1,23 +1,20 @@
 import { message } from "antd";
 import Api from "../api";
 
+const RESOURCE_API_URI: string = "/v1/products";
+
 const list = async (params?: any) => {
   try {
-    const res = await Api({
-      url: "/watch/all",
+    const res: any = await Api({
+      url: RESOURCE_API_URI,
       method: "GET",
-      headers: {
-        "ngrok-skip-browser-warning": true,
-        // Authorization: "pac5G1KXvd1AuFQr5po84Kwb2UhGwm6IzI93GbpH",
-      },
       params: params,
     });
-    if (res.status === 200 || res.status === 202 || res.status === "OK") {
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    // TODO: add response status check
+    // message.error("Something wrong!");
+    return res;
   } catch (error) {
+    message.error("Something wrong!");
     console.error("Error:", error);
   }
 };
@@ -25,19 +22,14 @@ const list = async (params?: any) => {
 const detail = async (id: string) => {
   try {
     const res = await Api({
-      url: `/watch/${id}`,
+      url: `${RESOURCE_API_URI}/${id}`,
       method: "GET",
-      headers: {
-        "ngrok-skip-browser-warning": true,
-      },
     });
+    console.log("🚀 ~ detail ~ res:", res);
 
-    if (res.status === "OK" || res.status === 202) {
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    return res;
   } catch (error) {
+    message.error("Something wrong!");
     console.error("Error:", error);
     throw error;
   }
