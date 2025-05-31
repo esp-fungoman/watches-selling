@@ -1,0 +1,24 @@
+.carousel {
+  width: 100%;
+  position: relative;
+  overflow-x: auto;
+}
+
+.banner_list {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 16px 0;
+  min-width: min-content;
+
+  > div {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    width: 635px;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}

@@ -1,8 +1,4 @@
 import type { NextPage } from "next";
-import Link from "next/link";
-import Head from "next/head";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
 import Carousel from "../components/Carousel/Carousel";
 import CarouselBanner from "../components/CarouselBanner/CarouselBanner";
 import Image from "next/image";
@@ -10,14 +6,10 @@ import { useRouter } from "next/router";
 import ProductPanel from "../components/ProductPanel/ProductPanel";
 import SectionLayout from "../components/SectionLayout/SectionLayout";
 import BrandPanel from "../components/BrandPanel/BrandPanel";
-import BlogPanel from "../components/BlogPanel/BlogPanel";
-import { productPanelResponsive, blogPanelResponsive } from "../constant";
-
+import { productPanelResponsive } from "../constant";
 import styles from "../styles/Home.module.scss";
-import classNames from "classnames";
 import { useEffect, useState } from "react";
 import WatchApi from "../services/watch/watch.api";
-import { watch } from "fs";
 
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -27,6 +19,8 @@ import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import weekYear from "dayjs/plugin/weekYear";
 import { WatchBrandApi } from "../services/watch-brand";
+import { CategoryApi } from "../services/categories";
+import { isArray } from "lodash";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
@@ -35,99 +29,12 @@ dayjs.extend(localeData);
 dayjs.extend(weekOfYear);
 dayjs.extend(weekYear);
 
-const bannerItem = [
-  {
-    link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fcms.curnonwatch.com%2Fuploads%2FWeb_baca5708ad.jpg&w=1920&q=100",
-  },
-  {
-    link: "#",
-    image:
-      "https://curnonwatch.com/_next/image/?url=https%3A%2F%2Fshop.curnonwatch.com%2Fmedia%2Fcatalog%2Fcategory%2F_o_ng_ho_Nam_1_2.jpg&w=1920&q=75",
-  },
-  {
-    link: "#",
-    image:
-      "https://www.casio.com/content/casio/locales/vn/vi/products/_jcr_content/root/responsivegrid/container_1450128435/carousel_copy_copy/item_1661475191255_c.casiocoreimg.jpeg/1707972573383/hero-pc.jpeg",
-  },
-];
-
-const brandItem = [
-  {
-    thumbnail:
-      "https://topwatch.vn/wp-content/uploads/2020/11/review-dong-ho-curnon-7.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: true,
-  },
-  {
-    thumbnail: "https://logowik.com/content/uploads/images/520_casio.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: true,
-  },
-  {
-    thumbnail:
-      "https://guojewellery.com/cdn/shop/collections/g-shock-logo-vector.png?v=1694033951",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: true,
-  },
-  {
-    thumbnail: "https://miro.medium.com/max/1400/0*zTCveF1YRYvPJ0at.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: true,
-  },
-  {
-    thumbnail:
-      "https://www.thelogocreative.co.uk/wp-content/uploads/omega-min.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-  {
-    thumbnail:
-      "https://1000logos.net/wp-content/uploads/2018/10/watches-brands-Hublot.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-  {
-    thumbnail: "https://miro.medium.com/max/1400/0*07TCt-SMr7sOK-ma.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-  {
-    thumbnail:
-      "https://miro.medium.com/v2/resize:fit:1400/0*RW85ZboQDQvOP0pk.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-  {
-    thumbnail:
-      "https://images-platform.99static.com//ixcwo_uxmyIrVo88RDF6tgIWlCE=/187x0:892x705/fit-in/500x500/99designs-contests-attachments/48/48345/attachment_48345682",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-  {
-    thumbnail:
-      "https://i.pinimg.com/736x/a7/da/c4/a7dac41ceb6664969199b61a7fdee486.jpg",
-    logo: "/assets/homepage/brand-item/logo.svg",
-    link: "#",
-    isMobile: false,
-  },
-];
-
 const Home: NextPage = () => {
   const router = useRouter();
+  const [latestWatchList, setLatestWatchList] = useState<any[]>([]);
   const [watchList, setWatchList] = useState<any[]>([]);
   const [brands, setBrands] = useState<any[]>([]);
-  const [latestWatchList, setLatestWatchList] = useState<any[]>([]);
+  const [luxuryCategory, setLuxuryCategory] = useState<any>({});
   const [pagination, setPagination] = useState<any>({
     page: 1,
     pageSize: 10,
@@ -162,31 +69,38 @@ const Home: NextPage = () => {
     };
     const getBrands = async () => {
       const response: any = await WatchBrandApi.list();
-      console.log("🚀 ~ getBrands ~ response:", response);
       if (response) {
         setBrands(response.brands);
+      }
+    };
+    const getLuxuryCategory = async () => {
+      const response: any = await CategoryApi.getCategoryDetailBySlug("luxury");
+      if (response) {
+        setLuxuryCategory(response.category);
       }
     };
     getWatchList();
     getLatestWatchList();
     getBrands();
+    getLuxuryCategory();
   }, []);
 
   return (
     <div>
       <div>
         <CarouselBanner show={true}>
-          {bannerItem.map((item: any, index: any) => (
-            <div key={index} onClick={() => router.push(item.link || "")}>
-              <Image
-                src={item.image || require("public/vercel.svg")}
-                layout="responsive"
-                width={1440}
-                height={482}
-                alt=""
-              />
-            </div>
-          ))}
+          {isArray(luxuryCategory.assets) &&
+            luxuryCategory.assets.map((item: any, index: any) => (
+              <div key={index} onClick={() => router.push(item || "")}>
+                <Image
+                  src={item || require("public/vercel.svg")}
+                  width={640}
+                  height={380}
+                  alt=""
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </div>
+            ))}
         </CarouselBanner>
       </div>
 

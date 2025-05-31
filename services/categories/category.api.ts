@@ -1,11 +1,11 @@
 import Api from "../api";
 import { ICategory } from "./";
-import { notification } from "antd";
+import { message, notification } from "antd";
 
 const getCategoryList = async (params?: any) => {
   try {
     const res = await Api({
-      url: "/categories",
+      url: "/v1/categories",
       method: "GET",
       params: { populate: "deep,2", ...params },
     });
@@ -24,11 +24,28 @@ const getCategoryList = async (params?: any) => {
     });
   }
 };
+const getCategoryDetailBySlug = async (slug: string) => {
+  try {
+    const res = await Api({
+      url: `/v1/categories/slug/${slug}`,
+      method: "GET",
+    });
+    if (res) {
+      return res;
+    }
+    return null;
+  } catch (error: any) {
+    notification.error({
+      message: "Category Not Found",
+    });
+    return null;
+  }
+};
 
 const getCategoryDetail = async (id: string) => {
   try {
     const res = await Api({
-      url: `/categories/${id}`,
+      url: `/v1/categories/${id}`,
       method: "GET",
     });
 
@@ -47,4 +64,5 @@ const getCategoryDetail = async (id: string) => {
 export default {
   getCategoryList,
   getCategoryDetail,
+  getCategoryDetailBySlug,
 };
