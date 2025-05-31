@@ -2,7 +2,6 @@ import Link from "next/link";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
 import classNames from "classnames";
 import styles from "./Header.module.scss";
 import { useEffect, useState } from "react";
@@ -10,64 +9,9 @@ import AuthModal from "../Modals/AuthModal";
 import { useRecoilState } from "recoil";
 import Button from "../Button";
 import { UserApi, UserAtom } from "../../services/user";
-import { Avatar, Popover } from "antd";
+import { Popover } from "antd";
 import ConfirmationModal from "../Modals/ConfirmationModal";
 import Search from "../Search/Search";
-
-const header_items = {
-  
-  lower_bar: {
-    logo: {
-      icon: "logo",
-    },
-    search_placeholder: "Tìm kiếm son, chăm sóc da mặt",
-  },
-};
-
-const user = {
-  name: "Nguyen Thao",
-  rank: "Silver",
-  coin: "342",
-  icon: "header-user",
-};
-
-const categories = [
-  {
-    name: "Danh mục sản phẩm",
-    link: "#",
-    item: [{ test: "test" }],
-  },
-  {
-    name: "Sản phẩm mới",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Thương hiệu",
-    link: "#",
-    item: [{ test: "test" }],
-  },
-  {
-    name: "Góc làm đẹp",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Quà tặng",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Cộng đồng",
-    link: "#",
-    item: [],
-  },
-  {
-    name: "Khuyến mãi",
-    link: "#",
-    item: [],
-  },
-];
 
 const Header = () => {
   const router = useRouter();
@@ -85,7 +29,6 @@ const Header = () => {
       UserApi.getMe()
         .then((res) => {
           if (res) {
-            console.log("res", res);
             setCurrentUser(res);
           }
         })
@@ -103,15 +46,7 @@ const Header = () => {
             <Link href="/" className="cursor-pointer">
               <Image src="/logo.svg" width={138} height={21} alt="logo" />
             </Link>
-            <div className={styles.search_bar}>
-              {/* <input
-                type="text"
-                placeholder={header_items.lower_bar.search_placeholder}
-              /> */}
-              {/* <div className={styles.icon_wrapper}>
-                <Icon name="header-search" size={24} />
-              </div> */}
-            </div>
+            <div className={styles.search_bar}></div>
           </div>
 
           <div className={styles.right_side_wrapper}>
@@ -121,7 +56,6 @@ const Header = () => {
             </div>
             <Icon name="header-shopping-cart" size={32} />
             <div className={styles.user_panel}>
-              {/* <Icon name={user.icon} size={32} /> */}
               <div>
                 {currentUser ? (
                   <Popover
@@ -149,14 +83,8 @@ const Header = () => {
                     }
                   >
                     <div className="bg-gray-400 rounded-4 w-max py-2 px-3">
-                      {currentUser.lastName}
+                      {currentUser.first_name + " " + currentUser.last_name}
                     </div>
-                    {/* <Avatar
-                      className="hidden lg:block cursor-pointer"
-                      src={currentUser.avatar_url}
-                    >
-                      {currentUser.username?.slice(0, 1)}
-                    </Avatar> */}
                   </Popover>
                 ) : (
                   <>

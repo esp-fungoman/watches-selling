@@ -16,6 +16,7 @@ const getMe = async () => {
         "ngrok-skip-browser-warning": "true",
       },
     });
+    console.log("🚀 ~ getMe ~ res:", res);
     return res.user;
   } catch (error: any) {
     message.error("Something wrong!");
