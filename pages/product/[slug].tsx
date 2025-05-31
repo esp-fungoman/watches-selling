@@ -21,12 +21,16 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [watch, setWatch] = useState<any>({});
   const [watchList, setWatchList] = useState<any[]>([]);
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi] = message.useMessage();
   const router = useRouter();
   useEffect(() => {
     const id = router?.asPath?.split("/")[2] as string;
     if (id && id !== "[slug]") {
-      WatchApi.detail(id).then((res: any) => setWatch(res.product));
+      WatchApi.detail(id).then((res: any) => {
+        console.log("🚀 ~ WatchApi.detail ~ res:", res);
+
+        setWatch(res.product);
+      });
     }
   }, [router]);
   const [pagination, setPagination] = useState<any>({
@@ -77,7 +81,9 @@ const ProductDetail = () => {
       <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px]">
         <div className={styles.img_wrapper}>
           {/* TODO: assets viewing */}
-          <Image layout="fill" src={watch?.asset} alt="product" />
+          {watch?.assets.length > 0 && (
+            <Image layout="fill" src={watch?.assets[0]} alt="product" />
+          )}
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-2">
