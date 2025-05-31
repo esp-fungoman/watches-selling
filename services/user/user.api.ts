@@ -8,21 +8,18 @@ const getMe = async () => {
     if (!token) {
       return;
     }
-    const res = await Api({
-      url: "/accounts/me",
+    const res: any = await Api({
+      url: "/v1/users/my",
       method: "GET",
-      headers: {  
+      headers: {
         Authorization: `Bearer ${token}`,
         "ngrok-skip-browser-warning": "true",
       },
     });
-
-    if (res.status === "OK") {
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    console.log("🚀 ~ getMe ~ res:", res);
+    return res.user;
   } catch (error: any) {
+    message.error("Something wrong!");
     message.error(error?.message);
     return null;
   }
@@ -34,25 +31,22 @@ const getProfile = async () => {
     if (!token) {
       return;
     }
-    const res = await Api({
-      url: "/customer/profile",
+    const res: any = await Api({
+      url: "/v1/users/my",
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
         "ngrok-skip-browser-warning": "true",
       },
     });
-
-    if (res.status === "OK") {
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    return res.user;
   } catch (error: any) {
+    message.error("Something wrong!");
     message.error(error?.message);
     return null;
   }
 };
+
 const update = async (payload: any) => {
   try {
     const token = localStorage.getItem("token");
@@ -60,45 +54,22 @@ const update = async (payload: any) => {
       return;
     }
     const res = await Api({
-      url: "/customer/update",
-      method: "PUT",
-      headers: {  
+      url: "/v1/users",
+      method: "PATCH",
+      headers: {
         Authorization: `Bearer ${token}`,
         "ngrok-skip-browser-warning": "true",
       },
-      data: payload
+      data: payload,
     });
+    console.log("🚀 ~ update ~ res:", res);
 
-    if (res.status === "OK") {
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    return res;
   } catch (error: any) {
+    message.error("Something wrong!");
     message.error(error?.message);
     return null;
   }
 };
 
-const subscribeNewsletter = async (email: string) => {
-  try {
-    const res = await Api({
-      url: "/subscribers",
-      method: "POST",
-      data: {
-        data: { email },
-      },
-    });
-    if (res.status === 200) {
-      message.success("Subscribed successfully!");
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
-  } catch (error: any) {
-    message.error(error?.message);
-    return null;
-  }
-};
-
-export default { getMe, subscribeNewsletter, update, getProfile };
+export default { getMe, update, getProfile };

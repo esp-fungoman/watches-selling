@@ -21,12 +21,16 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [watch, setWatch] = useState<any>({});
   const [watchList, setWatchList] = useState<any[]>([]);
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi] = message.useMessage();
   const router = useRouter();
   useEffect(() => {
     const id = router?.asPath?.split("/")[2] as string;
     if (id && id !== "[slug]") {
-      WatchApi.detail(id).then((res) => setWatch(res));
+      WatchApi.detail(id).then((res: any) => {
+        console.log("🚀 ~ WatchApi.detail ~ res:", res);
+
+        setWatch(res.product);
+      });
     }
   }, [router]);
   const [pagination, setPagination] = useState<any>({
@@ -34,9 +38,7 @@ const ProductDetail = () => {
     pageSize: 5,
     total: 10,
   });
-  useEffect(() => {
-
-  })
+  useEffect(() => {});
   useEffect(() => {
     const getWatchList = async () => {
       let params = {
@@ -45,26 +47,28 @@ const ProductDetail = () => {
       };
       const watchListData = await WatchApi.list(params);
       if (watchListData) {
-        setWatchList(watchListData.watches);
+        setWatchList(watchListData.products);
       }
-    }
+    };
     getWatchList();
-  }, [])
+  }, []);
 
   const handleAddToCart = async () => {
     try {
-      await CartDetailApi.create({ watchId: watch.id, price: watch.price, quantity }).then((res: any) => {
+      await CartDetailApi.create({
+        watchId: watch.id,
+        price: watch.price,
+        quantity,
+      }).then((res: any) => {
         if (res) {
           messageApi.success("Thêm vào giỏ hàng thành công");
         }
-      })
-    }
-    catch (error: any) {
+      });
+    } catch (error: any) {
       messageApi.error(error.message);
     }
-  }
+  };
   const handleQuantityChange = (amount: number) => {
-
     const newQuantity = Math.max(1, quantity + amount); // Ensure quantity is not less than 1
     setQuantity(newQuantity);
   };
@@ -76,7 +80,10 @@ const ProductDetail = () => {
     <div className="bg-[#FAFAFA] py-[100px]">
       <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px]">
         <div className={styles.img_wrapper}>
-          <Image layout="fill" src={watch?.photo} alt="product" />
+          {/* TODO: assets viewing */}
+          {watch?.assets.length > 0 && (
+            <Image layout="fill" src={watch?.assets[0]} alt="product" />
+          )}
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-2">
@@ -87,10 +94,14 @@ const ProductDetail = () => {
               ))} */}
           </div>
           <h2 className={styles.title}>{watch?.name}</h2>
-          <div className={styles.price}>{formatPrice(watch?.price)}đ</div>
+          <div className={styles.price}>{formatPrice(watch?.price)}</div>
           <div>{watch?.description}</div>
-          <div className="flex justfiy-start items-center gap-2">Type: <div>{watch.type?.name}</div></div>
-          <div className="flex justfiy-start items-center gap-2">Brand: <div>{watch.brand?.name}</div></div>
+          <div className="flex justfiy-start items-center gap-2">
+            Category: <div>{watch.category?.name}</div>
+          </div>
+          <div className="flex justfiy-start items-center gap-2">
+            Brand: <div>{watch.brand?.name}</div>
+          </div>
           <div className="flex flex-row gap-4">
             <div className="flex items-center mt-2 gap-2">
               <button
@@ -107,7 +118,7 @@ const ProductDetail = () => {
                 <PlusOutlined rev={10} />
               </button>
             </div>
-            <Button onClick={handleAddToCart}>Thêm vào giỏ</Button>
+            <Button onClick={handleAddToCart}>Add to cart</Button>
           </div>
         </div>
       </div>
@@ -118,9 +129,10 @@ const ProductDetail = () => {
         containerClassname="container"
       >
         <Carousel responsive={productPanelResponsive} show={true}>
-          {watchList.length > 0 && watchList.map((item: any, index: any) => (
-            <ProductPanel key={index} product={item} />
-          ))}
+          {watchList.length > 0 &&
+            watchList.map((item: any, index: any) => (
+              <ProductPanel key={index} product={item} />
+            ))}
         </Carousel>
       </SectionLayout>
     </div>

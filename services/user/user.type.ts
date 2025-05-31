@@ -1,12 +1,8 @@
 export interface User {
-  taxCode?: string;
-  address: string;
-  citizendId?: string;
-  dateOfBirth: Date;
-  firstName?: string;
-  lastName?: string;
+  date_of_birth: Date;
+  first_name?: string;
+  last_name?: string;
   gender?: string;
   id: string;
-  phoneNumber?: string;
-  photo?: string;
+  phone_numer?: string;
 }
