@@ -9,7 +9,7 @@ const create = async (data?: any) => {
       data,
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -25,7 +25,7 @@ const update = async (id: string, data?: any) => {
       data,
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -39,7 +39,7 @@ const list = async () => {
       url: "/cart-detail/my",
       method: "GET",
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
 
@@ -55,7 +55,7 @@ const detail = async (id: string) => {
       method: "GET",
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -69,7 +69,7 @@ const remove = async (id: string) => {
       url: `/cart-detail/delete/${id}`,
       method: "DELETE",
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {

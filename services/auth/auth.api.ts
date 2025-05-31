@@ -64,7 +64,7 @@ const signOut = async () => {
 const recoverPassword = async (data: ForgotPasswordPayload) => {
   try {
     const res = await Api<{ message: string }>({
-      url: `${AUTH_RESOURCE_URI}/recover-password`,
+      url: `${AUTH_RESOURCE_URI}/update-password`,
       method: "POST",
       data,
     });

@@ -8,7 +8,7 @@ const list = async (params?: any) => {
       method: "GET",
       params: params,
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
     message.error("Something wrong!");

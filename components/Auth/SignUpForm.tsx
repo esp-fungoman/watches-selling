@@ -1,12 +1,10 @@
 import { useFormik } from "formik";
-import Image from "next/image";
 import { FC } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 
 import Button from "../Button";
-import Divider from "../Divider";
 import Input from "../Input";
 
 // import { isValidEmail } from "../../helper/form.helpers";
@@ -91,10 +89,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ onCancel }) => {
       onCancel?.();
     },
   });
-
-  function checkAuth() {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <div className={styles.sign_in_form}>

@@ -9,7 +9,7 @@ const create = async (id: string, data: Array<String>) => {
       data
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err: any) {
@@ -24,7 +24,7 @@ const update = async (data?: any) => {
       method: "PATCH",
       data: { data },
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err: any) {
@@ -38,7 +38,7 @@ const list = async (data?: any) => {
       url: "/order-detail/all",
       method: "GET",
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err: any) {

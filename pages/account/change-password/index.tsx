@@ -19,11 +19,7 @@ const ChangePasswordPage = () => {
     <section id="account-edit-info">
       {profile && (
         <ColumnLayout data={profile}>
-          <AccountChangPassword
-            {...{
-              email: profile.email,
-            }}
-          />
+          <AccountChangPassword email={profile.email} />
         </ColumnLayout>
       )}
     </section>

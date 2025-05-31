@@ -29,7 +29,7 @@ const ModalNotice = (props: ModalProps) => {
 
   const Footer = () => (
     <div className="flex justify-center">
-      <Button variant="secondary" text="XÁC NHẬN" width="48%" onClick={onClose} />
+      <Button onClick={onClose}>XÁC NHẬN</Button>
     </div>
   );
 

@@ -1,23 +1,19 @@
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { InputNumber, message } from "antd";
-import { data } from "autoprefixer";
-import classNames from "classnames";
+import { message } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Carousel from "../../components/Carousel/Carousel";
-import { Icon } from "../../components/Icon";
 import ProductPanel from "../../components/ProductPanel/ProductPanel";
 import SectionLayout from "../../components/SectionLayout/SectionLayout";
-import { listItem, productPanelResponsive } from "../../constant";
+import { productPanelResponsive } from "../../constant";
 import { formatPrice } from "../../helpers/data.helpers";
+import { CartDetailApi } from "../../services/cart-detail";
 import { WatchApi } from "../../services/watch";
 import styles from "./ProductDetail.module.scss";
-import ProductTag from "./ProductTag/ProductTag";
-import { CartDetailApi } from "../../services/cart-detail";
 
-const ProductDetail = () => {
+const ProductDetail: FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [watch, setWatch] = useState<any>({});
   const [watchList, setWatchList] = useState<any[]>([]);
@@ -81,7 +77,7 @@ const ProductDetail = () => {
       <div className="container flex flex-row bg-white rounded-2xl shadow-md py-[40px]">
         <div className={styles.img_wrapper}>
           {/* TODO: assets viewing */}
-          {watch?.assets.length > 0 && (
+          {watch?.assets?.length > 0 && (
             <Image layout="fill" src={watch?.assets[0]} alt="product" />
           )}
         </div>
@@ -129,7 +125,7 @@ const ProductDetail = () => {
         containerClassname="container"
       >
         <Carousel responsive={productPanelResponsive} show={true}>
-          {watchList.length > 0 &&
+          {watchList?.length > 0 &&
             watchList.map((item: any, index: any) => (
               <ProductPanel key={index} product={item} />
             ))}

@@ -1,4 +1,4 @@
-import { ICategory } from "@/services/categories";
+import { ICategory } from "../categories";
 import { ITag } from "../tags";
 
 export interface IPost {

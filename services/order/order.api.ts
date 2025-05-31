@@ -8,7 +8,7 @@ const create = async (data?: any): Promise<any> => {
             method: 'POST',
             data
         })
-        if (res.status === "OK") {
+        if (res.status === 200) {
             return res.data;
         }
     } catch (err: any) {
@@ -22,7 +22,7 @@ const findOne = async (id: string): Promise<any> => {
             url: `/order/${id}`,
             method: 'GET'
         })
-        if (res.status === "OK") {
+        if (res.status === 200) {
             return res.data;
         }
     } catch (err: any) {
@@ -37,7 +37,7 @@ const update = async (id: string, data: any) => {
             method: 'PUT',
             data
         })
-        if (res.status === "OK") {
+        if (res.status === 200) {
             return res.data;
         }
     } catch (err: any) {

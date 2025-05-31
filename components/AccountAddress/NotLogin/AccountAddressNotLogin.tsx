@@ -1,28 +1,28 @@
-import styles from './AccountAddressNotLogin.module.scss';
-import Input from '../../../components/Input/Input';
-import Select from '../../../components/Select/Select';
-import Button from '../../../components/Button/Button';
-import Radio from '../../../components/Radio/Radio';
-import Title from '../../../components/Title/Title';
-import Icon from '../../Icon/Icon';
+import styles from "./AccountAddressNotLogin.module.scss";
+import Input from "../../../components/Input/Input";
+import Select from "../../../components/Select/Select";
+import Button from "../../../components/Button/Button";
+import Radio from "../../../components/Radio/Radio";
+import Title from "../../../components/Title/Title";
+import Icon from "../../Icon/Icon";
 
 const AccountAddressNotLogin = () => {
   const district = [
     {
-      label: 'Quận 1',
-      value: 'Quận 1',
+      label: "Quận 1",
+      value: "Quận 1",
     },
   ];
   const ward = [
     {
-      label: 'Phường 12',
-      value: 'Phường 12',
+      label: "Phường 12",
+      value: "Phường 12",
     },
   ];
   const province = [
     {
-      label: 'Thành phố Hồ Chí Minh',
-      value: 'Thành phố Hồ Chí Minh',
+      label: "Thành phố Hồ Chí Minh",
+      value: "Thành phố Hồ Chí Minh",
     },
   ];
   return (
@@ -66,11 +66,15 @@ const AccountAddressNotLogin = () => {
       <div className={styles.row}>
         <p className={styles.text}>Loại địa chỉ</p>
         <div className={styles.radio_group}>
-            <Radio label="Nhà riêng"/>
-            <Radio label="Công ty" />
+          <Radio label="Nhà riêng" />
+          <Radio label="Công ty" />
         </div>
       </div>
-      <Button className={styles.btn} variant='basic' width={241} height={50} text="Cập nhật thông tin"/>
+      <Button
+        className={styles.btn}
+      >Cập nhật thông tin
+
+      </Button>
     </section>
   );
 };

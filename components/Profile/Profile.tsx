@@ -39,7 +39,10 @@ const Profile = (props: ProfileProps) => {
         <div className="flex flex-col gap-2 justify-start items-start w-full">
           {invoiceList.length > 0 &&
             invoiceList.map((invoice) => (
-              <div className="flex items-start justify-start gap-1">
+              <div
+                className="flex items-start justify-start gap-1"
+                key={invoice.id}
+              >
                 <Icon name="document-normal" size={16} className="mt-[3.5px]" />
                 <Link
                   href={`${process.env.NEXT_PUBLIC_URL}/invoice/${invoice.id}`}

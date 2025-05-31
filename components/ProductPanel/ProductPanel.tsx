@@ -27,7 +27,7 @@ const ProductPanel = (props: IProductPanel) => {
       <div className={styles.image_wrapper}>
         <Image
           className={styles.image}
-          src={product.assets[0]}
+          src={product.assets?.[0]}
           layout="fill"
           alt="img"
         />

@@ -18,18 +18,19 @@ interface IconProps
   className?: string;
   onClick?: (e: MouseEvent<HTMLSpanElement>) => void;
   ref?: any;
+  icon?:string;
 }
 
 const Icon: React.FC<IconProps> = (props) => {
-  const { style, onClick, color, size = 20, name = "", className = "" } = props;
+  const { style, onClick, color, size = 20, name = "", className = "" ,icon} = props;
 
-  return name ? (
+  return (name || icon) ? (
     <IcomoonReact
       className={classNames(styles.icon, className)}
       iconSet={iconSet}
       color={color}
       size={size}
-      icon={name}
+      icon={name ?? icon}
       style={{ ...style }}
       onClick={onClick}
     />
