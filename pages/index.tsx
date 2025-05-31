@@ -26,6 +26,7 @@ import localeData from "dayjs/plugin/localeData";
 import weekday from "dayjs/plugin/weekday";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import weekYear from "dayjs/plugin/weekYear";
+import { WatchBrandApi } from "../services/watch-brand";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
@@ -125,6 +126,7 @@ const brandItem = [
 const Home: NextPage = () => {
   const router = useRouter();
   const [watchList, setWatchList] = useState<any[]>([]);
+  const [brands, setBrands] = useState<any[]>([]);
   const [latestWatchList, setLatestWatchList] = useState<any[]>([]);
   const [pagination, setPagination] = useState<any>({
     page: 1,
@@ -158,8 +160,16 @@ const Home: NextPage = () => {
         setLatestWatchList(latestWatchListData.products);
       }
     };
+    const getBrands = async () => {
+      const response: any = await WatchBrandApi.list();
+      console.log("🚀 ~ getBrands ~ response:", response);
+      if (response) {
+        setBrands(response.brands);
+      }
+    };
     getWatchList();
     getLatestWatchList();
+    getBrands();
   }, []);
 
   return (
@@ -216,20 +226,18 @@ const Home: NextPage = () => {
         containerClassname="container"
         childrenClassName={styles.brand_section}
       >
-        {Array.isArray(brandItem) &&
-          brandItem.map((item: any, index: any) => (
-            <BrandPanel
-              className={styles.brand_panel}
-              isMobile={item.isMobile}
-              key={index}
-              imgUrl={item.thumbnail}
-              logoUrl={item.logo}
-              link={item.link}
-            />
-          ))}
+        {Array.isArray(brands) &&
+          brands.map((item: any, index: any) => {
+            return (
+              <BrandPanel
+                className={styles.brand_panel}
+                key={index}
+                imgUrl={item.assets[0]}
+                link={item.link}
+              />
+            );
+          })}
       </SectionLayout>
-
-      {/* <Footer /> */}
     </div>
   );
 };

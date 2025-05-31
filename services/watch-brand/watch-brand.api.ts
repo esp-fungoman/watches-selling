@@ -4,18 +4,19 @@ import Api from "../api";
 const list = async (param?: any) => {
   try {
     const res = await Api({
-      url: "/watch-brand/all",
+      url: "/v1/brands",
       method: "GET",
     });
-
-    if (res.status === "OK") {
-      return res.data;
+    if (!res) {
+      console.log("throwed error");
+      throw new Error("Cannot get brand data");
     }
+    return res;
   } catch (err: any) {
     message.error(err?.message);
   }
 };
 
-const WatchBrandApi = {list}
+const WatchBrandApi = { list };
 
 export default WatchBrandApi;

@@ -6,6 +6,15 @@ export interface SignInPayload {
   confirmPassword?: string;
 }
 
+export interface SignUpPayload extends SignInPayload {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  dateOfBirth: string;
+  phoneNumber: string;
+  role: string;
+}
+
 export interface ResetPasswordPayload {
   password: string;
   passwordConfirmation: string;
@@ -22,6 +31,7 @@ export interface ChangePasswordPayload {
   currentPassword: string;
 }
 export interface AuthResponse {
-  token: string;
+  access_token: string;
+  refresh_token: string;
   user: User;
 }

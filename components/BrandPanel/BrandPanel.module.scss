@@ -5,10 +5,24 @@
   width: calc(100% / 5 - 16px);
   margin-bottom: 36px;
   position: relative;
+  aspect-ratio: 1;
+  max-width: 200px;
+  margin: 0 auto 36px;
+
+  .image_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: $border-radius;
+    overflow: hidden;
+  }
+
   .thumbnail {
     width: 100%;
+    height: 100%;
     border-radius: $border-radius;
   }
+
   .logo_container {
     width: 100%;
     position: absolute;
@@ -26,14 +40,17 @@
 
 @media (max-width: 768px) {
   .panel {
+    width: calc(100% / 4 - 16px);
+    max-width: 180px;
     margin-bottom: 24px;
-    width: calc(100% / 4 - calc(16px / 4 * 3) );
   }
 }
 
 @media (max-width: 568px) {
   .panel {
-    width: calc(100% / 2 - calc(16px / 2) );
+    width: calc(100% / 2 - 16px);
+    max-width: 160px;
+    margin-bottom: 24px;
   }
   .hide {
     display: none !important;

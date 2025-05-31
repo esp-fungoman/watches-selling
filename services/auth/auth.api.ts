@@ -4,26 +4,23 @@ import {
   ResetPasswordPayload,
   AuthResponse,
   ChangePasswordPayload,
+  SignUpPayload,
 } from "./auth.type";
 import Api from "../api";
 import { message } from "antd";
 
-const signUp = async (data: SignInPayload) => {
+const AUTH_RESOURCE_URI: string = "/v1/auth";
+
+const signUp = async (data: SignUpPayload) => {
   try {
     const res = await Api<AuthResponse>({
-      url: "/auth/sign-up",
+      url: `${AUTH_RESOURCE_URI}/sign-up`,
       method: "POST",
       data: data,
     });
-
-    if (res.status === 200 || res.status === 202 || res.status === "OK") {
-      localStorage.setItem("token", res?.data?.token);
-      message.success("Sign up successfully!");
-      return res.data;
-    }
-    message.error("Something wrong!");
-    return null;
+    console.log("🚀 ~ signUp ~ res:", res);
   } catch (error) {
+    message.error("Something wrong!");
     console.error("Error:", error);
   }
 };
@@ -31,111 +28,92 @@ const signUp = async (data: SignInPayload) => {
 const signIn = async (dataParams: SignInPayload) => {
   try {
     const res = await Api<AuthResponse>({
-      url: "/auth/sign-in",
+      url: `${AUTH_RESOURCE_URI}/sign-in`,
       method: "POST",
       data: dataParams,
     });
-    console.log("res", res);
-    if (res.status === 200 || res.status === 202 || res.status === "OK") {
-      const resData = res.data;
-      const token = resData?.token;
+    console.log("🚀 ~ signIn ~ res:", res);
 
-      if (token) {
-        localStorage.setItem("token", token);
-        message.success("Sign in successfully");
-        return resData;
-      } else {
-        // Handle the case where the token is not present
-        message.error("Token not found in the response");
-        return null;
-      }
-    } else {
-      // Handle the case where the status is neither 200 nor 202
+    if (!res.data.access_token) {
       message.error("Something wrong with the request!");
-      return null;
+      console.log("Request missing access token");
+      return;
     }
+
+    const token: string = res.data.access_token;
+    localStorage.setItem("token", token);
+    message.success("Sign in successfully");
+    return res.data.user;
   } catch (error) {
+    message.error("Something wrong with the request!");
     message.error(`Error: ${error}`);
+  }
+};
+
+const signOut = async () => {
+  try {
+    localStorage.removeItem("token");
+    message.success("Sign out successfully");
+    return true;
+  } catch (error) {
+    message.error("Something went wrong during sign out!");
+    return false;
   }
 };
 
 const recoverPassword = async (data: ForgotPasswordPayload) => {
   try {
-    const res = await Api<{ ok: boolean }>({
-      url: "/auth/recover-password",
+    const res = await Api<{ message: string }>({
+      url: `${AUTH_RESOURCE_URI}/recover-password`,
       method: "POST",
       data,
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
+      message.success("Recovery email sent");
       return res.data;
     }
-    message.error("Something wrong!");
+    message.error("Something went wrong!");
     return null;
   } catch (error: any) {
-    message.error(error?.message);
+    message.error(error?.message || "Something went wrong!");
     return null;
   }
 };
 
 const resetPassword = async (data: ResetPasswordPayload) => {
   try {
-    const res = await Api<{ data: { message: string }; status: boolean }>({
-      url: "/accounts/password",
+    const res = await Api<{ message: string }>({
+      url: `${AUTH_RESOURCE_URI}/reset-password`,
       method: "POST",
       data,
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       message.success("Reset password successfully");
       return res.data;
     }
-    message.error("Something wrong!");
+    message.error("Something went wrong!");
     return null;
   } catch (error: any) {
-    message.error(error?.message);
+    message.error(error?.message || "Something went wrong!");
     return null;
   }
 };
 
 const changePassword = async (data: ChangePasswordPayload) => {
   try {
-    const res = await Api<any>({
-      url: "/auth/change-password",
+    const res = await Api<{ message: string }>({
+      url: `${AUTH_RESOURCE_URI}/change-password`,
       method: "POST",
       data,
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       message.success("Change password successfully");
       return res.data;
     }
-    message.error("Something wrong!");
+    message.error("Something went wrong!");
     return null;
   } catch (error: any) {
-    message.error(error?.message);
-    return null;
-  }
-};
-
-const signInGoogle = async (query: any) => {
-  try {
-    const res = await Api<AuthResponse>({
-      url: `/auth/google/callback${query}`,
-      method: "GET",
-    });
-    if (res.status === 200) {
-      const resData = res.data;
-
-      const token = resData.token;
-
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-      message.success("Sign in successfully");
-      return resData;
-    }
-    message.error("Something wrong!");
-    return null;
-  } catch (error: any) {
-    message.error(error?.message);
+    message.error(error?.message || "Something went wrong!");
     return null;
   }
 };
@@ -143,9 +121,9 @@ const signInGoogle = async (query: any) => {
 const AuthApi = {
   signUp,
   signIn,
+  signOut,
   recoverPassword,
   resetPassword,
-  signInGoogle,
   changePassword,
 };
 
