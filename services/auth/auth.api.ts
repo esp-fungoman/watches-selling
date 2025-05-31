@@ -99,22 +99,26 @@ const resetPassword = async (data: ResetPasswordPayload) => {
   }
 };
 
-const changePassword = async (data: ChangePasswordPayload) => {
+const changePassword = async (data: any) => {
   try {
     const res = await Api<{ message: string }>({
-      url: `${AUTH_RESOURCE_URI}/change-password`,
-      method: "POST",
-      data,
+      url: `${AUTH_RESOURCE_URI}/update-password`,
+      method: "PATCH",
+      data: {
+        email: data.email,
+        current_password: data.currentPassword,
+        new_password: data.password,
+      },
     });
-    if (res.status === 200) {
+    if (res) {
       message.success("Change password successfully");
-      return res.data;
+      return true;
     }
     message.error("Something went wrong!");
-    return null;
+    return false;
   } catch (error: any) {
     message.error(error?.message || "Something went wrong!");
-    return null;
+    return false;
   }
 };
 

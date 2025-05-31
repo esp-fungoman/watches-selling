@@ -10,7 +10,8 @@ const AccountPage = () => {
   const [profile, setProfile] = useState<any>();
   useEffect(() => {
     const getProfile = async () => {
-      const data = await UserApi.getProfile();
+      const data = await UserApi.getMe();
+      console.log("🚀 ~ getProfile ~ data:", data);
       if (data) {
         setProfile(data);
       }
@@ -19,10 +20,11 @@ const AccountPage = () => {
   }, []);
   return (
     <section id="account-edit-info">
-      {profile && 
-      <ColumnLayout data={profile}>
-        <AccountEditInfo personalInfo={profile} className="min-w-[500px]"/>
-      </ColumnLayout>}
+      {profile && (
+        <ColumnLayout data={profile}>
+          <AccountEditInfo personalInfo={profile} className="min-w-[500px]" />
+        </ColumnLayout>
+      )}
     </section>
   );
 };

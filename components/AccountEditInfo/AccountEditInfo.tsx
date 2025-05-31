@@ -14,23 +14,12 @@ import { useRouter } from "next/router";
 interface AccountEditInfoProps {
   personalInfo: {
     id: string;
-    citizenId: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    phone_number: string;
     gender: string;
-    dateOfBirth: Date | null;
-    address: string;
-    taxCode: string;
-    isDeleted: boolean;
-    photo?: string;
-    account: {
-      id: string;
-      username: string;
-      email: string;
-      role: string;
-      isDeleted: boolean;
-    };
+    date_of_birth: Date | null;
   };
   className?: string;
 }
@@ -50,16 +39,15 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
     setFormData(personalInfo);
   }, [personalInfo]);
 
-  const handleInputChange = (key: string, value: string) => {
+  const handleInputChange = (key: string, value: string | Date | null) => {
     setFormData((prevData) => ({
       ...prevData,
       [key]: value,
     }));
+    setIsChanged(true);
   };
 
   const handleSave = async () => {
-    // Implement save functionality
-    console.log("Saving data:", formData);
     await UserApi.update(formData).then((res) => {
       if (res) {
         messageApi.success("Successfully saved!");
@@ -68,13 +56,13 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
       }
     });
 
-    // Reset the changed state
     setIsChanged(false);
   };
 
   const genderOptions = [
-    { label: "Nam", value: "Nam" },
-    { label: "Nữ", value: "Nữ" },
+    { label: "Nam", value: "MALE" },
+    { label: "Nữ", value: "FEMALE" },
+    { label: "Khác", value: "OTHER" },
   ];
 
   const dateFormat = "DD/MM/YYYY";
@@ -83,13 +71,13 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
     <section className={classNames(styles.wrapper, className)}>
       <Title content="Thông tin cá nhân" />
       <div className={styles.row2}>
-        <p className={styles.text}>Email đăng nhập</p>
+        <p className={styles.text}>Email</p>
         <Input
           width={532}
           height={48}
-          defaultValue={formData.account.email}
-          onChange={(e) => handleInputChange("account.email", e.target.value)}
+          defaultValue={formData.email}
           className={styles.input}
+          readOnly={true}
         />
       </div>
       <div className={styles.row2}>
@@ -97,12 +85,12 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
         <Input
           width={532}
           height={48}
-          defaultValue={`${formData.firstName} ${formData.lastName}`}
+          defaultValue={`${formData.first_name} ${formData.last_name}`}
           onChange={(e) => {
-            const [firstName, ...rest] = e.target.value.split(" ");
-            const lastName = rest.join(" "); // Join the remaining parts to get the last name
-            handleInputChange("firstName", firstName);
-            handleInputChange("lastName", lastName);
+            const [first_name, ...rest] = e.target.value.split(" ");
+            const last_name = rest.join(" ");
+            handleInputChange("first_name", first_name);
+            handleInputChange("last_name", last_name);
           }}
           className={styles.input}
         />
@@ -112,19 +100,20 @@ const AccountEditInfo = (props: AccountEditInfoProps) => {
         <Input
           width={532}
           height={48}
-          value={formData.phoneNumber}
-          onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+          value={formData.phone_number}
+          onChange={(e) => handleInputChange("phone_number", e.target.value)}
           className={styles.input}
         />
       </div>
       <div className={styles.row2}>
         <p className={styles.text}>Ngày sinh</p>
         <DatePicker
-          defaultValue={dayjs(
-            format(new Date(formData.dateOfBirth as Date), "dd/MM/yyyy"),
-            dateFormat
-          )}
+          value={formData.date_of_birth ? dayjs(formData.date_of_birth) : null}
           format={dateFormat}
+          onChange={(date) => {
+            handleInputChange("date_of_birth", date ? date.toDate() : null);
+          }}
+          className={styles.input}
         />
       </div>
       <div className={styles.row2}>

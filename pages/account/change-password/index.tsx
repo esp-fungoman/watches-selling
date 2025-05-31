@@ -8,7 +8,7 @@ const ChangePasswordPage = () => {
   const [profile, setProfile] = useState<any>();
   useEffect(() => {
     const getProfile = async () => {
-      const data = await UserApi.getProfile();
+      const data = await UserApi.getMe();
       if (data) {
         setProfile(data);
       }
@@ -19,7 +19,11 @@ const ChangePasswordPage = () => {
     <section id="account-edit-info">
       {profile && (
         <ColumnLayout data={profile}>
-          <AccountChangPassword />
+          <AccountChangPassword
+            {...{
+              email: profile.email,
+            }}
+          />
         </ColumnLayout>
       )}
     </section>
