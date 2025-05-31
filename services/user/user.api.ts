@@ -25,28 +25,6 @@ const getMe = async () => {
   }
 };
 
-const getProfile = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return;
-    }
-    const res: any = await Api({
-      url: "/v1/users/my",
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "ngrok-skip-browser-warning": "true",
-      },
-    });
-    return res.user;
-  } catch (error: any) {
-    message.error("Something wrong!");
-    message.error(error?.message);
-    return null;
-  }
-};
-
 const update = async (payload: any) => {
   try {
     const token = localStorage.getItem("token");
@@ -60,16 +38,23 @@ const update = async (payload: any) => {
         Authorization: `Bearer ${token}`,
         "ngrok-skip-browser-warning": "true",
       },
-      data: payload,
+      data: {
+        first_name: payload.first_name,
+        last_name: payload.last_name,
+        gender: payload.gender.value,
+        date_of_birth: payload.date_of_birth,
+        phone_number: payload.phone_number,
+      },
     });
     console.log("🚀 ~ update ~ res:", res);
 
     return res;
   } catch (error: any) {
+    console.log("🚀 ~ update ~ error:", error);
     message.error("Something wrong!");
     message.error(error?.message);
     return null;
   }
 };
 
-export default { getMe, update, getProfile };
+export default { getMe, update };

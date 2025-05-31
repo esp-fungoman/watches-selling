@@ -19,6 +19,7 @@ const Profile = (props: ProfileProps) => {
     if (data) {
       setProfile(data); // Update data when data changes
     }
+    // TODO: Fix this to get order
     InvoiceApi.list().then((res: any) => {
       if (res) {
         setInvoiceList(res);
@@ -29,17 +30,17 @@ const Profile = (props: ProfileProps) => {
     <section className={classNames(styles.wrapper, className)}>
       <AccountProfile
         src={require("/public/images/avatar.svg")}
-        name={profile?.firstName + " " + profile?.lastName}
+        name={profile?.first_name + " " + profile?.last_name}
         money={152}
         remain={0}
       />
       <div className={styles.invoice_wrapper}>
-        <div className="font-semibold text-2xl">Danh sách hóa đơn</div>
+        <div className="font-semibold text-2xl">Danh sách đơn đặt hàng</div>
         <div className="flex flex-col gap-2 justify-start items-start w-full">
           {invoiceList.length > 0 &&
             invoiceList.map((invoice) => (
               <div className="flex items-start justify-start gap-1">
-                <Icon name="document-normal" size={16} className="mt-[3.5px]"/>
+                <Icon name="document-normal" size={16} className="mt-[3.5px]" />
                 <Link
                   href={`${process.env.NEXT_PUBLIC_URL}/invoice/${invoice.id}`}
                   className={styles.item}

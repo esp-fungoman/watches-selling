@@ -11,6 +11,7 @@ import { AuthApi } from "../../services/auth";
 import { message } from "antd";
 
 interface AccountChangePasswordProps {
+  email: string;
   currentPassword: string;
   password: string;
   confirmPassword: string;
@@ -29,23 +30,22 @@ const AccountChangPassword = (props: AccountChangePasswordProps) => {
   };
 
   const handleSave = async () => {
-    // Implement save functionality
-    console.log("Saving data:", formData);
     if (formData?.confirmPassword !== formData?.password) {
-      message.error("Mật khẩu xác nhận không đúng");
+      message.error("Passwords does not match");
       return;
     }
-    await AuthApi.changePassword(formData as AccountChangePasswordProps).then(
+    const payload = {
+      ...formData,
+      email: props.email,
+    };
+    await AuthApi.changePassword(payload as AccountChangePasswordProps).then(
       (res) => {
-        if (res) {
-          messageApi.success("Successfully saved!");
-        } else {
-          message.error("Error saving");
+        if (res === true) {
+          localStorage.removeItem("token");
+          window.location.href = "/";
         }
       }
     );
-
-    // Reset the changed state
   };
   return (
     <section className={styles.wrapper}>
