@@ -9,7 +9,6 @@ import {
   getProvinces,
   getWards,
 } from "../../../services/address/address.api";
-import { OrderApi } from "../../../services/order";
 
 interface ModalReceiverProps {
   isVisible: boolean;
@@ -17,9 +16,9 @@ interface ModalReceiverProps {
   title?: string;
   iconClose?: ReactNode;
   onClose?: (event?: any) => void;
+  onSubmit?: (event?: any) => void;
   onOpen?: (event?: any) => void;
   data?: any;
-  addOrderId?: (id: string) => void;
 }
 
 const ModalReceiver = (props: ModalReceiverProps) => {
@@ -29,13 +28,13 @@ const ModalReceiver = (props: ModalReceiverProps) => {
     title,
     data,
     iconClose = "Đóng",
-    addOrderId = () => { },
     onClose,
     onOpen,
+    onSubmit,
   } = props;
 
   const [form] = Form.useForm();
-  const [orderId, setOrderId] = useState<string>()
+  const [orderId, setOrderId] = useState<string>();
   const [provinces, setProvinces] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
@@ -64,58 +63,10 @@ const ModalReceiver = (props: ModalReceiverProps) => {
   }, [district_id, province_id]);
 
   const handleSaving = async () => {
-    console.log('form', form.getFieldsValue());
-    let existOrder
-    if (orderId) {
-      existOrder = await OrderApi.findOne(orderId as string)
-    }
-    if (!existOrder) {
-      await OrderApi.create({
-        orderDate: new Date(),
-        name: form.getFieldValue('full_name'),
-        phoneNumber: form.getFieldValue('phone_number'),
-        address:
-          form.getFieldValue('address') + " " +
-          form.getFieldValue('ward_label') + " " +
-          form.getFieldValue('district_label') + " " +
-          form.getFieldValue('province_label')
-      }).then((res) => {
-        console.log('res', res)
-        if (res) {
-          onOpen && onOpen(form.getFieldsValue())
-          setOrderId(res.id)
-          addOrderId(res.id)
-          messageApi.success('Success saved');
-          if (onClose) { // Check if onClose is defined
-            onClose(); // Close the modal
-            onOpen && onOpen(form.getFieldsValue())
-          }
-        }
-      })
-    }
-    else {
-      await OrderApi.update(orderId as string, {
-        orderDate: new Date(),
-        name: form.getFieldValue('full_name'),
-        phoneNumber: form.getFieldValue('phone_number'),
-        address:
-          form.getFieldValue('address') + " " +
-          form.getFieldValue('ward_label') + " " +
-          form.getFieldValue('district_label') + " " +
-          form.getFieldValue('province_label')
-      }).then((res) => {
-        console.log('res', res)
-        if (res) {
-          messageApi.success('Success update');
-          if (onClose) { // Check if onClose is defined
-            onClose(); // Close the modal
-            onOpen && onOpen(form.getFieldsValue())
-          }
-        }
-      })
-    }
-  };
+    console.log("form", form.getFieldsValue());
 
+    onSubmit?.(form.getFieldsValue());
+  };
 
   const Footer = () => (
     <div className="flex justify-between pt-[12px]">
@@ -124,7 +75,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
       </Button>
       <Button
         onClick={() => {
-          handleSaving()
+          handleSaving();
         }}
         className={classNames(
           "!w-[48%]",
@@ -137,7 +88,7 @@ const ModalReceiver = (props: ModalReceiverProps) => {
   );
 
   const handleSubmit = (value: any) => {
-    console.log('value', value);
+    console.log("value", value);
 
     onOpen && onOpen(value);
     // form.resetFields();

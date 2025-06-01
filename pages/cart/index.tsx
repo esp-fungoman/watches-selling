@@ -13,6 +13,7 @@ import ModalConfirm from "../../components/Modal/ModalConfirm/ModalConfirm";
 import { OrderDetailApi } from "../../services/order-detail";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "../../services/user";
+import { useRouter } from "next/router";
 
 const Cart = () => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -23,7 +24,7 @@ const Cart = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
   const currentUser = useRecoilValue(UserAtom.currentUser);
-
+  const router = useRouter();
   const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
 
@@ -56,26 +57,29 @@ const Cart = () => {
   const delay = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleCreateOrder = async () => {
-    if (!currentUser.first_name && !currentUser.last_name) {
+    if (!modalData) {
       return;
     }
     try {
       const selectedItems = items.filter((item) =>
-        checkedList.includes(item.title)
+        checkedList.includes(item.id)
       );
 
       const itemIds = selectedItems.map((item) => item.id);
       if (itemIds.length > 0) {
         await OrderDetailApi.create({
-          full_name:
-            currentUser?.first_name ?? "" + currentUser?.last_name ?? "",
-          phone_number: "+84123456789",
-          city: "Ho Chi Minh City",
-          district: "District 1",
-          street: "Nguyen Hue Street",
-          specific_address: "123A, Floor 3, Sunrise City Apartment",
+          full_name: modalData.full_name,
+          phone_number: modalData.phone_number,
+          city: modalData.province_label,
+          district: modalData.district_label,
+          street: modalData.address,
+          specific_address: "abc",
           cart_detail_ids: itemIds,
           payment_method: "CASH",
+          order_date: new Date().toISOString(),
+        }).then((res) => {
+          message.success("Create order successfully!");
+          router.push("/");
         });
       } else {
         messageApi.error("Please select at least 1 item");
@@ -164,13 +168,13 @@ const Cart = () => {
             </div> */}
             <div className="flex items-center gap-4">
               <Checkbox
-                checked={checkedList.includes(item.title)} // Check if item is in the checkedList
+                checked={checkedList.includes(item.id)} // Check if item is in the checkedList
                 onChange={(e) => {
                   const isChecked = e.target.checked;
                   setCheckedList((prev) =>
                     isChecked
-                      ? [...prev, item.title]
-                      : prev.filter((itemName) => itemName !== item.title)
+                      ? [...prev, item.id]
+                      : prev.filter((itemName) => itemName !== item.id)
                   );
                 }}
               />
@@ -266,13 +270,13 @@ const Cart = () => {
       <ModalReceiver
         title="Địa chỉ nhận hàng"
         isEdit={isEdit}
-        data={{}}
         isVisible={isShowModal}
-        addOrderId={(e) => setOrderId(e)}
         onClose={() => setIsShowModal(false)}
         onOpen={(data) => {
-          console.log("datamodal", data);
-
+          setModalData(data);
+          setIsShowModal(false);
+        }}
+        onSubmit={(data) => {
           setModalData(data);
           setIsShowModal(false);
         }}
