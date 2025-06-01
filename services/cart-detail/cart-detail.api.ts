@@ -4,12 +4,12 @@ import { data } from "autoprefixer";
 const create = async (data?: any) => {
   try {
     const res = await Api({
-      url: "/cart-detail/new",
+      url: "/v1/carts/details",
       method: "POST",
       data,
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -20,12 +20,12 @@ const create = async (data?: any) => {
 const update = async (id: string, data?: any) => {
   try {
     const res = await Api({
-      url: `/cart-detail/update/${id}`,
-      method: "PUT",
+      url: `/v1/carts/details/${id}`,
+      method: "PATCH",
       data,
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -36,13 +36,10 @@ const update = async (id: string, data?: any) => {
 const list = async () => {
   try {
     const res = await Api({
-      url: "/cart-detail/my",
+      url: "/v1/carts",
       method: "GET",
     });
-    if (res.status === "OK") {
-      return res.data;
-    }
-
+    return res.cart.details;
   } catch (error: any) {
     message.error(error?.message);
   }
@@ -55,7 +52,7 @@ const detail = async (id: string) => {
       method: "GET",
     });
 
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -66,10 +63,10 @@ const detail = async (id: string) => {
 const remove = async (id: string) => {
   try {
     const res = await Api({
-      url: `/cart-detail/delete/${id}`,
+      url: `/v1/carts/details/${id}`,
       method: "DELETE",
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (error: any) {
@@ -77,4 +74,4 @@ const remove = async (id: string) => {
   }
 };
 const CartDetailApi = { list, detail, create, update, remove };
-export default CartDetailApi
+export default CartDetailApi;

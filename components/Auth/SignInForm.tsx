@@ -1,16 +1,13 @@
 import { useFormik } from "formik";
-import Image from "next/image";
-import Link from "next/link";
 import { FC, useState } from "react";
 
 import Button from "../Button";
-import Divider from "../Divider";
 import Input from "../Input";
 // import { isValidEmail } from "../../helpers/form.helpers.ts"
-import styles from "./Auth.module.scss";
-import { AuthApi } from "../../services/auth";
 import useAuth from "../../hooks/useAuth";
+import { AuthApi } from "../../services/auth";
 import ForgotPasswordModal from "../Modals/ForgotPasswordModal/ForgotPasswordModal";
+import styles from "./Auth.module.scss";
 
 interface SignInFormProps {
   onCancel?: () => void;
@@ -19,7 +16,7 @@ interface SignInFormProps {
 const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
   const checkAuth = useAuth();
   const [isShowModalForgotPassword, setIsShowModalForgotPassword] =
-    useState(true);
+    useState(false);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { email: "", password: "" },
@@ -64,7 +61,10 @@ const SignInForm: FC<SignInFormProps> = ({ onCancel }) => {
           {...formik.getFieldProps("password")}
           error={formik.touched.password && formik.errors.password}
         />
-        <div className="cursor-pointer" onClick={() => setIsShowModalForgotPassword(true)}>
+        <div
+          className="cursor-pointer"
+          onClick={() => setIsShowModalForgotPassword(true)}
+        >
           Forgot password?
         </div>
       </div>

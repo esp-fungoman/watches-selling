@@ -7,7 +7,7 @@ const list = async (params?: any): Promise<any> => {
       method: "GET",
       url: "/invoice/my",
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err: any) {
@@ -21,7 +21,7 @@ const detail = async (id: string): Promise<any> => {
       method: "GET",
       url: `/invoice/${id}`,
     });
-    if (res.status === "OK") {
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err: any) {

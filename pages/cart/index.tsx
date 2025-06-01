@@ -11,6 +11,9 @@ import { CartDetailApi } from "../../services/cart-detail";
 import { log } from "console";
 import ModalConfirm from "../../components/Modal/ModalConfirm/ModalConfirm";
 import { OrderDetailApi } from "../../services/order-detail";
+import { useRecoilValue } from "recoil";
+import { UserAtom } from "../../services/user";
+import { useRouter } from "next/router";
 
 const Cart = () => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -20,17 +23,18 @@ const Cart = () => {
   const [items, setItems] = useState<any[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
-
+  const currentUser = useRecoilValue(UserAtom.currentUser);
+  const router = useRouter();
   const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
 
   useEffect(() => {
     CartDetailApi.list().then((res) => {
       if (res) {
-        setItems(res)
+        setItems(res);
       }
-    })
-  }, [])
+    });
+  }, []);
   useEffect(() => {
     setFilteredItems(items.filter((item) => checkedList.includes(item.title)));
   }, [checkedList, items]);
@@ -39,15 +43,12 @@ const Cart = () => {
   const indeterminate =
     checkedList.length > 0 && checkedList.length < items.length;
 
-
-
   const [itemIdToRemove, setItemIdToRemove] = useState<string | null>(null);
 
   const handleRemoveItem = (itemId: string) => {
     setItemIdToRemove(itemId);
     setIsShowModalConfirm(true);
   };
-
 
   const onCheckAllChange: CheckboxProps["onChange"] = (e) => {
     setCheckedList(e.target.checked ? items.map((item) => item.title) : []);
@@ -56,15 +57,31 @@ const Cart = () => {
   const delay = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleCreateOrder = async () => {
+    if (!modalData) {
+      return;
+    }
     try {
-
-      const selectedItems = items.filter((item) => checkedList.includes(item.title));
+      const selectedItems = items.filter((item) =>
+        checkedList.includes(item.id)
+      );
 
       const itemIds = selectedItems.map((item) => item.id);
       if (itemIds.length > 0) {
-        await OrderDetailApi.create(orderId as string, itemIds);
-      }
-      else {
+        await OrderDetailApi.create({
+          full_name: modalData.full_name,
+          phone_number: modalData.phone_number,
+          city: modalData.province_label,
+          district: modalData.district_label,
+          street: modalData.address,
+          specific_address: "abc",
+          cart_detail_ids: itemIds,
+          payment_method: "CASH",
+          order_date: new Date().toISOString(),
+        }).then((res) => {
+          message.success("Create order successfully!");
+          router.push("/");
+        });
+      } else {
         messageApi.error("Please select at least 1 item");
       }
     } catch (error) {
@@ -78,14 +95,14 @@ const Cart = () => {
       prevItems.map((item) =>
         item.id === itemId
           ? {
-            ...item,
-            quantity:
-              item.quantity >= 1 && amount === 1
-                ? item.quantity + 1
-                : item.quantity > 1 && amount === -1
+              ...item,
+              quantity:
+                item.quantity >= 1 && amount === 1
+                  ? item.quantity + 1
+                  : item.quantity > 1 && amount === -1
                   ? item.quantity - 1
                   : item.quantity,
-          }
+            }
           : item
       )
     );
@@ -101,15 +118,12 @@ const Cart = () => {
           price: updatedItem.price,
           quantity: updatedItem.quantity,
         });
-
       } catch (error) {
         messageApi.error("Error updating cart");
       }
     };
 
-
     items.forEach((item) => {
-
       if (item.quantity !== item.originalQuantity) {
         const timer = setTimeout(() => {
           updateCartItem(item.id);
@@ -119,9 +133,6 @@ const Cart = () => {
       }
     });
   }, [items]); // Watch for changes in the items state
-
-
-
 
   const getTotalQuantity = (items: any) => {
     return items.reduce((total: any, item: any) => total + item.quantity, 0);
@@ -151,28 +162,28 @@ const Cart = () => {
         </div>
         {items.map((item) => (
           <div className="bg-white px-7 rounded mb-3 gap-4 py-3" key={item.id}>
-            <div className="flex flex-row gap-4 mb-2 w-full border-b border-[#FAFAFA]">
+            {/* <div className="flex flex-row gap-4 mb-2 w-full border-b border-[#FAFAFA]">
               <div className="w-[17px] h-1"></div>
-              <div>{item?.watch?.brand?.name}</div>
-            </div>
+              <div>{item?.name}</div>
+            </div> */}
             <div className="flex items-center gap-4">
               <Checkbox
-                checked={checkedList.includes(item.title)} // Check if item is in the checkedList
+                checked={checkedList.includes(item.id)} // Check if item is in the checkedList
                 onChange={(e) => {
                   const isChecked = e.target.checked;
                   setCheckedList((prev) =>
                     isChecked
-                      ? [...prev, item.title]
-                      : prev.filter((itemName) => itemName !== item.title)
+                      ? [...prev, item.id]
+                      : prev.filter((itemName) => itemName !== item.id)
                   );
                 }}
               />
               <div className="flex-1 flex flex-row items-center gap-2">
                 <div className="w-[80px] h-[80px] aspect-square relative">
-                  <Image src={item.watch?.photo} layout="fill" alt="brand" />
+                  <Image src={item.asset} layout="fill" alt="brand" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="line-clamp-2">{item.title}</div>
+                  <div className="line-clamp-2">{item.name}</div>
                 </div>
               </div>
               <div className="w-[15%]">{formatPrice(item.price)} đ</div>
@@ -221,14 +232,18 @@ const Cart = () => {
               Tổng thanh toán ({getTotalQuantity(filteredItems)}):{" "}
               {formatPrice(getTotalPrice(filteredItems))} đ
             </div>
-            <Button className="!w-[200px]" onClick={handleCreateOrder}>Mua hàng</Button>
+            <Button className="!w-[200px]" onClick={handleCreateOrder}>
+              Mua hàng
+            </Button>
           </div>
         </div>
         <div className="bg-white py-3 px-7 w-full flex-col flex  gap-4">
           <div className="flex justify-between">
             <div className="flex  gap-4 ">
               <Icon name="location" size={24} />
-              <div className="text-2xl font-semibold text-[#d8342b]">Địa chỉ giao hàng</div>
+              <div className="text-2xl font-semibold text-[#d8342b]">
+                Địa chỉ giao hàng
+              </div>
             </div>
             <Icon name="edit" size={24} onClick={() => setIsShowModal(true)} />
           </div>
@@ -255,13 +270,13 @@ const Cart = () => {
       <ModalReceiver
         title="Địa chỉ nhận hàng"
         isEdit={isEdit}
-        data={{}}
         isVisible={isShowModal}
-        addOrderId={(e) => setOrderId(e)}
         onClose={() => setIsShowModal(false)}
         onOpen={(data) => {
-          console.log('datamodal', data);
-
+          setModalData(data);
+          setIsShowModal(false);
+        }}
+        onSubmit={(data) => {
           setModalData(data);
           setIsShowModal(false);
         }}
@@ -272,10 +287,8 @@ const Cart = () => {
         titleConfirm="XOÁ"
         onOk={async () => {
           if (itemIdToRemove) {
-            console.log('itemIdToRemove', itemIdToRemove);
             try {
               await CartDetailApi.remove(itemIdToRemove);
-              messageApi.success("Xóa sản phẩm thành công");
               const updatedItems = await CartDetailApi.list();
               setItems(updatedItems);
             } catch (error) {

@@ -16,5 +16,8 @@ const ProductItem = (props: IProduct) => {
 
     //   </div>
     // </div>
-  )
-}
+    null
+  );
+};
+
+export default ProductItem;

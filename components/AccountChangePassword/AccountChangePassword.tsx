@@ -12,9 +12,9 @@ import { message } from "antd";
 
 interface AccountChangePasswordProps {
   email: string;
-  currentPassword: string;
-  password: string;
-  confirmPassword: string;
+  currentPassword?: string;
+  password?: string;
+  confirmPassword?: string;
 }
 const AccountChangPassword = (props: AccountChangePasswordProps) => {
   const [isShowOldPass, setIsShowOldPass] = useState(false);

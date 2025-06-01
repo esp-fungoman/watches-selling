@@ -1,7 +1,7 @@
-import styles from './AccountAddress.module.scss';
-import Title from '../../Title/Title';
-import Button from '../../Button/Button';
-import { useState } from 'react';
+import styles from "./AccountAddress.module.scss";
+import Title from "../../Title/Title";
+import Button from "../../Button/Button";
+import { useState } from "react";
 
 interface AccountAddressProps {
   address: {
@@ -36,19 +36,19 @@ const AccountAddress = (props: AccountAddressProps) => {
                 {isDefault ? (
                   <span className={styles.default}>Mặc định</span>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
               <p className={styles.text}>{item.phone}</p>
               <p className={styles.text}>{item.address}</p>
             </div>
             <div className={styles.btn_wrapper}>
-              <Button
-                variant="outlined"
-                text="Chỉnh sửa"
-                className={styles.btn}
-              />
-              <Button variant="outlined" text="Xoá" className={styles.btn} />
+              <Button type="outlined" className={styles.btn}>
+                Chỉnh sửa
+              </Button>
+              <Button type="outlined" className={styles.btn}>
+                Xoá
+              </Button>
             </div>
           </div>
         ))}
