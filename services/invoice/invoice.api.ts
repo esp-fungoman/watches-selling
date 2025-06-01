@@ -5,11 +5,9 @@ const list = async (params?: any): Promise<any> => {
   try {
     const res = await Api({
       method: "GET",
-      url: "/invoice/my",
+      url: "/v1/orders",
     });
-    if (res.status === 200) {
-      return res.data;
-    }
+    return res.orders;
   } catch (err: any) {
     message.error(err?.message);
   }
@@ -19,11 +17,9 @@ const detail = async (id: string): Promise<any> => {
   try {
     const res = await Api({
       method: "GET",
-      url: `/invoice/${id}`,
+      url: `/v1/orders/${id}`,
     });
-    if (res.status === 200) {
-      return res.data;
-    }
+    return res.order;
   } catch (err: any) {
     message.error(err?.message);
   }
