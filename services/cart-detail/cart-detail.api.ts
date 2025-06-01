@@ -4,7 +4,7 @@ import { data } from "autoprefixer";
 const create = async (data?: any) => {
   try {
     const res = await Api({
-      url: "/v1/carts/detail",
+      url: "/v1/carts/details",
       method: "POST",
       data,
     });

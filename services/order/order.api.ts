@@ -4,7 +4,7 @@ import { message } from "antd";
 const create = async (data?: any): Promise<any> => {
     try {
         const res = await Api({
-            url: '/order/new',
+            url: '/v1/orders',
             method: 'POST',
             data
         })
