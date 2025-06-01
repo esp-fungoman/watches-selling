@@ -4,7 +4,7 @@ import { data } from "autoprefixer";
 const create = async (data?: any) => {
   try {
     const res = await Api({
-      url: "/cart-detail/new",
+      url: "/v1/carts/detail",
       method: "POST",
       data,
     });
@@ -36,13 +36,12 @@ const update = async (id: string, data?: any) => {
 const list = async () => {
   try {
     const res = await Api({
-      url: "/cart-detail/my",
+      url: "/v1/carts",
       method: "GET",
     });
     if (res.status === 200) {
       return res.data;
     }
-
   } catch (error: any) {
     message.error(error?.message);
   }
@@ -77,4 +76,4 @@ const remove = async (id: string) => {
   }
 };
 const CartDetailApi = { list, detail, create, update, remove };
-export default CartDetailApi
+export default CartDetailApi;

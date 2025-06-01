@@ -1,12 +1,12 @@
 import { message } from "antd";
 import Api from "../api";
 
-const create = async (id: string, data: Array<String>) => {
+const create = async (data: any) => {
   try {
     const res = await Api({
-      url: `/order-detail/new?order_id=${id}`,
-      method: "PUT",
-      data
+      url: `/v1/orders`,
+      method: "POST",
+      data,
     });
 
     if (res.status === 200) {
@@ -46,6 +46,5 @@ const list = async (data?: any) => {
   }
 };
 
-
-const OrderDetailApi = { create, update, list }
-export default OrderDetailApi
+const OrderDetailApi = { create, update, list };
+export default OrderDetailApi;

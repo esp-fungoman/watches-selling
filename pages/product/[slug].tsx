@@ -52,11 +52,12 @@ const ProductDetail: FC = () => {
   const handleAddToCart = async () => {
     try {
       await CartDetailApi.create({
-        watchId: watch.id,
-        price: watch.price,
+        productId: watch.id,
+        // spec_ids: [watch.],
         quantity,
       }).then((res: any) => {
         if (res) {
+          router.push("/cart");
           messageApi.success("Thêm vào giỏ hàng thành công");
         }
       });
