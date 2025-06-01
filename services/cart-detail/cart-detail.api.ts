@@ -20,8 +20,8 @@ const create = async (data?: any) => {
 const update = async (id: string, data?: any) => {
   try {
     const res = await Api({
-      url: `/cart-detail/update/${id}`,
-      method: "PUT",
+      url: `/v1/carts/details/${id}`,
+      method: "PATCH",
       data,
     });
 
@@ -39,9 +39,7 @@ const list = async () => {
       url: "/v1/carts",
       method: "GET",
     });
-    if (res.status === 200) {
-      return res.data;
-    }
+    return res.cart.details;
   } catch (error: any) {
     message.error(error?.message);
   }
@@ -65,7 +63,7 @@ const detail = async (id: string) => {
 const remove = async (id: string) => {
   try {
     const res = await Api({
-      url: `/cart-detail/delete/${id}`,
+      url: `/v1/carts/details/${id}`,
       method: "DELETE",
     });
     if (res.status === 200) {

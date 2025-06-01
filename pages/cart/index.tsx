@@ -30,7 +30,7 @@ const Cart = () => {
   useEffect(() => {
     CartDetailApi.list().then((res) => {
       if (res) {
-        setItems(res.details);
+        setItems(res);
       }
     });
   }, []);
@@ -158,10 +158,10 @@ const Cart = () => {
         </div>
         {items.map((item) => (
           <div className="bg-white px-7 rounded mb-3 gap-4 py-3" key={item.id}>
-            <div className="flex flex-row gap-4 mb-2 w-full border-b border-[#FAFAFA]">
+            {/* <div className="flex flex-row gap-4 mb-2 w-full border-b border-[#FAFAFA]">
               <div className="w-[17px] h-1"></div>
-              <div>{item?.watch?.brand?.name}</div>
-            </div>
+              <div>{item?.name}</div>
+            </div> */}
             <div className="flex items-center gap-4">
               <Checkbox
                 checked={checkedList.includes(item.title)} // Check if item is in the checkedList
@@ -176,10 +176,10 @@ const Cart = () => {
               />
               <div className="flex-1 flex flex-row items-center gap-2">
                 <div className="w-[80px] h-[80px] aspect-square relative">
-                  <Image src={item.watch?.photo} layout="fill" alt="brand" />
+                  <Image src={item.asset} layout="fill" alt="brand" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="line-clamp-2">{item.title}</div>
+                  <div className="line-clamp-2">{item.name}</div>
                 </div>
               </div>
               <div className="w-[15%]">{formatPrice(item.price)} đ</div>
@@ -283,10 +283,8 @@ const Cart = () => {
         titleConfirm="XOÁ"
         onOk={async () => {
           if (itemIdToRemove) {
-            console.log("itemIdToRemove", itemIdToRemove);
             try {
               await CartDetailApi.remove(itemIdToRemove);
-              messageApi.success("Xóa sản phẩm thành công");
               const updatedItems = await CartDetailApi.list();
               setItems(updatedItems);
             } catch (error) {
